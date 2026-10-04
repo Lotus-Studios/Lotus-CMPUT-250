@@ -222,13 +222,7 @@ public class PlayerController : MonoBehaviour
         camRight.Normalize();
 
         // calculate move direction relative to where the camera is facing
-        Vector3 moveDirection = (camForward * input.y + camRight * input.x).normalized;
-
-        // headhitting, basically applies -2 vertical velocity (falling down speed) if head touches anything
-        if ((characterController.collisionFlags & CollisionFlags.Above) != 0 && verticalVelocity > 0f)
-        {
-            verticalVelocity = -2f;
-        }
+        Vector3 moveDirection = (camForward * input.y + camRight * input.x).normalized;    
 
         if (isTriggerSliding)
         {
@@ -445,9 +439,25 @@ public class PlayerController : MonoBehaviour
     {
         if (isTriggerSliding) return;
 
+        // headhitting, basically applies -2 vertical velocity so you fall down. Moved here for more accuracy 
+        if (hit.normal.y < -0.7f && verticalVelocity > 0f)
+        {
+            verticalVelocity = -2f;
+        }
+
         if (hit.normal.y >= 0.7f)
         {
             lastGroundedTime = Time.time;
+
+            // so we dont need the trigger anymore and can just use the slippersurface.cs as a data box basically.
+            if (hit.collider.TryGetComponent<SlipperySurface>(out SlipperySurface surface))
+            {
+                surfaceFrictionMultiplier = surface.frictionMultiplier;
+            }
+            else
+            {
+                surfaceFrictionMultiplier = 1f; 
+            }
         }
 
         // Makes it so only steep walls or vertical walls or overhang walls will set perpendicular momentum to 0

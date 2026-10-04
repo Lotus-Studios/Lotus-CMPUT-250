@@ -86,6 +86,7 @@ public class RisingWater : MonoBehaviour
     public void StartMe()
     {
         allowedToMove = true;
+        isRisingToCheckpoint = false;
     }
 
     // public void StartMe()

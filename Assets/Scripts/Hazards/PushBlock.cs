@@ -14,6 +14,7 @@ public class PushBlock : MonoBehaviour
     [SerializeField] private float waitTimeAtStart = 1.5f;
     [SerializeField] private float waitTimeAtEnd = 0.5f;
     [SerializeField] private float moveTime = 1f;
+    [SerializeField] private float initialStartDelay = 0f; // to stagger push blocks if you want to
 
     private PlayerController playerOnBlock;
 
@@ -32,6 +33,7 @@ public class PushBlock : MonoBehaviour
         startPosition = transform.position;
         targetPosition = startPosition + targetDistance;
         lastPosition = transform.position;
+        stateTimer = -initialStartDelay;
     }
 
     void Update()
