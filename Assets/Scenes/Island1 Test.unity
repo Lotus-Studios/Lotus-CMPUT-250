@@ -1909,7 +1909,7 @@ GameObject:
   - component: {fileID: 343525928}
   - component: {fileID: 343525932}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: AudioController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2121,6 +2121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 343525929}
   loopSource: {fileID: 343525928}
+  soundFXObject: {fileID: 3917256526450645867, guid: 03db7264cca25463b87f764b1b0f7f65, type: 3}
   jumpSound: {fileID: 8300000, guid: da5051916ae16614d8b6effe6ea251bc, type: 3}
   flutterSound: {fileID: 8300000, guid: 55cea41c2efe84a46b839da108655906, type: 3}
   footstepSounds:
@@ -9713,9 +9714,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 778268004761609835, guid: 3fbd479be68a89f45b802096168eaf50, type: 3}
+      propertyPath: canMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 778268004761609835, guid: 3fbd479be68a89f45b802096168eaf50, type: 3}
       propertyPath: orbitCamera
       value: 
       objectReference: {fileID: 148616692}
+    - target: {fileID: 778268004761609835, guid: 3fbd479be68a89f45b802096168eaf50, type: 3}
+      propertyPath: soundEffect
+      value: 
+      objectReference: {fileID: 11400000, guid: e8290812792d047ddab5a8a707b5420f, type: 2}
     - target: {fileID: 778268004761609835, guid: 3fbd479be68a89f45b802096168eaf50, type: 3}
       propertyPath: cameraTransform
       value: 

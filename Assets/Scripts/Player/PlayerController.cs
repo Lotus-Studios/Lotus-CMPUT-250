@@ -106,6 +106,9 @@ public class PlayerController : MonoBehaviour
     [Header("Visual Effects")]
     [SerializeField] private TrailRenderer speedTrail;
 
+    [Header("Audio")]
+    [SerializeField] private SoundEffect soundEffect;
+
     private float verticalVelocity;
     private Vector3 horizontalVelocity;
 
@@ -379,7 +382,8 @@ public class PlayerController : MonoBehaviour
             finalJumpForce += (currentChain * chainPowerBoost);
 
             float comboPitch = 1f + (currentChain * 0.15f);
-            AudioController.Instance.PlayJump(comboPitch);
+            soundEffect.pitch = comboPitch;
+            AudioController.Instance.PlaySoundEffect(soundEffect, transform);
 
         }
         else

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * https://youtu.be/DU7cgVsU2rM 
+ * https://www.reddit.com/r/Unity3D/comments/1grzlep/how_would_you_handle_audio_in_your_game/  (general implementation)
+ */
 public class AudioController : MonoBehaviour
 {
     public static AudioController _instance;
@@ -9,6 +13,8 @@ public class AudioController : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioSource loopSource;
+
+    public AudioSource soundFXObject;
 
     [Header("Player SFX")]
     public AudioClip jumpSound;
@@ -61,6 +67,23 @@ public class AudioController : MonoBehaviour
         audioSource.pitch = Random.Range(1.7f, 1.9f);
 
         audioSource.PlayOneShot(footstepSounds[randomIndex]);
+    }
+
+    public void PlaySoundEffect(SoundEffect sound, Transform spawnTransform) 
+    {
+        //AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity); 
+
+        audioSource.clip = sound.audioClips[0];
+
+        audioSource.volume = sound.volume;
+        audioSource.pitch = sound.pitch;
+
+        audioSource.Play();
+
+        /*j
+        float clipLength = audioSource.clip.length;
+        Destroy(audioSource.gameObject, clipLength);
+        */
     }
 
 }
