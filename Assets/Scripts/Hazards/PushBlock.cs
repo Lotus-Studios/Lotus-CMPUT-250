@@ -31,7 +31,7 @@ public class PushBlock : MonoBehaviour
     void Start()
     {
         startPosition = transform.position;
-        targetPosition = startPosition + targetDistance;
+        targetPosition = startPosition + (transform.right * targetDistance.x)+ (transform.up * targetDistance.y) + (transform.forward*targetDistance.z);
         lastPosition = transform.position;
         stateTimer = -initialStartDelay;
     }

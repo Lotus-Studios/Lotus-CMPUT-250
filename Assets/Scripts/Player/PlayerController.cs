@@ -479,6 +479,7 @@ public class PlayerController : MonoBehaviour
 
         if (hit.collider.TryGetComponent<OingyBoingy>(out OingyBoingy boingy))
         {
+            boingy.doBounceAnim();
             ExecuteJump(boingy.boinginess);
         }
     }
