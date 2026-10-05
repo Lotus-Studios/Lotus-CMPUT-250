@@ -70,10 +70,12 @@ public class PlayerDrowning : MonoBehaviour
             }
 
             waterPostProcess.weight = Mathf.Lerp(waterPostProcess.weight, 1.0f, waterPostProcessLerpSpeed * Time.deltaTime);
+            AudioController.Instance.AddUnderwaterEffect();
         }
         else
         {
             waterPostProcess.weight = Mathf.Lerp(waterPostProcess.weight, 0.0f, waterPostProcessLerpSpeed * Time.deltaTime);
+            AudioController.Instance.RemoveUnderwaterEffect();
 
             drownTimer = timeToDrown;
         }

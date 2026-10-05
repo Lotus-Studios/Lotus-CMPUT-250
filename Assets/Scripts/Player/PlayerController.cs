@@ -383,7 +383,7 @@ public class PlayerController : MonoBehaviour
 
             float comboPitch = 1f + (currentChain * 0.15f);
             soundEffect.pitch = comboPitch;
-            AudioController.Instance.PlaySoundEffect(soundEffect, transform);
+            AudioController.Instance.PlaySoundEffect(soundEffect);
 
         }
         else
