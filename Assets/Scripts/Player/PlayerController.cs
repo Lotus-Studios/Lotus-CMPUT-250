@@ -345,6 +345,15 @@ public class PlayerController : MonoBehaviour
         // Combine horizontal motion and vertical velocity, then apply via CharacterController
         Vector3 motion = horizontalVelocity + (Vector3.up * verticalVelocity);
         characterController.Move(motion * Time.deltaTime);
+
+        // double checks to see if theres actually an object stopping us above.
+        if (verticalVelocity > 0f && characterController.velocity.y < 0.01f)
+        {
+            if ((characterController.collisionFlags & CollisionFlags.Above) != 0)
+            {
+                verticalVelocity = -2f;
+            }
+        }
     }
 
     // buffers jump input, called when player presses jump
@@ -438,12 +447,6 @@ public class PlayerController : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (isTriggerSliding) return;
-
-        // headhitting, basically applies -2 vertical velocity so you fall down. Moved here for more accuracy 
-        if (hit.normal.y < -0.7f && verticalVelocity > 0f)
-        {
-            verticalVelocity = -2f;
-        }
 
         if (hit.normal.y >= 0.7f)
         {
