@@ -546,6 +546,7 @@ public class PlayerController : MonoBehaviour
         isTriggerSliding = false;
         isFluttering = false;
         hasFluttered = false;
+        if (AudioLayering.Instance != null) { AudioLayering.Instance.FadeToChill(); }
         orbitCamera.ClearDialogueTarget();
 
 

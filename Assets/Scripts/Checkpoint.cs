@@ -43,6 +43,11 @@ public class Checkpoint : MonoBehaviour
                     water.RiseToCheckpoint(targetWaterLevel, waterRiseSpeed);
                 }
 
+                if (AudioLayering.Instance != null)
+                {
+                    AudioLayering.Instance.FadeToChill();
+                }
+
                 hasBeenActivated = true;
             }
         }

@@ -38,6 +38,11 @@ public class PlayerDrowning : MonoBehaviour
     {
         if (isDying)
         {
+            if (UnderwaterAudio.Instance != null)
+            {
+                UnderwaterAudio.Instance.EnableUnderwaterAudio();
+            }
+
             if (ScreenFadeToBlack.Instance.IsScreenBlack)
             {
                 water.ResetMe(-2.5f);
@@ -53,16 +58,19 @@ public class PlayerDrowning : MonoBehaviour
 
         if (isUnderwater)
         {
+            if (UnderwaterAudio.Instance != null)
+            {
+                UnderwaterAudio.Instance.EnableUnderwaterAudio();
+            }
+
+            // checks if the player is within X units of ground, if not then die otherwise they can fall and land on it.
             bool isDeep = !Physics.Raycast(playerController.transform.position, Vector3.down, requiredDepthForDeath, groundLayerMask);
             if (playerController.currentVerticalVelocity <= deadlySpeed && isDeep)
             {
                 Die();
                 return;
             }
-        }
 
-        if (isUnderwater)
-        {
             drownTimer -= Time.deltaTime;
             if (drownTimer <= 0)
             {
@@ -73,6 +81,11 @@ public class PlayerDrowning : MonoBehaviour
         }
         else
         {
+            if (UnderwaterAudio.Instance != null)
+            {
+                UnderwaterAudio.Instance.DisableUnderwaterAudio();
+            }
+
             waterPostProcess.weight = Mathf.Lerp(waterPostProcess.weight, 0.0f, waterPostProcessLerpSpeed * Time.deltaTime);
 
             drownTimer = timeToDrown;

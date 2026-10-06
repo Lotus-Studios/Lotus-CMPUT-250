@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class WaterStartTrigger : MonoBehaviour
 {
     [SerializeField] private RisingWater risingWater;
 
@@ -14,6 +14,10 @@ public class NewBehaviourScript : MonoBehaviour
             if (risingWater != null)
             {
                 risingWater.StartMe();
+                if (AudioLayering.Instance != null)
+                {
+                    AudioLayering.Instance.FadeToExciting();
+                }
             }
         }
     }
