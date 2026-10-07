@@ -28,7 +28,7 @@ namespace Narrative
             //Obtain neccesary components
             spriteRenderer = GetComponent<Image>();
 
-            ExitFade(0.5f);
+            spriteRenderer.color = CLEAR;
         }
 
 

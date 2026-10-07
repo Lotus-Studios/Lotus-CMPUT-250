@@ -31,76 +31,90 @@ public class DialogueSystem : MonoBehaviour
     private bool isActive = false;
     //Are the choice buttons visible?
     private bool buttonsActive = false;
+
+    private float portraitFadeInSpeed = 0.5f;
+    private float portraitFadeOutSpeed = 0.5f;
     //Current chunk being displayed
     private int chunkIndex = 0;
-    //Current dialogue being wirked through
+    //Current dialogue being worked through
     private Dialogue currentDialogue = null;
-    #region References
+    #region References to Visual Components
     [SerializeField] private DialogueBox dialogueBox;
     [SerializeField] private DialoguePortrait portraitLeft;
     [SerializeField] private DialoguePortrait portraitRight;
-    [SerializeField] private GameObject ChoiceButton;
+    [SerializeField] private GameObject ChoiceButton; //This is a prefab instanced multiple times
     [SerializeField] private GameObject choiceButtonContainer;
     #endregion
     #region Data Containers
-    //portrait ID -> portrait Sprite
+    //Used to make the dictionary below
     [SerializeField] private List<Sprite> rawSprites = new List<Sprite>();
+    //portrait ID -> portrait Sprite
     [SerializeField] private Dictionary<string, Sprite> portraitIDSprite = new Dictionary<string, Sprite>();
-    //Raw dialogues as TextAssets
+    //Raw dialogues as TextAssets, used to make the dictionary below
     [SerializeField] private List<TextAsset> rawDialogues = new List<TextAsset>();
     //dialogueID -> Dialogue
     [SerializeField] private Dictionary<string, Dialogue> idDialogue = new Dictionary<string, Dialogue>();
+    //SFXID -> Sound Effect
+    //TODO: Make SFX database after the sfx system has been implimented.
     #endregion
     
     //Current line in a dialogue that we are at
     
     void Start()
     {
+        //TODO: Make this less contrived, these should all just be grabbing the reference set in the editor.
         //Grab box for dialogue from scene by type
         dialogueBox = GameObject.FindAnyObjectByType<DialogueBox>();
         //Grab container for choice buttons from container
         choiceButtonContainer = GameObject.FindGameObjectWithTag("ChoiceButtonContainer");
         //add all dialogues to dictionary
-        foreach(TextAsset rawTxt in rawDialogues)
-        {
-            Dialogue newDia = DialogueParser.ParseDialogue(rawTxt.ToString());
-            idDialogue[newDia.getID()] = newDia;
-        }
-
+        loadDialogues();
+        //add all sprites to the dictionary
         loadSprites();
+        //TODO: same pattern for sfx
     }
 
+    //Starts a dialogue based in the input string
     public void startDialogue(string CSV)
     {
         if(currentDialogue != null) return;
 
+        //Resetting everything
+        //Could be function, but only used here.
         isActive = true;
         dialogueBox.ClearName();
-        chunkIndex = 0;
+        chunkIndex = -1;
         currentDialogue = DialogueParser.ParseDialogue(CSV);
 
-        portraitLeft.EnterFade(0.5f);
-        portraitRight.EnterFade(0.5f);
-        portraitLeft.SetSprite(portraitIDSprite[currentDialogue.getPortraitLeftID(chunkIndex)]);
-        portraitRight.SetSprite(portraitIDSprite[currentDialogue.getPortraitRightID(chunkIndex)]);
-        Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex)} as its first dialogue.");
+        portraitLeft.EnterFade(portraitFadeInSpeed);
+        portraitRight.EnterFade(portraitFadeInSpeed);
+
+        progressDialogue();
+        //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex)} as its first dialogue.");
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex + 1)} as its second dialogue.");
         
-        dialogueBox.SetLine(currentDialogue.getText(chunkIndex));
-        dialogueBox.SetName(currentDialogue.getTextboxTitle(chunkIndex));
     }
     //Version with a Dialogue passed instead of a string to parse
     public void startDialogue(Dialogue dia)
     {
-        Debug.Log("Running start dialogue...");
+        //Debug.Log("Running start dialogue...");
         if(currentDialogue != null) return;
         isActive = true;
         dialogueBox.ClearName();
         chunkIndex = -1;
         currentDialogue = dia;
+
+        portraitLeft.EnterFade(portraitFadeInSpeed);
+        portraitRight.EnterFade(portraitFadeInSpeed);
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex)} as its first dialogue.");
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex + 1)} as its second dialogue.");
         progressDialogue();
+    }
+
+    private void updatePortraits()
+    {
+        portraitLeft.SetSprite(portraitIDSprite[currentDialogue.getPortraitLeftID(chunkIndex)]);
+        portraitRight.SetSprite(portraitIDSprite[currentDialogue.getPortraitRightID(chunkIndex)]);
     }
 
     //Creates the choice buttons
@@ -144,6 +158,8 @@ public class DialogueSystem : MonoBehaviour
         
     }
 
+    //Input detection
+    //TODO: Make the key changeable
     void Update()
     {
         updateDialogueBox();
@@ -156,6 +172,7 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
+    //Updating the dialogue after every space press
     void progressDialogue()
     {
         //Reached the end of the current dialogue
@@ -176,10 +193,8 @@ public class DialogueSystem : MonoBehaviour
             chunkIndex++;
             dialogueBox.SetLine(currentDialogue.getText(chunkIndex));
             dialogueBox.SetName(currentDialogue.getTextboxTitle(chunkIndex));
-            Debug.Log("Here");
             portraitLeft.SetSprite(portraitIDSprite[currentDialogue.getPortraitLeftID(chunkIndex)]);
             portraitRight.SetSprite(portraitIDSprite[currentDialogue.getPortraitRightID(chunkIndex)]);
-            
         }
     }
     void updateDialogueBox()
@@ -187,6 +202,8 @@ public class DialogueSystem : MonoBehaviour
         if (!dialogueBox.IsOpen && isActive) dialogueBox.OpenTextbox();
         if(dialogueBox.IsOpen && !isActive) dialogueBox.CloseTextbox();
     }
+
+
 
     //Adds all sprites to the dictionary with their keys being their names in files
     void loadSprites()
@@ -197,5 +214,14 @@ public class DialogueSystem : MonoBehaviour
             Debug.Log($"Added {spr.name} to spriteID.");
         }
         portraitIDSprite["EMPTY"] = null;
+    }
+
+    void loadDialogues()
+    {
+      foreach(TextAsset rawTxt in rawDialogues)
+        {
+            Dialogue newDia = DialogueParser.ParseDialogue(rawTxt.ToString());
+            idDialogue[newDia.getID()] = newDia;
+        }  
     }
 }
