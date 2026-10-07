@@ -28,6 +28,8 @@ public class CharacterAnimator : AnimatedEntity
     public DirectionalAnimations jump;
     public DirectionalAnimations flutter;
 
+    private PlayerController playerController;
+
     private int currentFacing = 0; // 0 is front, 1 is back, 2 is side.
 
     void Start()
@@ -38,32 +40,52 @@ public class CharacterAnimator : AnimatedEntity
         // default is front facing idle
         DefaultAnimationCycle = idle.GetList(0);
 
+        // get playerController
+        playerController = GetComponentInParent<PlayerController>();
+
         base.AnimationSetup();
     }
     void Update()
     {
+        int previousIndex = index;
         base.AnimationUpdate();
+
+        // If the frame just changed and we are currently playing the walk cycle
+        if (previousIndex != index && DefaultAnimationCycle == walk.GetList(currentFacing))
+        {
+            // frames where player foot hits the ground
+            if ((index == 2 || index == 6) && playerController.IsGrounded)
+            {
+                AudioController.Instance.PlayFootstep();
+            }
+        }
     }
 
     // Reads input then changes direction of the sprite
-    public void UpdateFacing(Vector2 input) 
+    public void UpdateFacing(Vector2 input)
     {
-        //prioritizes Front facing and back facing actions 
-        if (Mathf.Abs(input.y) >= Mathf.Abs(input.x))
+        // decoupled it so pressing a side key always update sthe sprite facing direction, before pressing W or S then pressing A or D locks the facing direction.
+        if (Mathf.Abs(input.x) > 0.01f)
+        {
+            SpriteRenderer.flipX = (input.x < 0);
+        }
+
+        if (Mathf.Abs(input.y) > Mathf.Abs(input.x))
         {
             currentFacing = input.y > 0 ? 1 : 0;
         }
         else
         {
             currentFacing = 2;
-            SpriteRenderer.flipX = (input.x < 0);
         }
     }
-    
+
     // Swaps between idle or walk animation cycles
     public void SetMoving(bool isMoving) {
         DirectionalAnimations set = isMoving ? walk : idle;
         DefaultAnimationCycle = set.GetList(currentFacing);
+
+        // DefaultAnimationCycle = isMoving ? walk.side : idle.GetList(currentFacing); For no Up or Down anims
     }
 
     // interrupts current animation to play jump aniamtion cycle
