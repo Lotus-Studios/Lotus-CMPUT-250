@@ -44,6 +44,7 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] private DialoguePortrait portraitRight;
     [SerializeField] private GameObject ChoiceButton; //This is a prefab instanced multiple times
     [SerializeField] private GameObject choiceButtonContainer;
+    private OrbitCamera cameraOrbit;
     #endregion
     #region Data Containers
     //Used to make the dictionary below
@@ -72,6 +73,8 @@ public class DialogueSystem : MonoBehaviour
         //add all sprites to the dictionary
         loadSprites();
         //TODO: same pattern for sfx
+
+        cameraOrbit = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<OrbitCamera>();
     }
 
     //Starts a dialogue based in the input string
@@ -126,7 +129,7 @@ public class DialogueSystem : MonoBehaviour
         List<DialogueChoice> choices = dlg.choices;
         foreach(DialogueChoice choice in choices)
         {
-            Debug.Log($"{choice.buttonText}");
+            Debug.Log($"Creating button for {choice.buttonText}.");
             DialogueButton newChoiceButton = Instantiate(ChoiceButton, choiceButtonContainer.transform).GetComponent<DialogueButton>();
             newChoiceButton.setChoice(choice);
             //Adding listener to each button for unique choice
@@ -183,7 +186,14 @@ public class DialogueSystem : MonoBehaviour
             portraitLeft.ExitFade(0.5f);
             portraitRight.ExitFade(0.5f);
             //Start choices if we have any
-            if(currentDialogue.hasChoices()) startChoiceScreen(currentDialogue);
+            if (currentDialogue.hasChoices())
+            {
+                startChoiceScreen(currentDialogue);
+            }
+            else
+            {
+                cameraOrbit.ClearDialogueTarget();
+            }
             currentDialogue = null;
 
         }
