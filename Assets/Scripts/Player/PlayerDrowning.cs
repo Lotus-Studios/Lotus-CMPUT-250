@@ -100,6 +100,9 @@ public class PlayerDrowning : MonoBehaviour
         isDying = true; 
         playerController.Respawn();
 
+        if (AudioController.Instance != null) AudioController.Instance.StopAllAudio();
+        
+
         playerDied?.Invoke();
     }
 
