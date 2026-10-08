@@ -181,7 +181,6 @@ public class DialogueSystem : MonoBehaviour
         //Reached the end of the current dialogue
         if (currentDialogue.isEndofDialogue(chunkIndex))
         {
-
             isActive = false;
             portraitLeft.ExitFade(0.5f);
             portraitRight.ExitFade(0.5f);
@@ -192,7 +191,22 @@ public class DialogueSystem : MonoBehaviour
             }
             else
             {
-                cameraOrbit.ClearDialogueTarget();
+                if (cameraOrbit == null)
+                {
+                    cameraOrbit = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<OrbitCamera>();
+
+                }
+
+                if (cameraOrbit != null)
+                {
+                    cameraOrbit.ClearDialogueTarget();
+                }
+
+                PlayerController playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.canMove = true;
+                }
             }
             currentDialogue = null;
 
@@ -201,6 +215,7 @@ public class DialogueSystem : MonoBehaviour
         {
             //Move to next chunk and update
             chunkIndex++;
+
             dialogueBox.SetLine(currentDialogue.getText(chunkIndex));
             dialogueBox.SetName(currentDialogue.getTextboxTitle(chunkIndex));
             portraitLeft.SetSprite(portraitIDSprite[currentDialogue.getPortraitLeftID(chunkIndex)]);

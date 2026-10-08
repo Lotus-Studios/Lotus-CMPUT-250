@@ -132,6 +132,8 @@ public class OrbitCamera : MonoBehaviour
     {
         activeNPC = npc;
         lockedBaseHeight = (lookAtTransform.position.y + activeNPC.position.y) * 0.5f;
+
+        Debug.Log($"Camera received target: {npc.name}. Moving to radius: {dialogueZoomRadius}");
     }
 
     // removes teh dialogue NPC (Noah use these)

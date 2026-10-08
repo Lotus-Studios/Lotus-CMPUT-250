@@ -21,26 +21,28 @@ public class LotusNPC : MonoBehaviour
         doFirstDialogue();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnCollisionEnter(Collision collision)
     {
         Debug.Log("123");
-        if(collision.gameObject == player)
+        if(collision.gameObject == player && !doneFirstDialogue)
         {
+            
             Debug.Log("Hit player");
         }
     }
 
     void doFirstDialogue()
     {
-        DialogueSystem.Instance.startDialogue(firstDialogue.ToString());
-        doneFirstDialogue = true;
         OrbitCamera cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<OrbitCamera>();
         cam.SetDialogueTarget(transform);
+
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.canMove = false;
+        }
+
+        DialogueSystem.Instance.startDialogue(firstDialogue.ToString());
+        doneFirstDialogue = true;
     }
 }
