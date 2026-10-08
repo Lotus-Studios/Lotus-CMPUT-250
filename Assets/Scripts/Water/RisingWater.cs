@@ -12,7 +12,7 @@ public class RisingWater : MonoBehaviour
     [SerializeField] Transform playerTarget;
 
     [Header("Water Respawn")]
-    public float respawnLevel = -2.5f;
+    public float respawnLevel = -3f;
 
     //curve to sample for how fast to go
     [Header("Water Rising Speed")]

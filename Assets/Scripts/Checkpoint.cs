@@ -10,8 +10,8 @@ public class Checkpoint : MonoBehaviour
 
     [Header("Water Settings")]
     [SerializeField] private RisingWater water;
-    [SerializeField] private float waterOffsetBelowCheckpoint = 2.5f;
-    [SerializeField] private float waterRiseSpeed = 3f; // For moving the water to the checkpoint
+    [SerializeField] private float waterOffsetBelowCheckpoint = 3f;
+    [SerializeField] private float waterRiseSpeed = 0.7f; // For moving the water to the checkpoint
 
     private bool hasBeenActivated = false;
     private void OnTriggerEnter(Collider other)
