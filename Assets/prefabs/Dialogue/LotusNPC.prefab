@@ -87,6 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3659290866001263973}
   - component: {fileID: 6867201829791585657}
+  - component: {fileID: 4450904823823753217}
   m_Layer: 0
   m_Name: ForcedCollider
   m_TagString: Untagged
@@ -130,6 +131,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4450904823823753217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5336631005282665021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba939a402c827b438dceac0f74a983b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lotus: {fileID: 4898553815996156563}
 --- !u!1 &6657525610790432124
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,8 +192,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcedDialogueCollider: {fileID: 6867201829791585657}
+  sprite: {fileID: 925848907555591746}
   doneFirstDialogue: 0
   firstDialogue: {fileID: 0}
+  BarkList: []
+  dummyPrefab: {fileID: 2895109821281483268, guid: 2c57e33c25782b349b898d4ef5793c00, type: 3}
 --- !u!1 &7933756004556428619
 GameObject:
   m_ObjectHideFlags: 0

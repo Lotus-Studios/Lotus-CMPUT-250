@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DialogueSystem : MonoBehaviour
 {
@@ -59,6 +60,9 @@ public class DialogueSystem : MonoBehaviour
     //TODO: Make SFX database after the sfx system has been implimented.
     #endregion
     
+    #region Events
+    public UnityEvent dialogueFinished;
+    #endregion
     //Current line in a dialogue that we are at
     
     void Start()
@@ -207,6 +211,7 @@ public class DialogueSystem : MonoBehaviour
                 {
                     playerController.canMove = true;
                 }
+                dialogueFinished?.Invoke();
             }
             currentDialogue = null;
 
@@ -215,20 +220,32 @@ public class DialogueSystem : MonoBehaviour
         {
             //Move to next chunk and update
             chunkIndex++;
-
-            dialogueBox.SetLine(currentDialogue.getText(chunkIndex));
-            dialogueBox.SetName(currentDialogue.getTextboxTitle(chunkIndex));
-            portraitLeft.SetSprite(portraitIDSprite[currentDialogue.getPortraitLeftID(chunkIndex)]);
-            portraitRight.SetSprite(portraitIDSprite[currentDialogue.getPortraitRightID(chunkIndex)]);
+            setDialogueBox();
+            
+            
         }
     }
+    //Updates the dialogue boxes open or closed state
     void updateDialogueBox()
     {
         if (!dialogueBox.IsOpen && isActive) dialogueBox.OpenTextbox();
         if(dialogueBox.IsOpen && !isActive) dialogueBox.CloseTextbox();
     }
+    //sets the dialogue boxes line and name safely
+    void setDialogueBox()
+    {
+        dialogueBox.SetLine(currentDialogue.getText(chunkIndex));
+        dialogueBox.SetName(currentDialogue.getTextboxTitle(chunkIndex));
+    }
 
-
+    void setPortraitSprites()
+    {
+        if(portraitIDSprite.Keys.Contains<string>(currentDialogue.getPortraitLeftID(chunkIndex)))
+        portraitLeft.SetSprite(portraitIDSprite[currentDialogue.getPortraitLeftID(chunkIndex)]);
+        
+        if(portraitIDSprite.Keys.Contains<string>(currentDialogue.getPortraitRightID(chunkIndex)))
+        portraitRight.SetSprite(portraitIDSprite[currentDialogue.getPortraitRightID(chunkIndex)]);
+    }
 
     //Adds all sprites to the dictionary with their keys being their names in files
     void loadSprites()

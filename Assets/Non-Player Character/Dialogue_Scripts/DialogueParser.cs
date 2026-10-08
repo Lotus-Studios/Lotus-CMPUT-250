@@ -42,7 +42,7 @@ public class DialogueParser : MonoBehaviour
             if (!makingChoices)
             {
                 DialogueChunk newChunk = new DialogueChunk();
-                Debug.Log($"Currently parsing {str}");
+                //Debug.Log($"Currently parsing {str}");
                 //Split data into individual parts
                 List<string> newChunkData = str.Split(",").ToList<string>();
                 //Assign each part to a new chunk
@@ -79,7 +79,7 @@ public class DialogueParser : MonoBehaviour
                 {
                     newChoice.tallyValue = 0;
                 }
-                Debug.Log($"Added choice with text {newChoiceData[CHOICETEXT]}.");
+                //Debug.Log($"Added choice with text {newChoiceData[CHOICETEXT]}.");
                 returnDialogue.addChoice(newChoice);
             }
             

@@ -7,6 +7,8 @@ using UnityEngine;
 public class LotusGuruFloatingDummy : MonoBehaviour
 {
     [SerializeField] RisingWater water;
+
+    [SerializeField] PlayerDrowning playerDrowning;
     bool floatingState;
 
     [SerializeField] Transform mountainCenter;
@@ -75,6 +77,11 @@ public class LotusGuruFloatingDummy : MonoBehaviour
         }
     }
 
+    public void setResetTransform(Transform tr)
+    {
+        resetToTransform = tr;
+    }
+    
     public void ResetMe()
     {
         justFloatTimer = justFloatTime;
