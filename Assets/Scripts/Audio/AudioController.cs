@@ -81,4 +81,9 @@ public class AudioController : MonoBehaviour
         float finalVolume = isUnderwater ? 0.65f : 1f;
         audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
     }
+
+    public void PlayDialogueAudio(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip, 1f);
+    }
 }

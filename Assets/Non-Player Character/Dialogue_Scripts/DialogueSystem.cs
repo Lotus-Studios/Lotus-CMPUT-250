@@ -57,6 +57,8 @@ public class DialogueSystem : MonoBehaviour
     //dialogueID -> Dialogue
     [SerializeField] private Dictionary<string, Dialogue> idDialogue = new Dictionary<string, Dialogue>();
     //SFXID -> Sound Effect
+    [SerializeField] private List<AudioClip> rawAudio = new List<AudioClip>();
+    [SerializeField] private Dictionary<string, AudioClip> idSFX = new Dictionary<string, AudioClip>();
     //TODO: Make SFX database after the sfx system has been implimented.
     #endregion
     
@@ -247,6 +249,14 @@ public class DialogueSystem : MonoBehaviour
         portraitRight.SetSprite(portraitIDSprite[currentDialogue.getPortraitRightID(chunkIndex)]);
     }
 
+    void playAudio()
+    {
+        if (idSFX.Keys.Contains<string>(currentDialogue.getSoundID(chunkIndex)))
+        {
+            AudioController.Instance.PlayDialogueAudio(idSFX[currentDialogue.getSoundID(chunkIndex)]);
+        }
+    }
+
     //Adds all sprites to the dictionary with their keys being their names in files
     void loadSprites()
     {
@@ -254,6 +264,16 @@ public class DialogueSystem : MonoBehaviour
         {
             portraitIDSprite[spr.name] = spr;
             Debug.Log($"Added {spr.name} to spriteID.");
+        }
+        portraitIDSprite["EMPTY"] = null;
+    }
+
+    void loadAudio()
+    {
+        foreach(AudioClip audio in rawAudio)
+        {
+            idSFX[audio.name] = audio;
+            Debug.Log($"Added {audio.name} to spriteID.");
         }
         portraitIDSprite["EMPTY"] = null;
     }

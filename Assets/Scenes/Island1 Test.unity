@@ -6709,6 +6709,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4900000, guid: 7c8e6c5d1ae02c444bec91d84470a8b2, type: 3}
     - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: playerDrowning
+      value: 
+      objectReference: {fileID: 3906974563277171460}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: BarkList.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -10067,6 +10071,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2055115149656832461, guid: 3fbd479be68a89f45b802096168eaf50, type: 3}
   m_PrefabInstance: {fileID: 9034429710934042071}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3906974563277171460 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2273211778946107795, guid: 3fbd479be68a89f45b802096168eaf50, type: 3}
+  m_PrefabInstance: {fileID: 9034429710934042071}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b84e2e2ad4658a48ae928cbc76d1dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5296591057027123766
 PrefabInstance:
   m_ObjectHideFlags: 0
