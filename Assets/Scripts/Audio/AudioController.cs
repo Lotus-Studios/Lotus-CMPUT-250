@@ -86,4 +86,9 @@ public class AudioController : MonoBehaviour
     {
         audioSource.PlayOneShot(clip, 1f);
     }
+    public void StopAllAudio()
+    {
+        if (loopSource != null) loopSource.Stop();
+        if (audioSource != null) audioSource.Stop();
+    }
 }
