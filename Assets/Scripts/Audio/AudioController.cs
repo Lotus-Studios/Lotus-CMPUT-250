@@ -6,6 +6,7 @@ public class AudioController : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioSource loopSource;
+    public AudioSource platformAudioSourceObject;
 
     [Header("Player SFX")]
     public AudioClip jumpSound;
@@ -82,6 +83,8 @@ public class AudioController : MonoBehaviour
         audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
     }
 
+
+
     public void PlayDialogueAudio(AudioClip clip)
     {
         audioSource.PlayOneShot(clip, 1f);
@@ -91,4 +94,17 @@ public class AudioController : MonoBehaviour
         if (loopSource != null) loopSource.Stop();
         if (audioSource != null) audioSource.Stop();
     }
+
+
+    public void PlayPlatformSound(AudioClip clip, Vector3 position, float volume, float time) {
+        // spawn audio source at position (Quaternion.identity is base rotation)
+        AudioSource platformAudioSource = Instantiate(platformAudioSourceObject, position, Quaternion.identity);
+        platformAudioSource.clip = clip;
+        platformAudioSource.pitch = 1f;
+        platformAudioSource.volume = volume;
+        // TODO: make output audio mixer group as sfx
+        platformAudioSource.Play();
+        Destroy(platformAudioSource.gameObject, time);  // destroy audio source after time is passed
+    }
+
 }
