@@ -37,6 +37,8 @@ public class DialogueSystem : MonoBehaviour
     private float portraitFadeOutSpeed = 0.5f;
     //Current chunk being displayed
     private int chunkIndex = 0;
+
+    private int tallyScore = 0;
     //Current dialogue being worked through
     private Dialogue currentDialogue = null;
     #region References to Visual Components
@@ -78,7 +80,8 @@ public class DialogueSystem : MonoBehaviour
         loadDialogues();
         //add all sprites to the dictionary
         loadSprites();
-        //TODO: same pattern for sfx
+
+        loadAudio();
 
         cameraOrbit = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<OrbitCamera>();
     }
@@ -149,6 +152,8 @@ public class DialogueSystem : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Debug.Log($"Made choice {choice.buttonText}");
 
+        tallyScore += choice.tallyValue;
+
         //Clear all old dialogue buttons
         foreach(Transform child in choiceButtonContainer.transform)
         {
@@ -166,6 +171,8 @@ public class DialogueSystem : MonoBehaviour
         }
         
     }
+
+    public int getTallyScore() { return tallyScore; }
 
     //Input detection
     //TODO: Make the key changeable

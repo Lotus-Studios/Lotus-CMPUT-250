@@ -16,6 +16,9 @@ public class LotusNPC : MonoBehaviour
 
     private Color defaultColor;
     [SerializeField] private TextAsset firstDialogue;
+    [SerializeField] private TextAsset tallyThresholdDialogue;
+
+    [SerializeField] private int tallyThresholdValue = 0;
 
     [SerializeField] private List<string> BarkList;
     private int barkIndex = -1;
@@ -87,7 +90,15 @@ public class LotusNPC : MonoBehaviour
             playerController.canMove = false;
         }
 
-        DialogueSystem.Instance.startDialogue(firstDialogue.ToString());
+        if(DialogueSystem.Instance.getTallyScore() >= tallyThresholdValue && tallyThresholdValue != 0)
+        {
+            DialogueSystem.Instance.startDialogue(tallyThresholdDialogue.ToString());
+        }
+        else
+        {
+            DialogueSystem.Instance.startDialogue(firstDialogue.ToString());
+        }
+        
         doneFirstDialogue = true;
 
     }
