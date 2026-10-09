@@ -1980,7 +1980,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1391865771}
   - {fileID: 322852043}
   - {fileID: 436392401}
   - {fileID: 589249073}
@@ -5876,7 +5875,7 @@ PrefabInstance:
       objectReference: {fileID: 66805474}
     - target: {fileID: 5653855772776112743, guid: 2eb10a4641888174ea67160f41c83b67, type: 3}
       propertyPath: allowedToMove
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5653855772776112743, guid: 2eb10a4641888174ea67160f41c83b67, type: 3}
       propertyPath: curveMaxSpeed
@@ -8579,61 +8578,6 @@ Transform:
   - {fileID: 2025506432}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1391865770
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1391865771}
-  - component: {fileID: 1391865772}
-  m_Layer: 0
-  m_Name: Start Water Trigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1391865771
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1391865770}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.168, y: -0.62, z: 0.162}
-  m_LocalScale: {x: 1.9745449, y: 1, z: 1.4022}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 332028010}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1391865772
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1391865770}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.46
-  m_Height: 3
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1392406043 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1556833739428838214, guid: 3fff30e235852014190c94ac10bb7d11, type: 3}
