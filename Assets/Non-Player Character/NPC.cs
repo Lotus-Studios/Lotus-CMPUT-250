@@ -8,10 +8,10 @@ public class NPC : MonoBehaviour
 
     // Start is called before the first frame update
     private GameObject player = null;
-    public float maxDetectionDistance = 1;
-    public interactionGlyph interactionGlyph;
+    //public float maxDetectionDistance = 1;
+    //public interactionGlyph interactionGlyph;
     private bool canInteract = false;
-    [SerializeField] private TextAsset CSV;
+    [SerializeField] private TextAsset currentDialogue;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -22,29 +22,29 @@ public class NPC : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if(player == null) return;
+    // void Update()
+    // {
+    //     if(player == null) return;
 
-        if (Vector3.Distance(player.transform.position, this.transform.position) < maxDetectionDistance)
-        {
-            //Debug.Log("Player has entered area.");
-            interactionGlyph.setActive(true);
-            canInteract = true;
-        }
-        else
-        {
-            //Debug.Log("The player has exited the area.");
-            interactionGlyph.setActive(false);
-            canInteract = false;
-        }
+    //     if (Vector3.Distance(player.transform.position, this.transform.position) < maxDetectionDistance)
+    //     {
+    //         //Debug.Log("Player has entered area.");
+    //         interactionGlyph.setActive(true);
+    //         canInteract = true;
+    //     }
+    //     else
+    //     {
+    //         //Debug.Log("The player has exited the area.");
+    //         interactionGlyph.setActive(false);
+    //         canInteract = false;
+    //     }
 
-        if(canInteract && Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log($"Dialogue started! Now parsing \"{CSV.ToString()}\"");
-            DialogueSystem.Instance.startDialogue(CSV.ToString());
-        }
-    }
+    //     if(canInteract && Input.GetKeyDown(KeyCode.E))
+    //     {
+    //         Debug.Log($"Dialogue started! Now parsing \"{CSV.ToString()}\"");
+    //         DialogueSystem.Instance.startDialogue(CSV.ToString());
+    //     }
+    // }
 
     void setCanInteract(bool newState){ canInteract = newState; }
     

@@ -1,77 +1,89 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioLayering : MonoBehaviour
 {
-    public static AudioLayering _instance;
-    public static AudioLayering Instance { get { return _instance; } }
+    public static AudioLayering Instance { get; private set; }
 
+    [Header("Audio Sources")]
     public AudioSource chillSource;
     public AudioSource excitingSource;
 
+    [Header("Audio Clips (Normal)")]
+    public AudioClip chillNormal;
+    public AudioClip excitingNormal;
+
+    [Header("Audio Clips (Underwater)")]
+    public AudioClip chillUnderwater;
+    public AudioClip excitingUnderwater;
+
+    [Header("Settings")]
     public float fadeSpeed = 0.5f;
-    private float targetChill = 0.8f;
-    private float targetExciting = 0f;
+
+    private bool isExciting = false;
+    private bool isUnderwater = false;
 
     void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
-        _instance = this;
+        Instance = this;
     }
+
     void Start()
     {
-        chillSource.volume = 0.8f;
-        excitingSource.volume = 0f;
+        // since swapping tracks the first time causes a slight stutter, didn't know unity had this lmao
+        chillUnderwater.LoadAudioData();
+        excitingUnderwater.LoadAudioData();
+        chillSource.clip = chillNormal;
+        excitingSource.clip = excitingNormal;
 
-        chillSource.Play();
-        excitingSource.Play();
+        // they start at the same time, this is here incase the startup is messed up a bit
+        double syncTime = AudioSettings.dspTime + 0.1;
+        chillSource.PlayScheduled(syncTime);
+        excitingSource.PlayScheduled(syncTime);
+
+        chillSource.volume = 1f;
+        excitingSource.volume = 0f;
     }
 
     void Update()
     {
-        // basically the lerp which will never fully reach 1 or 0 will be intercepted by the Movetowards functions so it can smoothly fade out or in.
-        // I tried just setting it to 0f and 1f instantly but it was too abrupt for my taste 
-        if (targetChill == 0f && chillSource.volume <= 0.05f)
-        {
-            chillSource.volume = Mathf.MoveTowards(chillSource.volume, 0f, fadeSpeed * Time.deltaTime);
-        }
-        else if (targetChill == 1f && chillSource.volume >= 0.95f)
-        {
-            chillSource.volume = Mathf.MoveTowards(chillSource.volume, 0.8f, fadeSpeed * Time.deltaTime);
-        }
-        else
-        {
-            chillSource.volume = Mathf.Lerp(chillSource.volume, targetChill, fadeSpeed * Time.deltaTime);
-        }
+        float targetChill = isExciting ? 0f : 1f;
+        float targetExciting = isExciting ? 1f : 0f;
 
-        if (targetExciting == 0f && excitingSource.volume <= 0.05f)
-        {
-            excitingSource.volume = Mathf.MoveTowards(excitingSource.volume, 0f, fadeSpeed * Time.deltaTime);
-        }
-        else if (targetExciting == 1f && excitingSource.volume >= 0.95f)
-        {
-            excitingSource.volume = Mathf.MoveTowards(excitingSource.volume, 0.8f, fadeSpeed * Time.deltaTime);
-        }
-        else
-        {
-            excitingSource.volume = Mathf.Lerp(excitingSource.volume, targetExciting, fadeSpeed * Time.deltaTime);
-        }
+        chillSource.volume = Mathf.MoveTowards(chillSource.volume, targetChill, fadeSpeed * Time.deltaTime);
+        excitingSource.volume = Mathf.MoveTowards(excitingSource.volume, targetExciting, fadeSpeed * Time.deltaTime);
     }
 
     public void FadeToExciting()
     {
-        targetChill = 0f;
-        targetExciting = 0.8f;
+        isExciting = true;
     }
-
     public void FadeToChill()
     {
-        targetChill = 0.8f;
-        targetExciting = 0f;
+        isExciting = false;
+    }
+
+    public void SetUnderwater(bool underwater)
+    {
+        if (isUnderwater == underwater) return;
+
+        isUnderwater = underwater;
+
+        // Swap the audio file inside both sources
+        SwapClip(chillSource, underwater ? chillUnderwater : chillNormal);
+        SwapClip(excitingSource, underwater ? excitingUnderwater : excitingNormal);
+    }
+
+    private void SwapClip(AudioSource source, AudioClip newClip)
+    {
+        // saves the time then swaps the clips and plays it
+        int currentSample = source.timeSamples;
+        source.clip = newClip;
+        source.timeSamples = currentSample;
+        source.Play();
     }
 }

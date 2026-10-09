@@ -37,6 +37,7 @@ public class CrackBlockJiggler : MonoBehaviour
         for(int i = 0; i < crackPieces.Length; i++)
         {
             crackPieces[i].restPosition = crackPieces[i].transform.position;
+            crackPieces[i].restRotation = crackPieces[i].transform.rotation;
             crackPieces[i].GetComponent<Collider>().enabled = false;
             crackPieces[i].Rigidbody.isKinematic = true;
         }
@@ -103,7 +104,7 @@ public class CrackBlockJiggler : MonoBehaviour
             crackPieces[i].Rigidbody.isKinematic = true;
             crackPieces[i].GetComponent<Collider>().enabled = false;
             crackPieces[i].Rigidbody.position = crackPieces[i].restPosition;
-            crackPieces[i].Rigidbody.rotation = Quaternion.Euler(Vector3.zero);
+            crackPieces[i].Rigidbody.rotation = crackPieces[i].restRotation;
         }
     }
 }

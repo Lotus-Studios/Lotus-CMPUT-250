@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RisingWater : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class RisingWater : MonoBehaviour
     [SerializeField] Transform playerTarget;
 
     [Header("Water Respawn")]
-    public float respawnLevel = -2.5f;
+    public float respawnLevel = -3f;
 
     //curve to sample for how fast to go
     [Header("Water Rising Speed")]
@@ -24,6 +25,9 @@ public class RisingWater : MonoBehaviour
     private bool isRisingToCheckpoint = false;
     private float targetRiseLevel;
     private float currentRiseSpeed;
+
+    [HideInInspector]
+    public UnityEvent resetWaterEvent;
 
     // Update is called once per frame
     void Update()
@@ -81,6 +85,8 @@ public class RisingWater : MonoBehaviour
         Vector3 pos = transform.position;
         pos.y = respawnLevel;
         transform.position = pos;
+
+        resetWaterEvent.Invoke();
     }
 
     public void StartMe()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Events;
 
 public class PlayerDrowning : MonoBehaviour
 {
@@ -22,7 +23,8 @@ public class PlayerDrowning : MonoBehaviour
     // private bool wasUnderWater;
     private bool isDying = false;
 
-
+    
+    public UnityEvent playerDied;
     // [SerializeField] private Transform playerResetPosition;
 
     [SerializeField] private PlayerController playerController;
@@ -97,6 +99,11 @@ public class PlayerDrowning : MonoBehaviour
         if (isDying) return; // Prevent calling this multiple times while already dying
         isDying = true; 
         playerController.Respawn();
+
+        if (AudioController.Instance != null) AudioController.Instance.StopAllAudio();
+        
+
+        playerDied?.Invoke();
     }
 
 }

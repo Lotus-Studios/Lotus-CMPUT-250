@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DialogueSystem : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class DialogueSystem : MonoBehaviour
     private float portraitFadeOutSpeed = 0.5f;
     //Current chunk being displayed
     private int chunkIndex = 0;
+
+    private int tallyScore = 0;
     //Current dialogue being worked through
     private Dialogue currentDialogue = null;
     #region References to Visual Components
@@ -44,6 +47,7 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] private DialoguePortrait portraitRight;
     [SerializeField] private GameObject ChoiceButton; //This is a prefab instanced multiple times
     [SerializeField] private GameObject choiceButtonContainer;
+    private OrbitCamera cameraOrbit;
     #endregion
     #region Data Containers
     //Used to make the dictionary below
@@ -55,9 +59,14 @@ public class DialogueSystem : MonoBehaviour
     //dialogueID -> Dialogue
     [SerializeField] private Dictionary<string, Dialogue> idDialogue = new Dictionary<string, Dialogue>();
     //SFXID -> Sound Effect
+    [SerializeField] private List<AudioClip> rawAudio = new List<AudioClip>();
+    [SerializeField] private Dictionary<string, AudioClip> idSFX = new Dictionary<string, AudioClip>();
     //TODO: Make SFX database after the sfx system has been implimented.
     #endregion
     
+    #region Events
+    public UnityEvent dialogueFinished;
+    #endregion
     //Current line in a dialogue that we are at
     
     void Start()
@@ -71,7 +80,10 @@ public class DialogueSystem : MonoBehaviour
         loadDialogues();
         //add all sprites to the dictionary
         loadSprites();
-        //TODO: same pattern for sfx
+
+        loadAudio();
+
+        cameraOrbit = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<OrbitCamera>();
     }
 
     //Starts a dialogue based in the input string
@@ -126,7 +138,7 @@ public class DialogueSystem : MonoBehaviour
         List<DialogueChoice> choices = dlg.choices;
         foreach(DialogueChoice choice in choices)
         {
-            Debug.Log($"{choice.buttonText}");
+            Debug.Log($"Creating button for {choice.buttonText}.");
             DialogueButton newChoiceButton = Instantiate(ChoiceButton, choiceButtonContainer.transform).GetComponent<DialogueButton>();
             newChoiceButton.setChoice(choice);
             //Adding listener to each button for unique choice
@@ -139,6 +151,8 @@ public class DialogueSystem : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Debug.Log($"Made choice {choice.buttonText}");
+
+        tallyScore += choice.tallyValue;
 
         //Clear all old dialogue buttons
         foreach(Transform child in choiceButtonContainer.transform)
@@ -157,6 +171,8 @@ public class DialogueSystem : MonoBehaviour
         }
         
     }
+
+    public int getTallyScore() { return tallyScore; }
 
     //Input detection
     //TODO: Make the key changeable
@@ -178,12 +194,34 @@ public class DialogueSystem : MonoBehaviour
         //Reached the end of the current dialogue
         if (currentDialogue.isEndofDialogue(chunkIndex))
         {
-
             isActive = false;
             portraitLeft.ExitFade(0.5f);
             portraitRight.ExitFade(0.5f);
             //Start choices if we have any
-            if(currentDialogue.hasChoices()) startChoiceScreen(currentDialogue);
+            if (currentDialogue.hasChoices())
+            {
+                startChoiceScreen(currentDialogue);
+            }
+            else
+            {
+                if (cameraOrbit == null)
+                {
+                    cameraOrbit = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<OrbitCamera>();
+
+                }
+
+                if (cameraOrbit != null)
+                {
+                    cameraOrbit.ClearDialogueTarget();
+                }
+
+                PlayerController playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.canMove = true;
+                }
+                dialogueFinished?.Invoke();
+            }
             currentDialogue = null;
 
         }
@@ -191,19 +229,40 @@ public class DialogueSystem : MonoBehaviour
         {
             //Move to next chunk and update
             chunkIndex++;
-            dialogueBox.SetLine(currentDialogue.getText(chunkIndex));
-            dialogueBox.SetName(currentDialogue.getTextboxTitle(chunkIndex));
-            portraitLeft.SetSprite(portraitIDSprite[currentDialogue.getPortraitLeftID(chunkIndex)]);
-            portraitRight.SetSprite(portraitIDSprite[currentDialogue.getPortraitRightID(chunkIndex)]);
+            setDialogueBox();
+            
+            
         }
     }
+    //Updates the dialogue boxes open or closed state
     void updateDialogueBox()
     {
         if (!dialogueBox.IsOpen && isActive) dialogueBox.OpenTextbox();
         if(dialogueBox.IsOpen && !isActive) dialogueBox.CloseTextbox();
     }
+    //sets the dialogue boxes line and name safely
+    void setDialogueBox()
+    {
+        dialogueBox.SetLine(currentDialogue.getText(chunkIndex));
+        dialogueBox.SetName(currentDialogue.getTextboxTitle(chunkIndex));
+    }
 
+    void setPortraitSprites()
+    {
+        if(portraitIDSprite.Keys.Contains<string>(currentDialogue.getPortraitLeftID(chunkIndex)))
+        portraitLeft.SetSprite(portraitIDSprite[currentDialogue.getPortraitLeftID(chunkIndex)]);
+        
+        if(portraitIDSprite.Keys.Contains<string>(currentDialogue.getPortraitRightID(chunkIndex)))
+        portraitRight.SetSprite(portraitIDSprite[currentDialogue.getPortraitRightID(chunkIndex)]);
+    }
 
+    void playAudio()
+    {
+        if (idSFX.Keys.Contains<string>(currentDialogue.getSoundID(chunkIndex)))
+        {
+            AudioController.Instance.PlayDialogueAudio(idSFX[currentDialogue.getSoundID(chunkIndex)]);
+        }
+    }
 
     //Adds all sprites to the dictionary with their keys being their names in files
     void loadSprites()
@@ -212,6 +271,16 @@ public class DialogueSystem : MonoBehaviour
         {
             portraitIDSprite[spr.name] = spr;
             Debug.Log($"Added {spr.name} to spriteID.");
+        }
+        portraitIDSprite["EMPTY"] = null;
+    }
+
+    void loadAudio()
+    {
+        foreach(AudioClip audio in rawAudio)
+        {
+            idSFX[audio.name] = audio;
+            Debug.Log($"Added {audio.name} to spriteID.");
         }
         portraitIDSprite["EMPTY"] = null;
     }
