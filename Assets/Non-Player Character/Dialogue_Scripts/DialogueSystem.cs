@@ -261,6 +261,7 @@ public class DialogueSystem : MonoBehaviour
         if (idSFX.Keys.Contains<string>(currentDialogue.getSoundID(chunkIndex)))
         {
             AudioController.Instance.PlayDialogueAudio(idSFX[currentDialogue.getSoundID(chunkIndex)]);
+            Debug.Log($"Added {currentDialogue.getSoundID(chunkIndex)}");
         }
     }
 

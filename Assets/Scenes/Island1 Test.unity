@@ -2876,12 +2876,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8637118152322525176, guid: 63e4b0386bb74864586179158bf3add5, type: 3}
     - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawAudio.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
       propertyPath: choiceButtonContainer
       value: 
       objectReference: {fileID: 1364113210}
     - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawAudio.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 154a7dea73c0a4f1ca2a014fbbce9116, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
       propertyPath: rawDialogues.Array.size
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
       propertyPath: rawDialogues.Array.data[3]
@@ -2895,6 +2903,30 @@ PrefabInstance:
       propertyPath: rawDialogues.Array.data[5]
       value: 
       objectReference: {fileID: 4900000, guid: 77db09c25ff1ddc429ed0c7d222b361d, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawDialogues.Array.data[6]
+      value: 
+      objectReference: {fileID: 4900000, guid: 0d4aff6ee8991c649a97e813b1844d7f, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawDialogues.Array.data[7]
+      value: 
+      objectReference: {fileID: 4900000, guid: b809ea39d4a3f9140a4ba190e9a6b390, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawDialogues.Array.data[8]
+      value: 
+      objectReference: {fileID: 4900000, guid: 7a649ce200d98034387a6d564bd4bf9d, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawDialogues.Array.data[9]
+      value: 
+      objectReference: {fileID: 4900000, guid: 31be2b12e33d3964c9108c5d0ba6220f, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: dialogueFinished.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: dialogueFinished.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6883973277790606601, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -7038,7 +7070,7 @@ PrefabInstance:
     - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: firstDialogue
       value: 
-      objectReference: {fileID: 4900000, guid: 7c8e6c5d1ae02c444bec91d84470a8b2, type: 3}
+      objectReference: {fileID: 4900000, guid: 31be2b12e33d3964c9108c5d0ba6220f, type: 3}
     - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: playerDrowning
       value: 
