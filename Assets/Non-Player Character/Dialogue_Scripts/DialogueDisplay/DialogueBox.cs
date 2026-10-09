@@ -57,11 +57,16 @@ namespace Narrative
         private void CheckInput()
         {
             //Input for advancing textbox
-            if (Input.GetButtonDown("Submit"))
+            if (Input.GetKeyDown(KeyCode.E) && currentCharacter != 0)
             {
                 if (isEndOfText())
                 {
                     AdvanceLine();
+                }
+                else
+                {
+                    currentCharacter = textLength;
+                    UpdateText(true);
                 }
             }
         }
@@ -69,9 +74,9 @@ namespace Narrative
         /// <summary>
         /// Advances per character text.
         /// </summary>
-        private void UpdateText()
+        private void UpdateText(bool forceUpdate = false)
         {
-            if (currentCharacter < textLength)
+            if (currentCharacter < textLength || forceUpdate)
             {
                 //Advance visible characters
                 currentCharacter += Time.deltaTime * charactersPerSecond;
@@ -143,7 +148,7 @@ namespace Narrative
         /// Checks if the per character scrolling reached the end of the text.
         /// </summary>
         /// <returns></returns>
-        private bool isEndOfText()
+        public bool isEndOfText()
         {
             return (currentCharacter >= textLength);
         }

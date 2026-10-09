@@ -181,9 +181,12 @@ public class DialogueSystem : MonoBehaviour
         updateDialogueBox();
         if (isActive)
         {
-            if (Input.GetKeyDown(KeyCode.Space)) //TODO: Confirm if we r using space
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                progressDialogue();
+                if (dialogueBox.isEndOfText())
+                {
+                    progressDialogue();
+                }
             }
         }
     }
