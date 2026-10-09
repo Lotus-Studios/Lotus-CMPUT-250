@@ -57,7 +57,7 @@ namespace Narrative
         private void CheckInput()
         {
             //Input for advancing textbox
-            if (Input.GetKeyDown(KeyCode.E) && currentCharacter != 0)
+            if (Input.GetKeyDown(KeyCode.E) && currentCharacter != 0) //Removing currentCharacter != 0 will make it so that the text skips to end immediately (due to GetKeyDown being still true after changing to new line)
             {
                 if (isEndOfText())
                 {
@@ -76,7 +76,7 @@ namespace Narrative
         /// </summary>
         private void UpdateText(bool forceUpdate = false)
         {
-            if (currentCharacter < textLength || forceUpdate)
+            if (currentCharacter < textLength || forceUpdate) //force update if we need to skip to end of line but still trigger a refresh for the label
             {
                 //Advance visible characters
                 currentCharacter += Time.deltaTime * charactersPerSecond;

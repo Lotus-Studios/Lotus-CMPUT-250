@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 
@@ -16,6 +17,9 @@ public class breakPlatform : MonoBehaviour
     private Collider platformCollider;
 
     private Coroutine breakCoroutine;
+
+    [HideInInspector]
+    public bool broken;
 
 
     void Start()
@@ -38,9 +42,11 @@ public class breakPlatform : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && breakCoroutine == null)
-        {
-            breakCoroutine = StartCoroutine(BreakPlatform());
-            AudioController.Instance.PlayPlatformSound(breakBlockJiggleClip, transform.position, 1f, breakTime);
+        {   
+            if(!broken){
+                breakCoroutine = StartCoroutine(BreakPlatform());
+                AudioController.Instance.PlayPlatformSound(breakBlockJiggleClip, transform.position, 1f, breakTime);
+            }
         }
     }
 
@@ -48,6 +54,7 @@ public class breakPlatform : MonoBehaviour
 
     private IEnumerator BreakPlatform()
     {
+
         vfx.JigglePercentInfluence = 1.0f;
         yield return new WaitForSeconds(breakTime);
 
@@ -56,9 +63,12 @@ public class breakPlatform : MonoBehaviour
 
         breakCoroutine = null;
 
-        AudioController.Instance.PlayPlatformSound(breakBlockShatterClip, transform.position, 1f, breakBlockShatterClip.length);
+        if(!broken)
+            AudioController.Instance.PlayPlatformSound(breakBlockShatterClip, transform.position, 1f, breakBlockShatterClip.length);
 
+        broken = true;
         yield return new WaitForSeconds(resetTime);
+        broken = false;
 
         vfx.Reform();
         vfx.JigglePercentInfluence = 0.0f;

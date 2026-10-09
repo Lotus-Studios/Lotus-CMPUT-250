@@ -5117,6 +5117,7 @@ MonoBehaviour:
   - {fileID: 1171849767899385809}
   pieceDirectionalAmplitudes: {x: 0.05, y: 0.05, z: 0.05}
   pieceNoiseFrequency: 10
+  platform: {fileID: 7048176324824727559}
   blockNoiseFrequency: 5
   blockNoiseAmplitudes: {x: 0.22, y: 0.05, z: 0.19}
   splitForce: 2
@@ -5139,6 +5140,7 @@ MonoBehaviour:
   vfx: {fileID: 8932048998483023795}
   breakBlockJiggleClip: {fileID: 8300000, guid: ae0d0e3fc2f1e410bb2af1c45822a082, type: 3}
   breakBlockShatterClip: {fileID: 8300000, guid: 08eff8ca174914ddc97a6dc3806b0b0f, type: 3}
+  broken: 0
 --- !u!65 &1783441665274087770
 BoxCollider:
   m_ObjectHideFlags: 0

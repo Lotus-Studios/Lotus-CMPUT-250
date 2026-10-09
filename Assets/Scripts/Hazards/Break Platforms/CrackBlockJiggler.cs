@@ -16,13 +16,15 @@ public class CrackBlockJiggler : MonoBehaviour
     //Clamps from 0-100% range (0.0 to 1.0f)
     public float JigglePercentInfluence {get{return _jigglePercentInfluence;} set{_jigglePercentInfluence = Mathf.Clamp(value, 0.0f, 1.0f);}}
 
+    [SerializeField]
+    breakPlatform platform;
 
     [Header("Per entire block")]
     Vector3 blockRestPoint;
     [SerializeField] float blockNoiseFrequency = 5f;
     [SerializeField] Vector3 blockNoiseAmplitudes = new Vector3(0.1f, 0.05f, 0.1f);
 
-    bool broken = false;
+    
     [SerializeField] float splitForce = 2.0f;
     [SerializeField] float maxSplitTorque = 50f;
 
@@ -51,7 +53,7 @@ public class CrackBlockJiggler : MonoBehaviour
     void Update()
     {
         
-        if(JigglePercentInfluence == 0.0 || broken) return;
+        if(JigglePercentInfluence == 0.0 || platform.broken) return;
         if(!particles.isPlaying) particles.Play();
         for(int i = 0; i < crackPieces.Length; i++)
         {
@@ -72,8 +74,6 @@ public class CrackBlockJiggler : MonoBehaviour
     public void Break()
     {
         particles.Stop();
-
-        broken = true;
         for(int i = 0; i < crackPieces.Length; i++)
         {
             crackPieces[i].Rigidbody.isKinematic = false;
@@ -98,7 +98,6 @@ public class CrackBlockJiggler : MonoBehaviour
 
     public void Reform()
     {
-        broken = false;
         for(int i = 0; i < crackPieces.Length; i++)
         {
             crackPieces[i].Rigidbody.isKinematic = true;
