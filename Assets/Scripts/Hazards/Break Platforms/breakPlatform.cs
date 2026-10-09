@@ -10,10 +10,13 @@ public class breakPlatform : MonoBehaviour
     [SerializeField] private float resetTime = 1f;
 
     [SerializeField] CrackBlockJiggler vfx;
+    [SerializeField] private AudioClip breakBlockJiggleClip;
+    [SerializeField] private AudioClip breakBlockShatterClip;
 
     private Collider platformCollider;
 
     private Coroutine breakCoroutine;
+
 
     void Start()
     {
@@ -37,6 +40,7 @@ public class breakPlatform : MonoBehaviour
         if (other.CompareTag("Player") && breakCoroutine == null)
         {
             breakCoroutine = StartCoroutine(BreakPlatform());
+            AudioController.Instance.PlayPlatformSound(breakBlockJiggleClip, transform.position, 1f, breakTime);
         }
     }
 
@@ -51,6 +55,8 @@ public class breakPlatform : MonoBehaviour
         platformCollider.enabled = false;
 
         breakCoroutine = null;
+
+        AudioController.Instance.PlayPlatformSound(breakBlockShatterClip, transform.position, 1f, breakBlockShatterClip.length);
 
         yield return new WaitForSeconds(resetTime);
 

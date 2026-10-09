@@ -48,7 +48,7 @@ namespace Narrative
                 CheckInput();
                 UpdateText();
             }
-            Debug.Log($"Current title {nameLabel.text}");
+            //Debug.Log($"Current title {nameLabel.text}");
         }
 
         /// <summary>

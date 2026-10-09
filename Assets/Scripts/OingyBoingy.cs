@@ -6,10 +6,12 @@ public class OingyBoingy : MonoBehaviour
 {
     public float boinginess = 10.0f;
     [SerializeField] Animation bounceAnim;
+    [SerializeField] AudioClip boingSound;
 
     public void doBounceAnim()
     {
         bounceAnim.Play();
+        AudioController.Instance.PlayPlatformSound(boingSound, transform.position, 0.5f, boingSound.length);
     }
 
     // Start is called before the first frame update
