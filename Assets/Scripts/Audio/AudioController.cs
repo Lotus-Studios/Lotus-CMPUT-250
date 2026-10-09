@@ -6,6 +6,7 @@ public class AudioController : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioSource loopSource;
+    public AudioSource dialogueSource;
     public AudioSource platformAudioSourceObject;
 
     [Header("Player SFX")]
@@ -41,7 +42,7 @@ public class AudioController : MonoBehaviour
     public void PlayJump(float pitch = 1f)
     {
         float finalPitch = isUnderwater ? pitch * 0.85f : pitch;
-        float finalVolume = isUnderwater ? 0.85f : 1f;
+        float finalVolume = isUnderwater ? 0.40f : 0.60f;
 
         audioSource.pitch = finalPitch;
         audioSource.PlayOneShot(jumpSound, finalVolume);
@@ -79,7 +80,7 @@ public class AudioController : MonoBehaviour
         float basePitch = Random.Range(1.7f, 1.9f);
         audioSource.pitch = isUnderwater ? basePitch * 0.85f : basePitch;
 
-        float finalVolume = isUnderwater ? 0.65f : 1f;
+        float finalVolume = isUnderwater ? 0.1f : 0.2f;
         audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
     }
 
@@ -87,7 +88,7 @@ public class AudioController : MonoBehaviour
 
     public void PlayDialogueAudio(AudioClip clip)
     {
-        audioSource.PlayOneShot(clip, 1f);
+        dialogueSource.PlayOneShot(clip, 0.4f);
     }
     public void StopAllAudio()
     {
