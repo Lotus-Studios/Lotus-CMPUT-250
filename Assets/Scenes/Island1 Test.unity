@@ -2941,6 +2941,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1364113210}
     - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawSprites.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
       propertyPath: rawAudio.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 154a7dea73c0a4f1ca2a014fbbce9116, type: 3}
@@ -2956,6 +2960,14 @@ PrefabInstance:
       propertyPath: rawSprites.Array.data[1]
       value: 
       objectReference: {fileID: 21300000, guid: e0ca34007581c3842b9d154ac16b24c1, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 298cf49dc37db4144be3cc40214c5cf2, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 408b7802475ee8a49a6dd7cf9203bcb4, type: 3}
     - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
       propertyPath: rawDialogues.Array.data[3]
       value: 
