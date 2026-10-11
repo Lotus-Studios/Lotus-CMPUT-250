@@ -110,6 +110,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 horizontalVelocity;
 
     public float currentVerticalVelocity => verticalVelocity;
+    private Vector3 lastExternalVelocity;
+    private bool hasExternalMovement;
 
     private float lastGroundedTime;
     // since characterController keeps returning true when hugging a wall. Now player will only be considered grounded if their last grounded time is < 0.05 and isGrounded 
@@ -140,6 +142,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+
         // chain jumping
         UpdateChainTimer();
         //Debug.DrawRay(transform.position, Vector3.down * jumpBufferRayCast, Color.red);
@@ -346,14 +349,13 @@ public class PlayerController : MonoBehaviour
         Vector3 motion = horizontalVelocity + (Vector3.up * verticalVelocity);
         characterController.Move(motion * Time.deltaTime);
 
-        // double checks to see if theres actually an object stopping us above.
-        if (verticalVelocity > 0f && characterController.velocity.y < 0.01f)
+        // if we arent getting pushed via pushblock anymore then clear the external momentum
+        if (!hasExternalMovement && lastExternalVelocity.magnitude > 0f)
         {
-            if ((characterController.collisionFlags & CollisionFlags.Above) != 0)
-            {
-                verticalVelocity = -2f;
-            }
+            horizontalVelocity += new Vector3(lastExternalVelocity.x, 0f, lastExternalVelocity.z);
+            lastExternalVelocity = Vector3.zero;
         }
+        hasExternalMovement = false;
     }
 
     // buffers jump input, called when player presses jump
@@ -448,6 +450,19 @@ public class PlayerController : MonoBehaviour
     {
         if (isTriggerSliding) return;
 
+        // only trigger headhitting if its a flat-ish wall and if it is on the inner area of the head
+        if (verticalVelocity > 0f && hit.normal.y < -0.7f)
+        {
+            // Find the horizontal distance between the center of the player and exactly where they bumped the object
+            Vector2 hitDistance = new Vector2(hit.point.x - transform.position.x, hit.point.z - transform.position.z);
+
+
+            if (hitDistance.magnitude < characterController.radius * 0.8f)
+            {
+                verticalVelocity = -2f;
+            }
+        }
+
         if (hit.normal.y >= 0.7f)
         {
             lastGroundedTime = Time.time;
@@ -473,7 +488,6 @@ public class PlayerController : MonoBehaviour
                 horizontalVelocity = Vector3.ProjectOnPlane(horizontalVelocity, hit.normal);
             }
 
-            // If falling against a steep wall, push outward slightly to break capsule friction lock
             if (verticalVelocity < 0f)
             {
                 horizontalVelocity += hit.normal * (0.2f * Time.deltaTime * 60f);
@@ -534,6 +548,18 @@ public class PlayerController : MonoBehaviour
     public void ApplyExternalMovement(Vector3 movement)
     {
         characterController.Move(movement);
+
+        Vector3 currentExternalVelocity = movement / Time.deltaTime;
+
+        // if the push block stops then transfer momentum to player
+        if (currentExternalVelocity.magnitude < lastExternalVelocity.magnitude - 0.5)
+        {
+            Vector3 inertia = lastExternalVelocity - currentExternalVelocity;
+            horizontalVelocity += new Vector3(inertia.x, 0f, inertia.z);
+        }
+
+        lastExternalVelocity = currentExternalVelocity;
+        hasExternalMovement = true;
     }
 
     // resets player

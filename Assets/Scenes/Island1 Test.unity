@@ -2798,7 +2798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customSpawnPoint: {fileID: 727681459}
   water: {fileID: 1024422503}
-  waterOffsetBelowCheckpoint: 3
+  waterOffsetBelowCheckpoint: 7.8
   waterRiseSpeed: 0.7
 --- !u!65 &412266197
 BoxCollider:
@@ -2830,8 +2830,8 @@ Transform:
   m_GameObject: {fileID: 412266195}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.6, y: 3.89, z: -28.25}
-  m_LocalScale: {x: 5.2921, y: 1, z: 5.6791}
+  m_LocalPosition: {x: -4.6, y: 7, z: -28.25}
+  m_LocalScale: {x: 49.96832, y: 5.976047, z: 5.6791}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 727681459}
@@ -5070,7 +5070,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.36, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.89605, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 412266198}
@@ -10675,7 +10675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7405577233560787694, guid: 16b6e1ac8b63fae4f92bc0fa27afa812, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.25
+      value: -30.3
       objectReference: {fileID: 0}
     - target: {fileID: 7405577233560787694, guid: 16b6e1ac8b63fae4f92bc0fa27afa812, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10683,7 +10683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7405577233560787694, guid: 16b6e1ac8b63fae4f92bc0fa27afa812, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.54
+      value: 13.56
       objectReference: {fileID: 0}
     - target: {fileID: 7405577233560787694, guid: 16b6e1ac8b63fae4f92bc0fa27afa812, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11491,7 +11491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2055115149656832461, guid: 3fbd479be68a89f45b802096168eaf50, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.64
+      value: 2.654
       objectReference: {fileID: 0}
     - target: {fileID: 2055115149656832461, guid: 3fbd479be68a89f45b802096168eaf50, type: 3}
       propertyPath: m_LocalPosition.z
