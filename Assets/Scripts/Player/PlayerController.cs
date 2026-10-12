@@ -16,9 +16,10 @@ using UnityEngine;
      *  https://www.youtube.com/watch?v=SsckrYYxcuM - Dave / GameDevelopment - Slope sliding vectors and normal projections.
      *  https://www.youtube.com/watch?v=K1xZ-rycYY8&t=3s - Bendux - New Input System callbacks, variable jump height.
      *  https://www.youtube.com/watch?v=fJyi7l2tWKo - LlamAcademy - Raycasts, layermasks etc. 
-     *  https://www.youtube.com/watch?v=MOYiVLEnhrw  - Freya Holm�r - Math for Game Devs P1 (Her entire video catalogue is especially useful)
-     *  https://www.youtube.com/watch?v=XiwEyopOMqg - Freya Holm�r - Math for Game Devs P2
-     *  https://www.youtube.com/watch?v=1NLekEd770w&t - Freya Holm�r -  Math for Game Devs P3
+     *  https://www.youtube.com/watch?v=MOYiVLEnhrw  - Freya Holmer - Math for Game Devs P1 (Her entire video catalogue is especially useful)
+     *  https://www.youtube.com/watch?v=XiwEyopOMqg - Freya Holmer - Math for Game Devs P2
+     *  https://www.youtube.com/watch?v=1NLekEd770w&t - Freya Holmer -  Math for Game Devs P3
+     *  https://www.youtube.com/watch?v=Jc9zmRmktzw - Game Cipher - Player silhouette
      *  
      *  Forum:
      *  https://discussions.unity.com/t/isgrounded-returns-true-when-colliding-with-wall/931376 - Forum for IsGrounded returns true when colliding with wall
