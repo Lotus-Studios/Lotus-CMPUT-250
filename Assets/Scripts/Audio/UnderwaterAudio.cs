@@ -7,6 +7,11 @@ public class UnderwaterAudio : MonoBehaviour
 {
     public static UnderwaterAudio _instance;
     public static UnderwaterAudio Instance { get { return _instance; } }
+    [SerializeField] private AudioSource underwaterSource;
+    [SerializeField] private AudioClip submergeSound;
+    [SerializeField] private AudioClip emergeSound;
+    private bool isUnderwater = false;
+
 
     void Awake()
     {
@@ -30,6 +35,7 @@ public class UnderwaterAudio : MonoBehaviour
         {
             AudioController.Instance.SetUnderwater(true);
         }
+        PlaySubmerge();
     }
 
     public void DisableUnderwaterAudio()
@@ -42,6 +48,25 @@ public class UnderwaterAudio : MonoBehaviour
         if (AudioController.Instance != null)
         {
             AudioController.Instance.SetUnderwater(false);
+        }
+        PlayEmerge();
+    }
+
+    public void PlaySubmerge()
+    {
+        if (!isUnderwater) {    // don't play if already underwater
+            underwaterSource.PlayOneShot(submergeSound, 0.3f);
+            isUnderwater = true;
+            //underwaterSource.clip = submergeSound;
+            //underwaterSource.Play();
+        }
+    }
+
+    public void PlayEmerge()
+    {
+        if (isUnderwater) {
+            underwaterSource.PlayOneShot(emergeSound, 0.3f);
+            isUnderwater = false;
         }
     }
 }

@@ -4,7 +4,8 @@ public class AudioController : MonoBehaviour
 {
     public static AudioController Instance { get; private set; }
 
-    public AudioSource audioSource;
+    public AudioSource footstepSource;
+    public AudioSource jumpSource;
     public AudioSource loopSource;
     public AudioSource dialogueSource;
     public AudioSource platformAudioSourceObject;
@@ -13,6 +14,7 @@ public class AudioController : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip flutterSound;
     public AudioClip[] footstepSounds;
+
 
     private bool isUnderwater = false;
 
@@ -44,8 +46,8 @@ public class AudioController : MonoBehaviour
         float finalPitch = isUnderwater ? pitch * 0.85f : pitch;
         float finalVolume = isUnderwater ? 0.40f : 0.60f;
 
-        audioSource.pitch = finalPitch;
-        audioSource.PlayOneShot(jumpSound, finalVolume);
+        jumpSource.pitch = finalPitch;
+        jumpSource.PlayOneShot(jumpSound, finalVolume);
     }
 
     public void StartFlutterLoop()
@@ -78,10 +80,13 @@ public class AudioController : MonoBehaviour
 
         // Base pitch is 1.7 to 1.9, multiplied by 0.85 if underwater
         float basePitch = Random.Range(1.7f, 1.9f);
-        audioSource.pitch = isUnderwater ? basePitch * 0.85f : basePitch;
+        footstepSource.pitch = isUnderwater ? basePitch * 0.85f : basePitch;
 
-        float finalVolume = isUnderwater ? 0.1f : 0.2f;
-        audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
+        float finalVolume = isUnderwater ? 0.01f : 0.05f;
+        //audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
+        footstepSource.clip = footstepSounds[randomIndex];
+        footstepSource.volume = finalVolume;
+        footstepSource.Play();
     }
 
 
@@ -93,7 +98,7 @@ public class AudioController : MonoBehaviour
     public void StopAllAudio()
     {
         if (loopSource != null) loopSource.Stop();
-        if (audioSource != null) audioSource.Stop();
+        if (footstepSource != null) footstepSource.Stop();
     }
 
 
@@ -107,5 +112,22 @@ public class AudioController : MonoBehaviour
         platformAudioSource.Play();
         Destroy(platformAudioSource.gameObject, time);  // destroy audio source after time is passed
     }
+
+
+    // use for platforms who call this function within an update loop
+    public void PlayFromAudioSource(AudioClip clip, AudioSource source) 
+    {
+        if (!source.isPlaying) {
+            source.clip = clip;
+            source.Play();
+        }
+    }
+
+    public void SetAudioSourceProperties(AudioSource source, float volume, float pitch) 
+    {
+        source.volume = volume;
+        source.pitch = pitch;
+    }
+
 
 }
