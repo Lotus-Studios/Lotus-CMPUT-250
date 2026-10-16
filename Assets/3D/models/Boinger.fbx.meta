@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: c547ce129402f054488c7521c244cceb
+guid: 2e6f660183c5d41488051b3dbbc349e4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BoingerMaterial
+    second: {fileID: 2100000, guid: 37dcf8dc69f28664aaaec62e44bcada5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: df0ea4ec6be714a4788366aeee8e2d8b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
