@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Events;
 
 public class PlayerDrowning : MonoBehaviour
 {
@@ -20,10 +21,11 @@ public class PlayerDrowning : MonoBehaviour
 
     private float drownTimer;
     // private bool wasUnderWater;
-    // private bool isDying;
+    private bool isDying = false;
 
-
-    [SerializeField] private Transform playerResetPosition;
+    
+    public UnityEvent playerDied;
+    // [SerializeField] private Transform playerResetPosition;
 
     [SerializeField] private PlayerController playerController;
 
@@ -36,20 +38,41 @@ public class PlayerDrowning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDying)
+        {
+            if (UnderwaterAudio.Instance != null)
+            {
+                UnderwaterAudio.Instance.EnableUnderwaterAudio();
+            }
+
+            if (ScreenFadeToBlack.Instance.IsScreenBlack)
+            {
+                water.ResetMe(-2.5f);
+                waterPostProcess.weight = 0f;
+                drownTimer = timeToDrown;
+
+                isDying = false;
+            }
+            return;
+        }
+
         bool isUnderwater = topOfHead.transform.position.y < water.transform.position.y;
 
         if (isUnderwater)
         {
+            if (UnderwaterAudio.Instance != null)
+            {
+                UnderwaterAudio.Instance.EnableUnderwaterAudio();
+            }
+
+            // checks if the player is within X units of ground, if not then die otherwise they can fall and land on it.
             bool isDeep = !Physics.Raycast(playerController.transform.position, Vector3.down, requiredDepthForDeath, groundLayerMask);
             if (playerController.currentVerticalVelocity <= deadlySpeed && isDeep)
             {
                 Die();
                 return;
             }
-        }
 
-        if (isUnderwater)
-        {
             drownTimer -= Time.deltaTime;
             if (drownTimer <= 0)
             {
@@ -60,6 +83,11 @@ public class PlayerDrowning : MonoBehaviour
         }
         else
         {
+            if (UnderwaterAudio.Instance != null)
+            {
+                UnderwaterAudio.Instance.DisableUnderwaterAudio();
+            }
+
             waterPostProcess.weight = Mathf.Lerp(waterPostProcess.weight, 0.0f, waterPostProcessLerpSpeed * Time.deltaTime);
 
             drownTimer = timeToDrown;
@@ -68,10 +96,14 @@ public class PlayerDrowning : MonoBehaviour
 
     private void Die()
     {
-        water.ResetMe(-2.5f);
-        playerController.teleport(playerResetPosition.position);
-        drownTimer = timeToDrown;
-        waterPostProcess.weight = 0f;
+        if (isDying) return; // Prevent calling this multiple times while already dying
+        isDying = true; 
+        playerController.Respawn();
+
+        if (AudioController.Instance != null) AudioController.Instance.StopAllAudio();
+        
+
+        playerDied?.Invoke();
     }
 
 }

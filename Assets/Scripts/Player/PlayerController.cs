@@ -7,12 +7,48 @@ using UnityEngine;
 
 // Controls player movement, jump physics, coyote time, jump buffering, etc.
 // Also passes motion and directional data to CharacterAnimator.cs
+
+/*  Videos:
+     *  https://www.youtube.com/watch?v=XtQMytORBmM&t=240s - Game Maker's Toolkit - Engine basics, Unity hierarchy, component architecture.
+     *  https://www.youtube.com/watch?v=T2T82MWbbew&t=296s - Tvtig - CharacterController setup, Input System decoupling, LateUpdate camera follow.
+     *  https://www.youtube.com/watch?v=NsSk58un8E0&t - Beans - video for Advanced Movement Shooter Physics. Mostly used for velocity handling and sliding.
+     *  https://www.youtube.com/watch?v=z3dequX5g_E - Semikoder - CharacterController grounding and motion pipeline.
+     *  https://www.youtube.com/watch?v=SsckrYYxcuM - Dave / GameDevelopment - Slope sliding vectors and normal projections.
+     *  https://www.youtube.com/watch?v=K1xZ-rycYY8&t=3s - Bendux - New Input System callbacks, variable jump height.
+     *  https://www.youtube.com/watch?v=fJyi7l2tWKo - LlamAcademy - Raycasts, layermasks etc. 
+     *  https://www.youtube.com/watch?v=MOYiVLEnhrw  - Freya Holmer - Math for Game Devs P1 (Her entire video catalogue is especially useful)
+     *  https://www.youtube.com/watch?v=XiwEyopOMqg - Freya Holmer - Math for Game Devs P2
+     *  https://www.youtube.com/watch?v=1NLekEd770w&t - Freya Holmer -  Math for Game Devs P3
+     *  https://www.youtube.com/watch?v=Jc9zmRmktzw - Game Cipher - Player silhouette
+     *  
+     *  Forum:
+     *  https://discussions.unity.com/t/isgrounded-returns-true-when-colliding-with-wall/931376 - Forum for IsGrounded returns true when colliding with wall
+     *  
+     *  Documentation:
+     *  https://docs.unity3d.com/2022.3/Documentation/Manual/index.html - Unity Documentation.
+     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/index.html - Scripting Documentation.
+     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/CharacterController.html - Character Controller specific page.
+     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Quaternion.html - Quaternion specific page.
+     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/SpriteRenderer.html - SpriteRenderer specific page.
+     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/CollisionFlags.html - Collision Flags specific page.
+     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Mathf.html - Mathf specific page.
+     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Physics.html - Physics specific page.
+     *  - https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Physics.Raycast.html - Physics.Raycast specific page.
+     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Vector2.html - Vector 2 specific page.
+     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Vector3.html - Vector 3 specific page.
+     *  - https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Vector3.MoveTowards.html - Vector3.moveTowards specific page.
+     *  
+     *  prolly go back here to revamp the descriptions but heres the credits and sources for now.
+     */
 public class PlayerController : MonoBehaviour
 {
     private CharacterController characterController;
     [SerializeField] private CharacterAnimator characterAnimator;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] OrbitCamera orbitCamera;
+
+    [Header("Respawn Point")]
+    public Vector3 currentCheckpointPosition;
 
     [Header("Movement Settings")]
     [SerializeField] private float maxSpeed = 7f;
@@ -58,6 +94,7 @@ public class PlayerController : MonoBehaviour
 
     private float flutterTimeCounter;
     private bool isFluttering;
+    public bool IsFluttering => isFluttering;
     private bool hasFluttered;
 
     [Header("Movement Tuning")]
@@ -75,6 +112,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 horizontalVelocity;
 
     public float currentVerticalVelocity => verticalVelocity;
+    private Vector3 lastExternalVelocity;
+    private bool hasExternalMovement;
 
     private float lastGroundedTime;
     // since characterController keeps returning true when hugging a wall. Now player will only be considered grounded if their last grounded time is < 0.05 and isGrounded 
@@ -82,38 +121,6 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded => characterController.isGrounded && (Time.time - lastGroundedTime < 0.05f);
 
     public bool canMove = true;
-
-    /*  Videos:
-     *  https://www.youtube.com/watch?v=XtQMytORBmM&t=240s - Game Maker's Toolkit - Engine basics, Unity hierarchy, component architecture.
-     *  https://www.youtube.com/watch?v=T2T82MWbbew&t=296s - Tvtig - CharacterController setup, Input System decoupling, LateUpdate camera follow.
-     *  https://www.youtube.com/watch?v=NsSk58un8E0&t - Beans - video for Advanced Movement Shooter Physics. Mostly used for velocity handling and sliding.
-     *  https://www.youtube.com/watch?v=z3dequX5g_E - Semikoder - CharacterController grounding and motion pipeline.
-     *  https://www.youtube.com/watch?v=SsckrYYxcuM - Dave / GameDevelopment - Slope sliding vectors and normal projections.
-     *  https://www.youtube.com/watch?v=K1xZ-rycYY8&t=3s - Bendux - New Input System callbacks, variable jump height.
-     *  https://www.youtube.com/watch?v=fJyi7l2tWKo - LlamAcademy - Raycasts, layermasks etc. 
-     *  https://www.youtube.com/watch?v=MOYiVLEnhrw  - Freya Holm�r - Math for Game Devs P1 (Her entire video catalogue is especially useful)
-     *  https://www.youtube.com/watch?v=XiwEyopOMqg - Freya Holm�r - Math for Game Devs P2
-     *  https://www.youtube.com/watch?v=1NLekEd770w&t - Freya Holm�r -  Math for Game Devs P3
-     *  
-     *  Forum:
-     *  https://discussions.unity.com/t/isgrounded-returns-true-when-colliding-with-wall/931376 - Forum for IsGrounded returns true when colliding with wall
-     *  
-     *  Documentation:
-     *  https://docs.unity3d.com/2022.3/Documentation/Manual/index.html - Unity Documentation.
-     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/index.html - Scripting Documentation.
-     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/CharacterController.html - Character Controller specific page.
-     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Quaternion.html - Quaternion specific page.
-     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/SpriteRenderer.html - SpriteRenderer specific page.
-     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/CollisionFlags.html - Collision Flags specific page.
-     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Mathf.html - Mathf specific page.
-     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Physics.html - Physics specific page.
-     *  - https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Physics.Raycast.html - Physics.Raycast specific page.
-     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Vector2.html - Vector 2 specific page.
-     *  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Vector3.html - Vector 3 specific page.
-     *  - https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Vector3.MoveTowards.html - Vector3.moveTowards specific page.
-     *  
-     *  prolly go back here to revamp the descriptions but heres the credits and sources for now.
-     */
 
     void Start()
     {
@@ -131,10 +138,13 @@ public class PlayerController : MonoBehaviour
         {
             characterAnimator = GetComponentInChildren<CharacterAnimator>();
         }
+
+        currentCheckpointPosition = transform.position;
     }
 
     private void Update()
     {
+
         // chain jumping
         UpdateChainTimer();
         //Debug.DrawRay(transform.position, Vector3.down * jumpBufferRayCast, Color.red);
@@ -217,13 +227,7 @@ public class PlayerController : MonoBehaviour
         camRight.Normalize();
 
         // calculate move direction relative to where the camera is facing
-        Vector3 moveDirection = (camForward * input.y + camRight * input.x).normalized;
-
-        // headhitting, basically applies -2 vertical velocity (falling down speed) if head touches anything
-        if ((characterController.collisionFlags & CollisionFlags.Above) != 0 && verticalVelocity > 0f)
-        {
-            verticalVelocity = -2f;
-        }
+        Vector3 moveDirection = (camForward * input.y + camRight * input.x).normalized;    
 
         if (isTriggerSliding)
         {
@@ -346,6 +350,14 @@ public class PlayerController : MonoBehaviour
         // Combine horizontal motion and vertical velocity, then apply via CharacterController
         Vector3 motion = horizontalVelocity + (Vector3.up * verticalVelocity);
         characterController.Move(motion * Time.deltaTime);
+
+        // if we arent getting pushed via pushblock anymore then clear the external momentum
+        if (!hasExternalMovement && lastExternalVelocity.magnitude > 0f)
+        {
+            horizontalVelocity += new Vector3(lastExternalVelocity.x, 0f, lastExternalVelocity.z);
+            lastExternalVelocity = Vector3.zero;
+        }
+        hasExternalMovement = false;
     }
 
     // buffers jump input, called when player presses jump
@@ -391,8 +403,6 @@ public class PlayerController : MonoBehaviour
         verticalVelocity = finalJumpForce;
         coyoteTimeCounter = 0;
         jumpBufferCounter = 0;
-
-        characterAnimator.TriggerJump();
     }
 
     // Initiates flutter jump physics, timers, and animations
@@ -410,14 +420,6 @@ public class PlayerController : MonoBehaviour
         {
             verticalVelocity *= flutterDownwardMomentumMult;
         }
-
-        // maxes horizontal movement to the flutterMaxSpeed, commented out in favor of soft capping it instead in Move()
-        // horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, flutterMaxSpeed);
-
-        //if (characterAnimator != null)
-        //{
-        //    characterAnimator.TriggerFlutter();
-        //}
     }
 
     // Variable jump height.
@@ -440,9 +442,32 @@ public class PlayerController : MonoBehaviour
     {
         if (isTriggerSliding) return;
 
+        // only trigger headhitting if its a flat-ish wall and if it is on the inner area of the head
+        if (verticalVelocity > 0f && hit.normal.y < -0.7f)
+        {
+            // Find the horizontal distance between the center of the player and exactly where they bumped the object
+            Vector2 hitDistance = new Vector2(hit.point.x - transform.position.x, hit.point.z - transform.position.z);
+
+
+            if (hitDistance.magnitude < characterController.radius * 0.8f)
+            {
+                verticalVelocity = -2f;
+            }
+        }
+
         if (hit.normal.y >= 0.7f)
         {
             lastGroundedTime = Time.time;
+
+            // so we dont need the trigger anymore and can just use the slippersurface.cs as a data box basically.
+            if (hit.collider.TryGetComponent<SlipperySurface>(out SlipperySurface surface))
+            {
+                surfaceFrictionMultiplier = surface.frictionMultiplier;
+            }
+            else
+            {
+                surfaceFrictionMultiplier = 1f; 
+            }
         }
 
         // Makes it so only steep walls or vertical walls or overhang walls will set perpendicular momentum to 0
@@ -455,7 +480,6 @@ public class PlayerController : MonoBehaviour
                 horizontalVelocity = Vector3.ProjectOnPlane(horizontalVelocity, hit.normal);
             }
 
-            // If falling against a steep wall, push outward slightly to break capsule friction lock
             if (verticalVelocity < 0f)
             {
                 horizontalVelocity += hit.normal * (0.2f * Time.deltaTime * 60f);
@@ -464,6 +488,7 @@ public class PlayerController : MonoBehaviour
 
         if (hit.collider.TryGetComponent<OingyBoingy>(out OingyBoingy boingy))
         {
+            boingy.doBounceAnim();
             ExecuteJump(boingy.boinginess);
         }
     }
@@ -515,6 +540,18 @@ public class PlayerController : MonoBehaviour
     public void ApplyExternalMovement(Vector3 movement)
     {
         characterController.Move(movement);
+
+        Vector3 currentExternalVelocity = movement / Time.deltaTime;
+
+        // if the push block stops then transfer momentum to player
+        if (currentExternalVelocity.magnitude < lastExternalVelocity.magnitude - 0.5)
+        {
+            Vector3 inertia = lastExternalVelocity - currentExternalVelocity;
+            horizontalVelocity += new Vector3(inertia.x, 0f, inertia.z);
+        }
+
+        lastExternalVelocity = currentExternalVelocity;
+        hasExternalMovement = true;
     }
 
     // resets player
@@ -527,12 +564,19 @@ public class PlayerController : MonoBehaviour
         isTriggerSliding = false;
         isFluttering = false;
         hasFluttered = false;
-        orbitCamera.ClearDialogueTarget();
-
+        if (AudioLayering.Instance != null) { AudioLayering.Instance.FadeToChill(); }
 
         characterController.enabled = false;
         transform.position = position;
         characterController.enabled = true;
+        orbitCamera.ResetCamera();
 
+    }
+
+    // reset the player to their last checkpoint
+    public void Respawn()
+    {
+        // Teleport is called inside this
+        ScreenFadeToBlack.Instance.FadeAndRespawn(this);
     }
 }

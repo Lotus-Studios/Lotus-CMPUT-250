@@ -56,6 +56,8 @@ public class AnimatedEntity : MonoBehaviour
 
     //Interrupt animation
     protected void Interrupt(List<Sprite> _interruptAnimation){
+        if (_interruptAnimation == null || _interruptAnimation.Count == 0) return;
+
         interruptFlag = true;
         animationTimer = 0;
         index = 0;

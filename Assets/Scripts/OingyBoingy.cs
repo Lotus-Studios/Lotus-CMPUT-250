@@ -5,6 +5,16 @@ using UnityEngine;
 public class OingyBoingy : MonoBehaviour
 {
     public float boinginess = 10.0f;
+    [SerializeField] Animation bounceAnim;
+    [SerializeField] AudioClip boingSound;
+    [SerializeField] AudioSource boingSource;
+
+    public void doBounceAnim()
+    {
+        bounceAnim.Play();
+        AudioController.Instance.PlayFromAudioSource(boingSound, boingSource);
+    }
+
     // Start is called before the first frame update
     void Start()
     {

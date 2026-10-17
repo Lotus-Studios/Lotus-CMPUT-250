@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class OrbitCamera : MonoBehaviour
 {
@@ -29,13 +29,13 @@ public class OrbitCamera : MonoBehaviour
 
     /* Videos:
      * https://www.youtube.com/watch?v=9dzBrLUIF8g - Sasquatch B Studios - How to make a camera like hollow knight, not too useful but can teach about direction bias, interpolation, camera ledge detection, etc.
-     * https://www.youtube.com/watch?v=LSNQuFEDOyQ - Freya Holmér - How Lerp works under the hood and why its framerate dependent.
+     * https://www.youtube.com/watch?v=LSNQuFEDOyQ - Freya Holmï¿½r - How Lerp works under the hood and why its framerate dependent.
      * 
      * Documentation:
      * https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Vector3.SignedAngle.html
      * https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Mathf.DeltaAngle.html
      * https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Quaternion.Euler.html
-     * Also see Freya Holmér videos in playercontroller.cs
+     * Also see Freya Holmï¿½r videos in playercontroller.cs
      */
 
     private void Start()
@@ -127,11 +127,44 @@ public class OrbitCamera : MonoBehaviour
         transform.LookAt(lookTarget);
     }
 
+    public void ResetCamera()
+    {
+        if (lookAtTransform == null || mountainCenter == null) return;
+
+        ClearDialogueTarget();
+
+        // target heights and focus points directly to the player
+        lockedBaseHeight = lookAtTransform.position.y;
+        currentCameraY = lockedBaseHeight + height;
+        currentRadius = orbitRadius;
+        currentTargetHeight = height;
+        currentFocusPoint = lookAtTransform.position;
+
+        // recalculate the angle around the mountain
+        Vector3 offset = lookAtTransform.position - mountainCenter.position;
+        offset.y = 0;
+        lockedAngleX = Vector3.SignedAngle(Vector3.forward, offset, Vector3.up);
+
+        // Force the camera transform to move to the new spot 
+        Quaternion angleRotation = Quaternion.Euler(0f, lockedAngleX, 0f);
+        Vector3 lockedOutwardDir = angleRotation * Vector3.forward;
+
+        Vector3 targetPos = currentFocusPoint + (lockedOutwardDir * currentRadius);
+        targetPos.y = currentCameraY;
+        transform.position = targetPos;
+
+        Vector3 lookTarget = currentFocusPoint;
+        lookTarget.y = currentCameraY - currentTargetHeight + 1.2f;
+        transform.LookAt(lookTarget);
+    }
+
     // sets the dialogue NPC (Noah use these)
     public void SetDialogueTarget(Transform npc)
     {
         activeNPC = npc;
         lockedBaseHeight = (lookAtTransform.position.y + activeNPC.position.y) * 0.5f;
+
+        Debug.Log($"Camera received target: {npc.name}. Moving to radius: {dialogueZoomRadius}");
     }
 
     // removes teh dialogue NPC (Noah use these)

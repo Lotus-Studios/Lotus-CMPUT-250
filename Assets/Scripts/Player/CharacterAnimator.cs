@@ -25,12 +25,18 @@ public class CharacterAnimator : AnimatedEntity
 
     public DirectionalAnimations idle;
     public DirectionalAnimations walk;
-    public DirectionalAnimations jump;
+
+    [Header("Jump Phases")]
+    public DirectionalAnimations jumpRise;
+    public DirectionalAnimations jumpFall;
+    public DirectionalAnimations jumpLand;
+
     public DirectionalAnimations flutter;
 
     private PlayerController playerController;
-
     private int currentFacing = 0; // 0 is front, 1 is back, 2 is side.
+
+    private bool wasGrounded = true;
 
     void Start()
     {
@@ -50,8 +56,36 @@ public class CharacterAnimator : AnimatedEntity
         int previousIndex = index;
         base.AnimationUpdate();
 
+        bool isGrounded = playerController.IsGrounded;
+        if (!wasGrounded && isGrounded)
+        {
+            TriggerLand();
+        }
+
+        // plays jump rising or jump falling animation
+        if (!isGrounded)
+        {
+            // Fluttering
+            if (playerController.IsFluttering)
+            {
+                DefaultAnimationCycle = flutter.GetList(currentFacing);
+            }
+            // Jump Rise
+            else if (playerController.currentVerticalVelocity > 0)
+            {
+                DefaultAnimationCycle = jumpRise.GetList(currentFacing);
+            }
+            // Jump fall
+            else
+            {
+                DefaultAnimationCycle = jumpFall.GetList(currentFacing);
+            }
+        }
+
+        wasGrounded = isGrounded;
+
         // If the frame just changed and we are currently playing the walk cycle
-        if (previousIndex != index && DefaultAnimationCycle == walk.side /*DefaultAnimationCycle == walk.GetList(currentFacing)*/ )
+        if (previousIndex != index && DefaultAnimationCycle == walk.GetList(currentFacing))
         {
             // frames where player foot hits the ground
             if ((index == 2 || index == 6) && playerController.IsGrounded)
@@ -82,22 +116,16 @@ public class CharacterAnimator : AnimatedEntity
 
     // Swaps between idle or walk animation cycles
     public void SetMoving(bool isMoving) {
-        //DirectionalAnimations set = isMoving ? walk : idle;
-        //DefaultAnimationCycle = set.GetList(currentFacing);
+        DirectionalAnimations set = isMoving ? walk : idle;
+        DefaultAnimationCycle = set.GetList(currentFacing);
 
-        DefaultAnimationCycle = isMoving ? walk.side : idle.GetList(currentFacing); // temp
+        // DefaultAnimationCycle = isMoving ? walk.side : idle.GetList(currentFacing); For no Up or Down anims
     }
 
-    // interrupts current animation to play jump aniamtion cycle
-    public void TriggerJump() {
-        List<Sprite> jumpCycle = jump.GetList(currentFacing);
-        base.Interrupt(jumpCycle);
-    }
-
-    // Interrupts or sets the flutter animation cycle
-    public void TriggerFlutter()
+    // Plays the landing animation
+    public void TriggerLand()
     {
-        List<Sprite> flutterCycle = flutter.GetList(currentFacing);
-        base.Interrupt(flutterCycle);
+        List<Sprite> landCycle = jumpLand.GetList(currentFacing);
+        base.Interrupt(landCycle);
     }
 }
