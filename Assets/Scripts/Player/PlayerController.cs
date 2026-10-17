@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
 
     private float flutterTimeCounter;
     private bool isFluttering;
+    public bool IsFluttering => isFluttering;
     private bool hasFluttered;
 
     [Header("Movement Tuning")]
@@ -402,8 +403,6 @@ public class PlayerController : MonoBehaviour
         verticalVelocity = finalJumpForce;
         coyoteTimeCounter = 0;
         jumpBufferCounter = 0;
-
-        characterAnimator.TriggerJump();
     }
 
     // Initiates flutter jump physics, timers, and animations
@@ -421,14 +420,6 @@ public class PlayerController : MonoBehaviour
         {
             verticalVelocity *= flutterDownwardMomentumMult;
         }
-
-        // maxes horizontal movement to the flutterMaxSpeed, commented out in favor of soft capping it instead in Move()
-        // horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, flutterMaxSpeed);
-
-        //if (characterAnimator != null)
-        //{
-        //    characterAnimator.TriggerFlutter();
-        //}
     }
 
     // Variable jump height.
@@ -574,12 +565,11 @@ public class PlayerController : MonoBehaviour
         isFluttering = false;
         hasFluttered = false;
         if (AudioLayering.Instance != null) { AudioLayering.Instance.FadeToChill(); }
-        orbitCamera.ClearDialogueTarget();
-
 
         characterController.enabled = false;
         transform.position = position;
         characterController.enabled = true;
+        orbitCamera.ResetCamera();
 
     }
 

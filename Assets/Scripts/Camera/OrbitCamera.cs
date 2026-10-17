@@ -127,6 +127,37 @@ public class OrbitCamera : MonoBehaviour
         transform.LookAt(lookTarget);
     }
 
+    public void ResetCamera()
+    {
+        if (lookAtTransform == null || mountainCenter == null) return;
+
+        ClearDialogueTarget();
+
+        // target heights and focus points directly to the player
+        lockedBaseHeight = lookAtTransform.position.y;
+        currentCameraY = lockedBaseHeight + height;
+        currentRadius = orbitRadius;
+        currentTargetHeight = height;
+        currentFocusPoint = lookAtTransform.position;
+
+        // recalculate the angle around the mountain
+        Vector3 offset = lookAtTransform.position - mountainCenter.position;
+        offset.y = 0;
+        lockedAngleX = Vector3.SignedAngle(Vector3.forward, offset, Vector3.up);
+
+        // Force the camera transform to move to the new spot 
+        Quaternion angleRotation = Quaternion.Euler(0f, lockedAngleX, 0f);
+        Vector3 lockedOutwardDir = angleRotation * Vector3.forward;
+
+        Vector3 targetPos = currentFocusPoint + (lockedOutwardDir * currentRadius);
+        targetPos.y = currentCameraY;
+        transform.position = targetPos;
+
+        Vector3 lookTarget = currentFocusPoint;
+        lookTarget.y = currentCameraY - currentTargetHeight + 1.2f;
+        transform.LookAt(lookTarget);
+    }
+
     // sets the dialogue NPC (Noah use these)
     public void SetDialogueTarget(Transform npc)
     {
