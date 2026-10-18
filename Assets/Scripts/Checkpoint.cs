@@ -25,6 +25,8 @@ public class Checkpoint : MonoBehaviour
             PlayerController player = other.GetComponent<PlayerController>();
             if (player != null)
             {
+                player.previousCheckpointPosition = player.currentCheckpointPosition;
+                player.previousWaterLevel = player.currentWaterLevel;
 
                 // Update the player's respawn position to this checkpoint's exact location
                 if (customSpawnPoint != null)
@@ -40,6 +42,7 @@ public class Checkpoint : MonoBehaviour
                 {
                     // Calculate where the water should be at below the checkpoint
                     float targetWaterLevel = player.currentCheckpointPosition.y - waterOffsetBelowCheckpoint;
+                    player.currentWaterLevel = targetWaterLevel;
                     water.RiseToCheckpoint(targetWaterLevel, waterRiseSpeed);
                 }
 

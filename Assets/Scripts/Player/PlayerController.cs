@@ -49,6 +49,15 @@ public class PlayerController : MonoBehaviour
 
     [Header("Respawn Point")]
     public Vector3 currentCheckpointPosition;
+    public Vector3 previousCheckpointPosition;
+    public Vector3 startPosition;
+
+    [Header("Water Save States")]
+    public RisingWater activeWater;
+    public float currentWaterLevel;
+    public float previousWaterLevel;
+    public float startWaterLevel;
+    private float pendingWaterLevel;
 
     [Header("Movement Settings")]
     [SerializeField] private float maxSpeed = 7f;
@@ -140,6 +149,16 @@ public class PlayerController : MonoBehaviour
         }
 
         currentCheckpointPosition = transform.position;
+        previousCheckpointPosition = transform.position;
+        startPosition = transform.position;
+
+        activeWater = FindObjectOfType<RisingWater>();
+        if (activeWater != null)
+        {
+            startWaterLevel = activeWater.transform.position.y;
+            currentWaterLevel = startWaterLevel;
+            previousWaterLevel = startWaterLevel;
+        }
     }
 
     private void Update()
@@ -183,7 +202,7 @@ public class PlayerController : MonoBehaviour
         if (sliding && isFluttering)
         {
             isFluttering = false;
-            AudioController.Instance.StopFlutterLoop();
+            if (AudioController.Instance != null) AudioController.Instance.StopFlutterLoop();
         }
 
         if (!sliding)
@@ -213,7 +232,7 @@ public class PlayerController : MonoBehaviour
             if (isFluttering)
             {
                 isFluttering = false;
-                AudioController.Instance.StopFlutterLoop();
+                if (AudioController.Instance != null) AudioController.Instance.StopFlutterLoop();
             }
         }
 
@@ -247,7 +266,7 @@ public class PlayerController : MonoBehaviour
                 if (flutterTimeCounter <= 0)
                 {
                     isFluttering = false;
-                    AudioController.Instance.StopFlutterLoop();
+                    if (AudioController.Instance != null) AudioController.Instance.StopFlutterLoop();
                 }
                 else
                 {
@@ -392,7 +411,7 @@ public class PlayerController : MonoBehaviour
             finalJumpForce += (currentChain * chainPowerBoost);
 
             float comboPitch = 1f + (currentChain * 0.15f);
-            AudioController.Instance.PlayJump(comboPitch);
+            if (AudioController.Instance != null) AudioController.Instance.PlayJump(comboPitch);
 
         }
         else
@@ -413,7 +432,7 @@ public class PlayerController : MonoBehaviour
         currentChain = 0f;
         flutterTimeCounter = flutterJumpDuration;
 
-        AudioController.Instance.StartFlutterLoop();
+        if (AudioController.Instance != null) AudioController.Instance.StartFlutterLoop();
 
         // Keep a percentage of downwards momentum when fluttering starts
         if (verticalVelocity < 0f)
@@ -428,7 +447,7 @@ public class PlayerController : MonoBehaviour
         if (isFluttering)
         {
             isFluttering = false;
-            AudioController.Instance.StopFlutterLoop();
+            if (AudioController.Instance != null) AudioController.Instance.StopFlutterLoop();
         }
 
         if (verticalVelocity > 0f)
@@ -564,19 +583,41 @@ public class PlayerController : MonoBehaviour
         isTriggerSliding = false;
         isFluttering = false;
         hasFluttered = false;
-        if (AudioLayering.Instance != null) { AudioLayering.Instance.FadeToChill(); }
+        if (AudioLayering.Instance != null) AudioLayering.Instance.FadeToChill(); 
+        if (activeWater != null) activeWater.RiseToCheckpoint(pendingWaterLevel, 10000f); //10000f for instant snapping (not ideal but it works)
 
         characterController.enabled = false;
         transform.position = position;
         characterController.enabled = true;
-        orbitCamera.ResetCamera();
+        if (orbitCamera != null) orbitCamera.ResetCamera();
 
     }
 
-    // reset the player to their last checkpoint
-    public void Respawn()
+    // reset the player to their current checkpoint
+
+    public void ResetToCurrentCheckpoint()
     {
-        // Teleport is called inside this
-        ScreenFadeToBlack.Instance.FadeAndRespawn(this);
+        pendingWaterLevel = currentWaterLevel;
+        ScreenFadeToBlack.Instance.FadeAndRespawn(this, currentCheckpointPosition);
+    }
+
+    // reset player to their previous checkpoint
+    public void ResetToPreviousCheckpoint()
+    {
+        pendingWaterLevel = previousWaterLevel;
+        ScreenFadeToBlack.Instance.FadeAndRespawn(this, previousCheckpointPosition);
+    }
+
+    // reset ALL progress, make sure to add confirmation for this and the previous checkpoint one
+    public void ResetAll()
+    {
+        currentCheckpointPosition = startPosition;
+        previousCheckpointPosition = startPosition;
+
+        currentWaterLevel = startWaterLevel;
+        previousWaterLevel = startWaterLevel;
+        pendingWaterLevel = startWaterLevel;
+
+        ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);
     }
 }
