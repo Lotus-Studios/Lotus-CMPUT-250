@@ -2482,7 +2482,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 957637060853653249, guid: 8fab3cf358419db4d8dc3f8ce14c69df, type: 3}
       propertyPath: m_Convex
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1327367708843814014, guid: 8fab3cf358419db4d8dc3f8ce14c69df, type: 3}
       propertyPath: m_Name
@@ -10889,6 +10889,10 @@ PrefabInstance:
     - target: {fileID: 2273211778946107795, guid: 3fbd479be68a89f45b802096168eaf50, type: 3}
       propertyPath: playerResetPosition
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402717619681893615, guid: 3fbd479be68a89f45b802096168eaf50, type: 3}
+      propertyPath: m_SkinWidth
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 7840407818517787168, guid: 3fbd479be68a89f45b802096168eaf50, type: 3}
       propertyPath: m_Name
