@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
     // => means it recalculates it every time its called
     public bool IsGrounded => characterController.isGrounded && (Time.time - lastGroundedTime < 0.05f);
 
-    public bool canMove = true;
+    public bool canMove = false;
 
     void Start()
     {
