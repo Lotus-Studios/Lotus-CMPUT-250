@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
