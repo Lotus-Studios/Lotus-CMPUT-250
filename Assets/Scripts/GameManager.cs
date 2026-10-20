@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     //Skip having the main menu on game start for debuggin purposes
     [SerializeField] private bool mainMenuBypass = false;
     [SerializeField] private MainMenu mainMenu;
+    [SerializeField] private GameMenu gameMenu;
 
     private PlayerController player = null;
     // Start is called before the first frame update
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
                 player.canMove = true;
                 setCursor(false);
                 setCursorLockState(CursorLockMode.Locked);
+                hideMainMenu();
             }
             else
             {
@@ -84,6 +86,14 @@ public class GameManager : MonoBehaviour
     private void showMainMenu()
     {
         mainMenu.gameObject.SetActive(true);
+    }
+    private void hideGameMenu()
+    {
+        gameMenu.gameObject.SetActive(false);
+    }
+    private void showGamenMenu()
+    {
+        gameMenu.gameObject.SetActive(true);
     }
     public void setCursor(bool State) { Cursor.visible = State; }
     public void setCursorLockState(UnityEngine.CursorLockMode State) { Cursor.lockState = State; }
