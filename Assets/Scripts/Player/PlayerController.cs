@@ -442,17 +442,14 @@ public class PlayerController : MonoBehaviour
     {
         if (isTriggerSliding) return;
 
-        // only trigger headhitting if its a flat-ish wall and if it is on the inner area of the head
-        if (verticalVelocity > 0f && hit.normal.y < -0.7f)
+        if (verticalVelocity > 0f && hit.normal.y < -0.1f)
         {
-            // Find the horizontal distance between the center of the player and exactly where they bumped the object
-            Vector2 hitDistance = new Vector2(hit.point.x - transform.position.x, hit.point.z - transform.position.z);
+            // Combine our current movement into one 3D velocity vector then align it to the plane and apply it to the player. This SHOULD FINALLY FIX HEADHITTERS BY JUST NOT HAVING HEADHITTERS!!!
+            Vector3 combinedVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
+            Vector3 slidingVelocity = Vector3.ProjectOnPlane(combinedVelocity, hit.normal);
 
-
-            if (hitDistance.magnitude < characterController.radius * 0.8f)
-            {
-                verticalVelocity = -2f;
-            }
+            horizontalVelocity = new Vector3(slidingVelocity.x, 0f, slidingVelocity.z);
+            verticalVelocity = slidingVelocity.y;
         }
 
         if (hit.normal.y >= 0.7f)
