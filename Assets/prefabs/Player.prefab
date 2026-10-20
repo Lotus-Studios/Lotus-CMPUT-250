@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 3493496987756066195}
   m_Layer: 3
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -328,13 +328,18 @@ MonoBehaviour:
     - {fileID: -319048408, guid: c45bf91ad169ae04c998c0705078d36a, type: 3}
     - {fileID: -1927731584, guid: c45bf91ad169ae04c998c0705078d36a, type: 3}
     - {fileID: -1157223099, guid: c45bf91ad169ae04c998c0705078d36a, type: 3}
-  jump:
-    front:
-    - {fileID: 1575283728, guid: a94e0c232313dc644a5aebbea916f46e, type: 3}
-    back:
-    - {fileID: 1734260825, guid: 0c027efdbc66f80409b5d63b8afdb2e0, type: 3}
-    side:
-    - {fileID: -2068661465, guid: c45bf91ad169ae04c998c0705078d36a, type: 3}
+  jumpRise:
+    front: []
+    back: []
+    side: []
+  jumpFall:
+    front: []
+    back: []
+    side: []
+  jumpLand:
+    front: []
+    back: []
+    side: []
   flutter:
     front: []
     back: []
@@ -397,7 +402,7 @@ GameObject:
   - component: {fileID: 4402717619681893615}
   - component: {fileID: 2273211778946107795}
   m_Layer: 3
-  m_Name: Player 1
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -412,7 +417,7 @@ Transform:
   m_GameObject: {fileID: 7840407818517787168}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.28, y: -1.5, z: -28.97}
+  m_LocalPosition: {x: -11.88, y: 8.26, z: 0.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -501,7 +506,7 @@ CharacterController:
   m_Radius: 0.35
   m_SlopeLimit: 50
   m_StepOffset: 0.15
-  m_SkinWidth: 0.06
+  m_SkinWidth: 0.12
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: -0.07, z: 0}
 --- !u!114 &2273211778946107795
