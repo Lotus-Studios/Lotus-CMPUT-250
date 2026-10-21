@@ -32,7 +32,7 @@ public class LotusGuruFloatingDummy : MonoBehaviour
     [SerializeField] Transform resetToTransform;
 
 
-
+    //private bool canFloat = false;
     // [Header("drifting")]
     // [SerializeField] float driftFrequency = 0.2f;
     // [SerializeField] float driftAmplitude;
@@ -56,6 +56,7 @@ public class LotusGuruFloatingDummy : MonoBehaviour
                 floatingState = true;
                 standingSprite.enabled = false;
                 lilypadSprite.enabled = true;
+                Debug.Log("Starting to float");
             }
         }
 

@@ -113,4 +113,13 @@ public class LotusNPC : MonoBehaviour
     {
         sprite.color = defaultColor;
     }
+
+    public void resetDoneFirstDialogue()
+    {
+        doneFirstDialogue = false;
+    }
+    public LotusGuruFloatingDummy getDummy()
+    {
+        return dummy;
+    }
 }

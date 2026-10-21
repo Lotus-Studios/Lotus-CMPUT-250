@@ -35,10 +35,21 @@ public class GameManager : MonoBehaviour
             else
             {
                 player.canMove = false;
+                showMainMenu();
             }
         }
     }
 
+    public void resetGame()
+    {
+        player.ResetAll();
+        foreach (GameObject npc in GameObject.FindGameObjectsWithTag("NPC"))
+        {
+            LotusNPC lotus = npc.GetComponent<LotusNPC>();
+            lotus.resetDoneFirstDialogue();
+            lotus.getDummy().ResetMe();
+        }
+    }
     // Update is called once per frame
     void Update()
     {

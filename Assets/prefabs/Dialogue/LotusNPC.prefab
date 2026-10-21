@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 4898553815996156563}
   m_Layer: 0
   m_Name: LotusNPC
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,11 +191,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1616fecae854f1f4993d741a78645819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDrowning: {fileID: 0}
   forcedDialogueCollider: {fileID: 6867201829791585657}
   sprite: {fileID: 925848907555591746}
   doneFirstDialogue: 0
   firstDialogue: {fileID: 0}
+  tallyThresholdDialogue: {fileID: 0}
+  tallyThresholdValue: 0
   BarkList: []
+  dummy: {fileID: 0}
   dummyPrefab: {fileID: 2895109821281483268, guid: 2c57e33c25782b349b898d4ef5793c00, type: 3}
 --- !u!1 &7933756004556428619
 GameObject:
