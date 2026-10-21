@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+//using UnityEngine.UI;
 
 namespace Narrative
 {
@@ -19,6 +22,10 @@ namespace Narrative
         [SerializeField] private TextMeshProUGUI nameLabel;
         [SerializeField] private AdvanceArrow advanceArrow;
         [SerializeField] private Animator animator;
+        [SerializeField] private GameObject lotusLabel;
+        [SerializeField] private GameObject seedlinLabel;
+        [SerializeField] private Sprite textboxLeft;
+        [SerializeField] private Sprite textboxRight;
 
         //Object properties
         public float charactersPerSecond = 45.0f;//how many characters are displayed per second
@@ -37,6 +44,8 @@ namespace Narrative
         {
             //Connect onAdvance event to hide the advancearrow object on invoke
             onAdvance.AddListener(() => advanceArrow.SetVisible(false));
+            lotusLabel.SetActive(false);
+            seedlinLabel.SetActive(false);
         }
 
         // Update is called once per frame
@@ -110,6 +119,8 @@ namespace Narrative
         public void CloseTextbox()
         {
             animator.SetBool("isOpen", false);
+            lotusLabel.SetActive(false);
+            seedlinLabel.SetActive(false);
         }
 
         /// <summary>
@@ -138,11 +149,34 @@ namespace Narrative
                 //Jostle the textbox when the speaker changes
                 animator.SetTrigger("jostle");
             }
+            
+            if(sourceText.Equals("Seedlin")  || sourceText.Equals("Lotus"))
+            {
+                Debug.Log($"Set name {sourceText} inside special cases, running special case.");
+                specialSetTextbox(sourceText);
+            }
 
             //Apply text to label
             nameLabel.SetText(sourceText);
         }
 
+        private void specialSetTextbox(string name)
+        {
+            UnityEngine.UI.Image textboxImage = gameObject.GetComponent<UnityEngine.UI.Image>();
+            Debug.Log("Current Image: ", textboxImage);
+            if(name == "Seedlin")
+            {
+                textboxImage.sprite = textboxLeft;
+                lotusLabel.SetActive(false);
+                seedlinLabel.SetActive(true);
+            }
+            else if(name == "Lotus")
+            {
+                textboxImage.sprite = textboxRight;
+                lotusLabel.SetActive(true);
+                seedlinLabel.SetActive(false);
+            }
+        }
 
         /// <summary>
         /// Checks if the per character scrolling reached the end of the text.

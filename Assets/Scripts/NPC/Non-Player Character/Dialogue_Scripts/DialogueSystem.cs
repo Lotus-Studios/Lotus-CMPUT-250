@@ -103,6 +103,7 @@ public class DialogueSystem : MonoBehaviour
         portraitRight.EnterFade(portraitFadeInSpeed);
 
         progressDialogue();
+        dialogueBox.OpenTextbox();
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex)} as its first dialogue.");
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex + 1)} as its second dialogue.");
         
@@ -122,6 +123,7 @@ public class DialogueSystem : MonoBehaviour
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex)} as its first dialogue.");
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex + 1)} as its second dialogue.");
         progressDialogue();
+        dialogueBox.OpenTextbox();
     }
 
     private void updatePortraits()
@@ -180,7 +182,7 @@ public class DialogueSystem : MonoBehaviour
     //TODO: Make the key changeable
     void Update()
     {
-        updateDialogueBox();
+        //updateDialogueBox();
         if (isActive)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -199,9 +201,9 @@ public class DialogueSystem : MonoBehaviour
         //Reached the end of the current dialogue
         if (currentDialogue.isEndofDialogue(chunkIndex))
         {
-            isActive = false;
             portraitLeft.ExitFade(0.5f);
             portraitRight.ExitFade(0.5f);
+            dialogueBox.CloseTextbox();
             //Start choices if we have any
             if (currentDialogue.hasChoices())
             {
@@ -226,9 +228,10 @@ public class DialogueSystem : MonoBehaviour
                     playerController.canMove = true;
                 }
                 dialogueFinished?.Invoke();
+                isActive = false;
             }
             currentDialogue = null;
-
+            
         }
         else //We aren't at the end of the current dialogue
         {
@@ -243,31 +246,17 @@ public class DialogueSystem : MonoBehaviour
     //Updates the dialogue boxes open or closed state
     void updateDialogueBox()
     {
-        if (!dialogueBox.IsOpen && isActive) dialogueBox.OpenTextbox();
-        if(dialogueBox.IsOpen && !isActive) dialogueBox.CloseTextbox();
+        if (!dialogueBox.IsOpen && currentDialogue != null) dialogueBox.OpenTextbox();
+        if(dialogueBox.IsOpen && currentDialogue == null) dialogueBox.CloseTextbox();
     }
     //sets the dialogue boxes line and name safely
     void setDialogueBox()
     {
         string newName = currentDialogue.getTextboxTitle(chunkIndex);
         dialogueBox.SetLine(currentDialogue.getText(chunkIndex));
-        dialogueBox.gameObject.transform.localScale = Vector3.one;
-        if(newName == "Lotus" || newName == "Seedlin")
-        {
-            specialSetDialogueBox(newName);
-        }
-        else
-        {
-            dialogueBox.SetName(newName);
-        }
-        
+        dialogueBox.SetName(newName);
     }
-    void specialSetDialogueBox(string name)
-    {
-        if(name != "Seedlin" || name != "Lotus") return;
-        int newDialogueBoxScale = (name == "Seedlin") ? 1 : -1;
-        dialogueBox.gameObject.transform.localScale = new Vector3(newDialogueBoxScale, 1, 1);
-    }
+    
     void setPortraitSprites()
     {
         Debug.Log($"Trying to change sprite to {currentDialogue.getPortraitLeftID(chunkIndex)}");
