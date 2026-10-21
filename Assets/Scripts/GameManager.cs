@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //Show game menu only if not in main menu
-        if(Keyboard.current.escapeKey.wasPressedThisFrame && !mainMenu.gameObject.activeSelf)
+        if(Keyboard.current.escapeKey.wasPressedThisFrame && !mainMenu.gameObject.activeSelf && !DialogueSystem.Instance.getIsActive())
         {
             if (gameMenu.gameObject.activeSelf)
             {
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         fade.beginWaitOnBlack.AddListener(onBlack);
         fade.endBasicFade.AddListener(onEnd);
 
-        fade.FadeAndRespawn(player , player.currentCheckpointPosition);
+        player.ResetToCurrentCheckpoint();
     }
 
     private void hideMainMenu()

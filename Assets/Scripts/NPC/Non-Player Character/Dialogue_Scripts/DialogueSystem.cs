@@ -47,6 +47,7 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] private DialoguePortrait portraitRight;
     [SerializeField] private GameObject ChoiceButton; //This is a prefab instanced multiple times
     [SerializeField] private GameObject choiceButtonContainer;
+    [SerializeField] private Sprite empty;
     private OrbitCamera cameraOrbit;
     #endregion
     #region Data Containers
@@ -151,7 +152,7 @@ public class DialogueSystem : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Debug.Log($"Made choice {choice.buttonText}");
-
+        isActive = false;
         tallyScore += choice.tallyValue;
 
         //Clear all old dialogue buttons
@@ -248,10 +249,25 @@ public class DialogueSystem : MonoBehaviour
     //sets the dialogue boxes line and name safely
     void setDialogueBox()
     {
+        string newName = currentDialogue.getTextboxTitle(chunkIndex);
         dialogueBox.SetLine(currentDialogue.getText(chunkIndex));
-        dialogueBox.SetName(currentDialogue.getTextboxTitle(chunkIndex));
+        dialogueBox.gameObject.transform.localScale = Vector3.one;
+        if(newName == "Lotus" || newName == "Seedlin")
+        {
+            specialSetDialogueBox(newName);
+        }
+        else
+        {
+            dialogueBox.SetName(newName);
+        }
+        
     }
-
+    void specialSetDialogueBox(string name)
+    {
+        if(name != "Seedlin" || name != "Lotus") return;
+        int newDialogueBoxScale = (name == "Seedlin") ? 1 : -1;
+        dialogueBox.gameObject.transform.localScale = new Vector3(newDialogueBoxScale, 1, 1);
+    }
     void setPortraitSprites()
     {
         Debug.Log($"Trying to change sprite to {currentDialogue.getPortraitLeftID(chunkIndex)}");
@@ -285,7 +301,7 @@ public class DialogueSystem : MonoBehaviour
             portraitIDSprite[spr.name] = spr;
             Debug.Log($"Added {spr.name} to spriteID.");
         }
-        //portraitIDSprite["EMPTY"] = null;
+        portraitIDSprite["EMPTY"] = empty;
     }
 
     void loadAudio()
