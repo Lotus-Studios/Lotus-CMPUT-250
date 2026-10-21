@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Controls player movement, jump physics, coyote time, jump buffering, etc.
 // Also passes motion and directional data to CharacterAnimator.cs
@@ -130,6 +131,10 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded => characterController.isGrounded && (Time.time - lastGroundedTime < 0.05f);
 
     public bool canMove = false;
+
+    #region Events
+    public UnityEvent playerTeleported;
+    #endregion
 
     void Start()
     {
@@ -590,7 +595,7 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
         characterController.enabled = true;
         if (orbitCamera != null) orbitCamera.ResetCamera();
-
+        playerTeleported.Invoke();
     }
 
     // reset the player to their current checkpoint

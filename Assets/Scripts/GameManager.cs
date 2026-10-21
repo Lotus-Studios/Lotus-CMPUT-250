@@ -42,14 +42,28 @@ public class GameManager : MonoBehaviour
 
     public void resetGame()
     {
-        player.ResetAll();
-        foreach (GameObject npc in GameObject.FindGameObjectsWithTag("NPC"))
+        //Wait for the player to teleport before resetting the NPC floaters
+        UnityEvent listenedEvent = player.playerTeleported;
+
+        void resetNPCs()
         {
-            LotusNPC lotus = npc.GetComponent<LotusNPC>();
-            lotus.resetDoneFirstDialogue();
-            lotus.getDummy().ResetMe();
+            foreach (GameObject npc in GameObject.FindGameObjectsWithTag("NPC"))
+            {
+                LotusNPC lotus = npc.GetComponent<LotusNPC>();
+                
+                lotus.resetDoneFirstDialogue();
+                lotus.getDummy().ResetMe();
+            }
+            //Self unsubscribe
+            listenedEvent.RemoveListener(resetNPCs);
         }
+
+        player.ResetAll();
+        //Add the npc reset to listen to the player teleport
+        listenedEvent.AddListener(resetNPCs);
     }
+
+    
     // Update is called once per frame
     void Update()
     {
