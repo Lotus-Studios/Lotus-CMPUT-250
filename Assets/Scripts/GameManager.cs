@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -41,43 +42,81 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Show game menu only if not in main menu
+        if(Keyboard.current.escapeKey.wasPressedThisFrame && !mainMenu.gameObject.activeSelf)
+        {
+            if (gameMenu.gameObject.activeSelf)
+            {
+                setCursor(false);
+                setCursorLockState(CursorLockMode.Locked);
+                hideGameMenu();
+            }
+            else
+            {
+                setCursor(true);
+                setCursorLockState(CursorLockMode.None);
+                showGameMenu();
+            }
+        }
     }
 
     public void GoToGame()
     {
-        ScreenFadeToBlack.Instance.BasicFade();
-        ScreenFadeToBlack.Instance.beginWaitOnBlack.AddListener(() =>
-        {
+        Debug.Log("Beginning GoToGame");
+        //Reference to fade class
+        ScreenFadeToBlack fade = ScreenFadeToBlack.Instance;
+
+        //behaviour when the screen is fully black
+        void onBlack()
+        {   
             hideMainMenu();
             setCursor(false);
             setCursorLockState(CursorLockMode.Locked);
-        });
-        ScreenFadeToBlack.Instance.endBasicFade.AddListener(() =>
+            fade.beginWaitOnBlack.RemoveListener(onBlack); //self unsubcribe
+        }
+        //Behaviour when the animation is complete
+        void onEnd()
         {
             if(player != null) player.canMove = true;
             GameStart.Invoke();
-        });
+            
+            fade.endBasicFade.RemoveListener(onEnd); //self unsubcribe
+        }
+        //Add both as listeners to their respective events in ScreenFadeToBlack
+        ScreenFadeToBlack.Instance.beginWaitOnBlack.AddListener(onBlack);
+        ScreenFadeToBlack.Instance.endBasicFade.AddListener(onEnd);
+        //Call the function
+        fade.BasicFade();
     }
 
     public void GoToMainMenu()
     {
-        ScreenFadeToBlack.Instance.BasicFade();
+        if(DialogueSystem.Instance.getIsActive()) return;
+        Debug.Log("GoToMainMenu starting...");
+
+        ScreenFadeToBlack fade = ScreenFadeToBlack.Instance;
 
         if(player != null) player.canMove = false;
         
-        ScreenFadeToBlack.Instance.beginWaitOnBlack.AddListener(() =>
+        void onBlack()
         {
+            hideGameMenu();
             showMainMenu();
             setCursor(true);
             setCursorLockState(CursorLockMode.None);
-        });
-        ScreenFadeToBlack.Instance.endBasicFade.AddListener(() =>
+            fade.beginWaitOnBlack.RemoveListener(onBlack);
+        }
+
+        void onEnd()
         {
-            
-            //Rising water should be stopped here, haven't done that yet.
+            fade.endBasicFade.RemoveListener(onEnd);
             MainMenuStart.Invoke();
-        });
+        }
+
+        fade.beginWaitOnBlack.AddListener(onBlack);
+        fade.endBasicFade.AddListener(onEnd);
+
+        fade.FadeAndRespawn(player , player.currentCheckpointPosition);
     }
 
     private void hideMainMenu()
@@ -92,7 +131,7 @@ public class GameManager : MonoBehaviour
     {
         gameMenu.gameObject.SetActive(false);
     }
-    private void showGamenMenu()
+    private void showGameMenu()
     {
         gameMenu.gameObject.SetActive(true);
     }

@@ -173,6 +173,7 @@ public class DialogueSystem : MonoBehaviour
     }
 
     public int getTallyScore() { return tallyScore; }
+    public bool getIsActive() { return isActive; }
 
     //Input detection
     //TODO: Make the key changeable
