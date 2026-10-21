@@ -11,7 +11,7 @@ public class SingleDirectionPushBlock : MonoBehaviour
     private Vector3 lastPosition;
     private Vector3 movementDelta;
 
-    [SerializeField] private float targetDistance = 4f;
+    //[SerializeField] private float targetDistance = 4f;
     [SerializeField] private float waitTimeAtStart = 1.5f;
     [SerializeField] private float waitTimeAtEnd = 0.5f;
     [SerializeField] private float moveTime = 1f;
@@ -37,7 +37,7 @@ public class SingleDirectionPushBlock : MonoBehaviour
     {
         startPosition = new Vector3(0,0, inWallZDistance);
         targetPosition = new Vector3(0,0,extendedZDistance);
-        lastPosition = startPosition;
+        lastPosition = transform.position;
         stateTimer = -initialStartDelay;
     }
 
@@ -99,8 +99,8 @@ public class SingleDirectionPushBlock : MonoBehaviour
             }
         }
 
-        movementDelta = transform.localPosition - lastPosition;
-        lastPosition = transform.localPosition;
+        movementDelta = transform.position - lastPosition;
+        lastPosition = transform.position;
     }
 
     private void OnTriggerStay(Collider other)

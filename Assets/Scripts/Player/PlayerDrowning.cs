@@ -98,7 +98,7 @@ public class PlayerDrowning : MonoBehaviour
     {
         if (isDying) return; // Prevent calling this multiple times while already dying
         isDying = true; 
-        playerController.Respawn();
+        playerController.ResetToCurrentCheckpoint();
 
         if (AudioController.Instance != null) AudioController.Instance.StopAllAudio();
         
