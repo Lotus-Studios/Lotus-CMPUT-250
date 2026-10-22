@@ -45,7 +45,7 @@ public class AudioController : MonoBehaviour
     public void PlayJump(float pitch = 1f)
     {
         float finalPitch = isUnderwater ? pitch * 0.85f : pitch;
-        float finalVolume = isUnderwater ? 0.40f : 0.60f;
+        float finalVolume = isUnderwater ? 0.20f : 0.40f;
 
         jumpSource.pitch = finalPitch;
         jumpSource.PlayOneShot(jumpSound, finalVolume);
@@ -60,7 +60,7 @@ public class AudioController : MonoBehaviour
 
         // Apply the pitch and volume before starting the loop
         loopSource.pitch = isUnderwater ? 0.85f : 1f;
-        loopSource.volume = isUnderwater ? 0.85f : 1f;
+        loopSource.volume = isUnderwater ? 0.25f : 0.5f;
         loopSource.Play();
     }
 
@@ -68,8 +68,7 @@ public class AudioController : MonoBehaviour
     {
         if (loopSource.clip == flutterSound && loopSource.isPlaying)
         {
-            loopSource.Stop();
-            loopSource.clip = null;
+            StartCoroutine(StopAudioSource(loopSource));
         }
     }
 
@@ -83,7 +82,7 @@ public class AudioController : MonoBehaviour
         float basePitch = Random.Range(1.7f, 1.9f);
         footstepSource.pitch = isUnderwater ? basePitch * 0.85f : basePitch;
 
-        float finalVolume = isUnderwater ? 0.01f : 0.05f;
+        float finalVolume = isUnderwater ? 0.01f : 0.075f;
         //audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
         footstepSource.clip = footstepSounds[randomIndex];
         footstepSource.volume = finalVolume;
@@ -154,6 +153,7 @@ public class AudioController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         audioSource.Stop();
         audioSource.volume = volume;
+        audioSource.clip = null;
         yield break;
     }
 
