@@ -46,14 +46,19 @@ Material:
     - _QueueOffset: 0
     - _ShoreFoamColor: 0
     - _ShoreFoamDepth: 0.4
-    - _Strength: 0.05
-    - _WaveFrequency: 0.41
-    - _Wave_Speed: 10
-    - _Wave_Strength: 95.35
+    - _Strength: 0.13
+    - _WaveFrequency: 0.45
+    - _WaveWidth: 0.27
+    - _Wave_Speed: 3.05
+    - _Wave_Strength: 62.45
     m_Colors:
     - _Deep_Water_Color: {r: 0.019607859, g: 0.6022439, b: 0.7529412, a: 0}
     - _Shallow_Water_Color: {r: 0.37254906, g: 0.8666667, b: 0.8176463, a: 1}
     - _ShoreFoamColor: {r: 0.9103774, g: 1, b: 0.9865394, a: 1}
+    - _WaveScrollSinAmplitude: {r: 0.06, g: 0.02, b: 0, a: 0}
+    - _WaveScrollSinFrequency: {r: 1.03, g: 0.86, b: 0, a: 0}
+    - _WaveScrollSinSpeed: {r: 1, g: 1, b: 0, a: 0}
+    - _WaveScrollSpeed: {r: -0.0125, g: -0.0125, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8338270668328925033
 MonoBehaviour:
