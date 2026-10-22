@@ -59,15 +59,6 @@ public class PlayerController : MonoBehaviour
     public float previousWaterLevel;
     public float startWaterLevel;
     private float pendingWaterLevel;
-    public Vector3 previousCheckpointPosition;
-    public Vector3 startPosition;
-
-    [Header("Water Save States")]
-    public RisingWater activeWater;
-    public float currentWaterLevel;
-    public float previousWaterLevel;
-    public float startWaterLevel;
-    private float pendingWaterLevel;
 
     [Header("Movement Settings")]
     [SerializeField] private float maxSpeed = 7f;
@@ -104,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Flutter Jump")]
     [SerializeField] private float flutterJumpDuration = 0.8f;
+    [SerializeField] private float activationCost = 0.11f;
     [SerializeField] private float flutterMaxSpeed = 2.1f;
     [SerializeField] private float flutterAirAcceleration = 4f;
     [SerializeField] private float flutterPower = 9f;
@@ -114,7 +106,6 @@ public class PlayerController : MonoBehaviour
     private float flutterTimeCounter;
     private bool isFluttering;
     public bool IsFluttering => isFluttering;
-    private bool hasFluttered;
 
     [Header("Movement Tuning")]
     [SerializeField] private float jumpBufferTime = 0.15f;
@@ -240,7 +231,7 @@ public class PlayerController : MonoBehaviour
 
         if (IsGrounded)
         {
-            hasFluttered = false;
+            flutterTimeCounter = flutterJumpDuration;
 
             // incase the rare moment happens where the player is fluttering when touching the ground
             if (isFluttering)
@@ -280,6 +271,7 @@ public class PlayerController : MonoBehaviour
                 if (flutterTimeCounter <= 0)
                 {
                     isFluttering = false;
+                    flutterTimeCounter = 0;
                     if (AudioController.Instance != null) AudioController.Instance.StopFlutterLoop();
                 }
                 else
@@ -402,7 +394,7 @@ public class PlayerController : MonoBehaviour
         bool nearGround = Physics.SphereCast(transform.position, 0.3f, Vector3.down, out _, jumpBufferRayCast);
 
         // if player isn't on the ground and hasn't yet fluttered this jump, execute the flutter
-        if (!IsGrounded && !hasFluttered && coyoteTimeCounter <= 0f && !nearGround)
+        if (!IsGrounded && flutterTimeCounter > 0 && coyoteTimeCounter <= 0f && !nearGround)
         {
             ExecuteFlutter();
             return;
@@ -442,9 +434,18 @@ public class PlayerController : MonoBehaviour
     public void ExecuteFlutter()
     {
         isFluttering = true;
-        hasFluttered = true;
         currentChain = 0f;
-        flutterTimeCounter = flutterJumpDuration;
+
+        if (flutterTimeCounter < flutterJumpDuration)
+        {
+            flutterTimeCounter = Mathf.Max(0f, flutterTimeCounter - activationCost);
+
+            if (flutterTimeCounter <= 0f)
+            {
+                isFluttering = false;
+                return;
+            }
+        }
 
         if (AudioController.Instance != null) AudioController.Instance.StartFlutterLoop();
 
@@ -606,7 +607,7 @@ public class PlayerController : MonoBehaviour
         surfaceFrictionMultiplier = 1f;
         isTriggerSliding = false;
         isFluttering = false;
-        hasFluttered = false;
+        flutterTimeCounter = flutterJumpDuration;
         if (AudioLayering.Instance != null) AudioLayering.Instance.FadeToChill(); 
         if (activeWater != null) activeWater.RiseToCheckpoint(pendingWaterLevel, 10000f); //10000f for instant snapping (not ideal but it works)
 
