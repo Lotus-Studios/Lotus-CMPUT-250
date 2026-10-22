@@ -47,6 +47,7 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] private DialoguePortrait portraitRight;
     [SerializeField] private GameObject ChoiceButton; //This is a prefab instanced multiple times
     [SerializeField] private GameObject choiceButtonContainer;
+    [SerializeField] private Sprite empty;
     private OrbitCamera cameraOrbit;
     #endregion
     #region Data Containers
@@ -102,6 +103,7 @@ public class DialogueSystem : MonoBehaviour
         portraitRight.EnterFade(portraitFadeInSpeed);
 
         progressDialogue();
+        dialogueBox.OpenTextbox();
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex)} as its first dialogue.");
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex + 1)} as its second dialogue.");
         
@@ -121,6 +123,7 @@ public class DialogueSystem : MonoBehaviour
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex)} as its first dialogue.");
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex + 1)} as its second dialogue.");
         progressDialogue();
+        dialogueBox.OpenTextbox();
     }
 
     private void updatePortraits()
@@ -151,7 +154,7 @@ public class DialogueSystem : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Debug.Log($"Made choice {choice.buttonText}");
-
+        isActive = false;
         tallyScore += choice.tallyValue;
 
         //Clear all old dialogue buttons
@@ -173,12 +176,13 @@ public class DialogueSystem : MonoBehaviour
     }
 
     public int getTallyScore() { return tallyScore; }
+    public bool getIsActive() { return isActive; }
 
     //Input detection
     //TODO: Make the key changeable
     void Update()
     {
-        updateDialogueBox();
+        //updateDialogueBox();
         if (isActive)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -197,9 +201,9 @@ public class DialogueSystem : MonoBehaviour
         //Reached the end of the current dialogue
         if (currentDialogue.isEndofDialogue(chunkIndex))
         {
-            isActive = false;
             portraitLeft.ExitFade(0.5f);
             portraitRight.ExitFade(0.5f);
+            dialogueBox.CloseTextbox();
             //Start choices if we have any
             if (currentDialogue.hasChoices())
             {
@@ -224,9 +228,10 @@ public class DialogueSystem : MonoBehaviour
                     playerController.canMove = true;
                 }
                 dialogueFinished?.Invoke();
+                isActive = false;
             }
             currentDialogue = null;
-
+            
         }
         else //We aren't at the end of the current dialogue
         {
@@ -241,16 +246,17 @@ public class DialogueSystem : MonoBehaviour
     //Updates the dialogue boxes open or closed state
     void updateDialogueBox()
     {
-        if (!dialogueBox.IsOpen && isActive) dialogueBox.OpenTextbox();
-        if(dialogueBox.IsOpen && !isActive) dialogueBox.CloseTextbox();
+        if (!dialogueBox.IsOpen && currentDialogue != null) dialogueBox.OpenTextbox();
+        if(dialogueBox.IsOpen && currentDialogue == null) dialogueBox.CloseTextbox();
     }
     //sets the dialogue boxes line and name safely
     void setDialogueBox()
     {
+        string newName = currentDialogue.getTextboxTitle(chunkIndex);
         dialogueBox.SetLine(currentDialogue.getText(chunkIndex));
-        dialogueBox.SetName(currentDialogue.getTextboxTitle(chunkIndex));
+        dialogueBox.SetName(newName);
     }
-
+    
     void setPortraitSprites()
     {
         Debug.Log($"Trying to change sprite to {currentDialogue.getPortraitLeftID(chunkIndex)}");
@@ -284,7 +290,7 @@ public class DialogueSystem : MonoBehaviour
             portraitIDSprite[spr.name] = spr;
             Debug.Log($"Added {spr.name} to spriteID.");
         }
-        //portraitIDSprite["EMPTY"] = null;
+        portraitIDSprite["EMPTY"] = empty;
     }
 
     void loadAudio()

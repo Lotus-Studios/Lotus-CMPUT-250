@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Controls player movement, jump physics, coyote time, jump buffering, etc.
 // Also passes motion and directional data to CharacterAnimator.cs
@@ -49,6 +50,15 @@ public class PlayerController : MonoBehaviour
 
     [Header("Respawn Point")]
     public Vector3 currentCheckpointPosition;
+    public Vector3 previousCheckpointPosition;
+    public Vector3 startPosition;
+
+    [Header("Water Save States")]
+    public RisingWater activeWater;
+    public float currentWaterLevel;
+    public float previousWaterLevel;
+    public float startWaterLevel;
+    private float pendingWaterLevel;
     public Vector3 previousCheckpointPosition;
     public Vector3 startPosition;
 
@@ -129,7 +139,11 @@ public class PlayerController : MonoBehaviour
     // => means it recalculates it every time its called
     public bool IsGrounded => characterController.isGrounded && (Time.time - lastGroundedTime < 0.05f);
 
-    public bool canMove = true;
+    public bool canMove = false;
+
+    #region Events
+    public UnityEvent playerTeleported;
+    #endregion
 
     void Start()
     {
@@ -593,14 +607,14 @@ public class PlayerController : MonoBehaviour
         isTriggerSliding = false;
         isFluttering = false;
         hasFluttered = false;
-        if (AudioLayering.Instance != null) AudioLayering.Instance.FadeToChill();
+        if (AudioLayering.Instance != null) AudioLayering.Instance.FadeToChill(); 
         if (activeWater != null) activeWater.RiseToCheckpoint(pendingWaterLevel, 10000f); //10000f for instant snapping (not ideal but it works)
 
         characterController.enabled = false;
         transform.position = position;
         characterController.enabled = true;
         if (orbitCamera != null) orbitCamera.ResetCamera();
-
+        playerTeleported.Invoke();
     }
 
     // reset the player to their current checkpoint

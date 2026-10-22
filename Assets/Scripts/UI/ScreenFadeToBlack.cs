@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /*  Videos:
  *  https://www.youtube.com/watch?v=v2pRG7n_-cs - Unity - Screen fader
@@ -31,9 +32,11 @@ public class ScreenFadeToBlack : MonoBehaviour
     private PlayerController savedPlayer;
     private Vector3 savedPosition;
 
+    public UnityEvent beginBasicFade;
+    public UnityEvent endBasicFade;
+    public UnityEvent beginWaitOnBlack;
     public bool IsScreenBlack => currentState == FadeState.WaitingOnBlack;
 
-    // Literally ripped this out of audiocontroller and renamed it
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -54,7 +57,7 @@ public class ScreenFadeToBlack : MonoBehaviour
         savedPosition = targetPosition;
         currentPurpose = FadePurpose.RespawnPlayer;
 
-        savedPlayer.canMove = false;
+        savedPlayer.canMove = false; 
 
         StartFade();
     }
@@ -72,6 +75,7 @@ public class ScreenFadeToBlack : MonoBehaviour
     {
         timer = 0f;
         currentState = FadeState.FadingOut;
+        beginBasicFade.Invoke();
     }
 
 
@@ -83,10 +87,8 @@ public class ScreenFadeToBlack : MonoBehaviour
 
         if (currentState == FadeState.FadingOut)
         {
-            // Increase alpha to 1 (full screen of black)
             canvasGroup.alpha = Mathf.Clamp01(timer / fadeDuration);
 
-            // if timer is > than fade duration (so once screen is fully black) then teleport the player
             if (timer >= fadeDuration)
             {
                 canvasGroup.alpha = 1f;
@@ -100,11 +102,11 @@ public class ScreenFadeToBlack : MonoBehaviour
 
                 timer = 0f;
                 currentState = FadeState.WaitingOnBlack;
+                beginWaitOnBlack.Invoke();
             }
         }
         else if (currentState == FadeState.WaitingOnBlack)
         {
-            // Pause in the dark for a moment so the camera gets reset properly
             if (timer >= waitOnBlackDuration)
             {
                 timer = 0f;
@@ -119,7 +121,7 @@ public class ScreenFadeToBlack : MonoBehaviour
             {
                 canvasGroup.alpha = 0f;
 
-                // Decrease alpha back to 0 (clear)
+                // Fade ended so clear everything
                 if (currentPurpose == FadePurpose.RespawnPlayer)
                 {
                     savedPlayer.canMove = true;
@@ -127,6 +129,7 @@ public class ScreenFadeToBlack : MonoBehaviour
 
                 currentPurpose = FadePurpose.None;
                 currentState = FadeState.Idle;
+                endBasicFade.Invoke();
             }
         }
     }
