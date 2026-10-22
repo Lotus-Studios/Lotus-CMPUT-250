@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class AudioController : MonoBehaviour
 {
@@ -129,5 +130,31 @@ public class AudioController : MonoBehaviour
         source.pitch = pitch;
     }
 
+
+    // https://johnleonardfrench.music/how-to-fade-audio-in-unity-i-tested-every-method-this-ones-the-best/
+    // this one's not the best but it works
+    public IEnumerator FadeAudioSource(AudioSource audioSource, float duration, float targetVolume)
+    {
+        float currentTime = 0;
+        float start = audioSource.volume;
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            yield return null;
+        }
+        yield break;
+    }
+
+    public IEnumerator StopAudioSource(AudioSource audioSource) 
+    {
+        float volume = audioSource.volume;
+        float duration = 0.2f;
+        StartCoroutine(FadeAudioSource(audioSource, duration, 0));
+        yield return new WaitForSeconds(duration);
+        audioSource.Stop();
+        audioSource.volume = volume;
+        yield break;
+    }
 
 }

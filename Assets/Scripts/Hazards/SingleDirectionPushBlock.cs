@@ -20,6 +20,9 @@ public class SingleDirectionPushBlock : MonoBehaviour
     [SerializeField] float inWallZDistance = 7f;
     [SerializeField] float extendedZDistance = 0f;
 
+    [SerializeField] private AudioClip pushBlockSound;
+    [SerializeField] private AudioSource audioSource;
+
 
     private PlayerController playerOnBlock;
 
@@ -63,12 +66,14 @@ public class SingleDirectionPushBlock : MonoBehaviour
                 targetPosition,
                 progress
             );
+            AudioController.Instance.PlayFromAudioSource(pushBlockSound, audioSource);
 
             if (progress >= 1f)
             {
                 transform.localPosition = targetPosition;
                 currentState = MoveState.WaitingAtEnd;
                 stateTimer = 0f;
+                StartCoroutine(AudioController.Instance.StopAudioSource(audioSource));
             }
         }
 
@@ -90,12 +95,14 @@ public class SingleDirectionPushBlock : MonoBehaviour
                 startPosition,
                 progress
             );
+            AudioController.Instance.PlayFromAudioSource(pushBlockSound, audioSource);
 
             if (progress >= 1f)
             {
                 transform.localPosition = startPosition;
                 currentState = MoveState.WaitingAtStart;
                 stateTimer = 0f;
+                StartCoroutine(AudioController.Instance.StopAudioSource(audioSource));
             }
         }
 
