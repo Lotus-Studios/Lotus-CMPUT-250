@@ -23,36 +23,35 @@ public class LotusNPC : MonoBehaviour
     [SerializeField] private List<string> BarkList;
     private int barkIndex = -1;
     private bool saidBarkThisLife = true;
-
-    [SerializeField] private LotusGuruFloatingDummy dummy;
+    [SerializeField] RisingWater water;
+    private LotusGuruFloatingDummy dummy;
     [SerializeField] private GameObject dummyPrefab;
     // Start is called before the first frame update
     void Start()
     {
-        //dummy = Instantiate(dummyPrefab, transform).GetComponent<LotusGuruFloatingDummy>();
-        //dummy.setResetTransform(transform);
+        //Setting up dummy
+        dummy = Instantiate(dummyPrefab, transform).GetComponent<LotusGuruFloatingDummy>();
+        dummy.water = water;
+        dummy.setResetTransform(transform);
+
         defaultColor = sprite.color;
+        //Getting reference to player.
+        foreach(GameObject pl in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if(pl.GetComponent<PlayerController>() != null)
+            {
+                player = pl;
+            }
+        }
         
-        player = GameObject.FindGameObjectWithTag("Player");
         
         if(player == null)
         {
             Debug.Log("NPC unable to find reference to player.");
         }
         hide();
-        //doFirstDialogue();
         playerDrowning.playerDied.AddListener(setNewDeathBark);
-        //BarkSystem.Instance.bark(gameObject, "This is a bark.", 30f, new Vector3(0, 1.25f, -0.25f));
     }
-
-    // private void onTrigger(Collision collision)
-    // {
-    //     Debug.Log("123");
-    //     if(collision.gameObject == player.gameObject && !doneFirstDialogue)
-    //     {
-    //         Debug.Log("Hit player");
-    //     }
-    // }
     void Update()
     {
         if (!saidBarkThisLife && Vector3.Distance(player.transform.position, transform.position) < 4)
@@ -85,6 +84,7 @@ public class LotusNPC : MonoBehaviour
         cam.SetDialogueTarget(transform);
 
         PlayerController playerController = player.GetComponent<PlayerController>();
+        
         if (playerController != null)
         {
             playerController.canMove = false;
@@ -101,6 +101,14 @@ public class LotusNPC : MonoBehaviour
         
         doneFirstDialogue = true;
 
+        //Manage re enabling player movement
+        void reenablePlayerMovement()
+        { 
+            playerController.canMove = true;
+            DialogueSystem.Instance.dialogueFinished.RemoveListener(reenablePlayerMovement);
+        }
+
+        DialogueSystem.Instance.dialogueFinished.AddListener(reenablePlayerMovement);
     }
 
     void hide()
