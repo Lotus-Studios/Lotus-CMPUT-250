@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
     {
         mainMenu.gameObject.SetActive(true);
     }
-    private void hideGameMenu()
+    public void hideGameMenu()
     {
         gameMenu.gameObject.SetActive(false);
     }
