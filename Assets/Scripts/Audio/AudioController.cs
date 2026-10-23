@@ -155,7 +155,7 @@ public class AudioController : MonoBehaviour
     public IEnumerator StopAudioSource(AudioSource audioSource) 
     {
         float volume = audioSource.volume;
-        float duration = 0.2f;
+        float duration = 0.05f;
         StartCoroutine(FadeAudioSource(audioSource, duration, 0));
         yield return new WaitForSeconds(duration);
         audioSource.Stop();
