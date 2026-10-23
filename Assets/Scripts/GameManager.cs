@@ -18,11 +18,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MainMenu mainMenu;
     [SerializeField] private GameMenu gameMenu;
 
-    private PlayerController player = null;
+    private PlayerController player;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        foreach(GameObject pl in GameObject.FindGameObjectsWithTag("Player"))
+        {
+             if(pl.GetComponent<PlayerController>() != null)
+            {
+                player = pl.GetComponent<PlayerController>();
+            }
+        }
+       
         if(player != null)
         {
             if (mainMenuBypass)
@@ -37,6 +44,10 @@ public class GameManager : MonoBehaviour
                 player.canMove = false;
                 showMainMenu();
             }
+        }
+        else
+        {
+            Debug.Log($"Game manager couldn't find playerController! Found player as {GameObject.FindGameObjectWithTag("Player").name}");
         }
     }
 
@@ -61,6 +72,7 @@ public class GameManager : MonoBehaviour
         player.ResetAll();
         //Add the npc reset to listen to the player teleport
         listenedEvent.AddListener(resetNPCs);
+        DialogueSystem.Instance.resetTallyScore();
     }
 
     

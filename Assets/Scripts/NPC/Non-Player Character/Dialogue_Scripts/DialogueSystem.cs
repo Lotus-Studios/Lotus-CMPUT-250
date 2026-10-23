@@ -311,4 +311,9 @@ public class DialogueSystem : MonoBehaviour
             idDialogue[newDia.getID()] = newDia;
         }  
     }
+
+    public void resetTallyScore()
+    {
+        tallyScore = 0;
+    }
 }

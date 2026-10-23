@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LotusGuruFloatingDummy : MonoBehaviour
 {
-    [SerializeField] RisingWater water;
+    [SerializeField] public RisingWater water;
 
     [SerializeField] PlayerDrowning playerDrowning;
     bool floatingState;

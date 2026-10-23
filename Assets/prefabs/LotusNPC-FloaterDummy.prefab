@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6021207756412955321}
   - component: {fileID: 4911907810409373863}
+  - component: {fileID: 1545670262632458137}
   m_Layer: 0
   m_Name: Standing
   m_TagString: Untagged
@@ -168,6 +169,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1545670262632458137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2856280650416377573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b26cc06465bc64d8749ff41397ab95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2895109821281483268
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   water: {fileID: 0}
+  playerDrowning: {fileID: 0}
   mountainCenter: {fileID: 0}
   bobFrequency: 1
   bobAmplitude: 0.2
