@@ -18,6 +18,10 @@ public class WaterStartTrigger : MonoBehaviour
                 {
                     AudioLayering.Instance.FadeToExciting();
                 }
+                if (RisingWaterAudio.Instance != null)
+                {
+                    RisingWaterAudio.Instance.PlayWave();
+                }
             }
         }
     }
