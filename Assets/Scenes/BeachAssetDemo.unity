@@ -19900,6 +19900,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2379492578788885347, guid: 56c19dc3c85335944a7c52c96a85fc3c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 2379492578788885347, guid: 56c19dc3c85335944a7c52c96a85fc3c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2583574933543078514, guid: 56c19dc3c85335944a7c52c96a85fc3c, type: 3}
       propertyPath: m_Name
       value: Main Menu
