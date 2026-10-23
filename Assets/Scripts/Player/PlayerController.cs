@@ -508,7 +508,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isTriggerSliding) return;
 
-        if (verticalVelocity > 0f && hit.normal.y < -0.1f)
+        if (verticalVelocity > 0f && (!isBoingerBouncing || hit.normal.y < -0.1f))
         {
             // Combine our current movement into one 3D velocity vector then align it to the plane and apply it to the player. This SHOULD FINALLY FIX HEADHITTERS BY JUST NOT HAVING HEADHITTERS!!!
             Vector3 combinedVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
