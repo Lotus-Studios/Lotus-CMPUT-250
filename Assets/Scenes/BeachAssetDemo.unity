@@ -1084,11 +1084,27 @@ PrefabInstance:
     - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: firstDialogue
       value: 
-      objectReference: {fileID: 4900000, guid: 31be2b12e33d3964c9108c5d0ba6220f, type: 3}
+      objectReference: {fileID: 4900000, guid: ef84cb8baf8072b488788ab6e0be8a7d, type: 3}
     - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: playerDrowning
       value: 
       objectReference: {fileID: 3906974563277171460}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: BarkList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: BarkList.Array.data[0]
+      value: Bark1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: BarkList.Array.data[1]
+      value: Bark2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: BarkList.Array.data[2]
+      value: Bark3
+      objectReference: {fileID: 0}
     - target: {fileID: 6657525610790432124, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: m_Name
       value: LotusNPC
@@ -11720,18 +11736,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1188532138828224024, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
       propertyPath: choiceButtonContainer
       value: 
       objectReference: {fileID: 582595722}
     - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawSprites.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
       propertyPath: rawDialogues.Array.size
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: d2b6db3a37c4cc44b872a110ce7fb283, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b961a4733f887c045a1d3dfe1df1d631, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 856b5d1e3cec1d947b37f4ab3072c0d9, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2b49f07d8ac9aef40bdd47b9652f714e, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: c5f52966e85e73e47a0a6d1b14198fa6, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
+      propertyPath: rawSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2721b0f5b99a3494bb958cf95bd221f5, type: 3}
+    - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
       propertyPath: rawDialogues.Array.data[3]
       value: 
-      objectReference: {fileID: 4900000, guid: 31be2b12e33d3964c9108c5d0ba6220f, type: 3}
+      objectReference: {fileID: 4900000, guid: ef84cb8baf8072b488788ab6e0be8a7d, type: 3}
     - target: {fileID: 4633079108172786688, guid: 211e6f6bf9daae24e963a9b1260b81a4, type: 3}
       propertyPath: rawDialogues.Array.data[4]
       value: 
@@ -20801,15 +20849,15 @@ PrefabInstance:
       objectReference: {fileID: 148616697}
     - target: {fileID: 2055115149656832461, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.67
+      value: 37.59
       objectReference: {fileID: 0}
     - target: {fileID: 2055115149656832461, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.12
+      value: 22.29
       objectReference: {fileID: 0}
     - target: {fileID: 2055115149656832461, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.07
+      value: -27.72
       objectReference: {fileID: 0}
     - target: {fileID: 2055115149656832461, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_LocalRotation.w
