@@ -103,6 +103,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float flutterMomentumDecayMult = 0.9f;
     [SerializeField] private float flutterSteerStrength = 2.1f;
 
+    private bool isBoingerBouncing = false;
+
     private float flutterTimeCounter;
     private bool isFluttering;
     public bool IsFluttering => isFluttering;
@@ -231,6 +233,10 @@ public class PlayerController : MonoBehaviour
 
         if (IsGrounded)
         {
+            if (verticalVelocity <= 0f)
+            {
+                isBoingerBouncing = false;
+            }
             flutterTimeCounter = flutterJumpDuration;
 
             // incase the rare moment happens where the player is fluttering when touching the ground
@@ -425,10 +431,36 @@ public class PlayerController : MonoBehaviour
             currentChain = 0f;
         }
 
-        verticalVelocity = finalJumpForce;
+        verticalVelocity = Mathf.Max(verticalVelocity, finalJumpForce);
         coyoteTimeCounter = 0;
         jumpBufferCounter = 0;
     }
+
+
+    public void ExecuteBounce(float bounceForce)
+    {
+
+        isBoingerBouncing = true;
+        // Stop fluttering
+        isFluttering = false;
+
+        if (AudioController.Instance != null)
+        {
+            AudioController.Instance.StopFlutterLoop();
+        }
+
+        // Apply bounce
+        verticalVelocity = Mathf.Max(verticalVelocity, bounceForce);
+
+        // Clear jump buffering
+        coyoteTimeCounter = 0f;
+        jumpBufferCounter = 0f;
+
+        // Reset chain jumping
+        currentChain = 0f;
+    }
+
+
 
     // Initiates flutter jump physics, timers, and animations
     public void ExecuteFlutter()
@@ -465,7 +497,7 @@ public class PlayerController : MonoBehaviour
             if (AudioController.Instance != null) AudioController.Instance.StopFlutterLoop();
         }
 
-        if (verticalVelocity > 0f)
+        if (verticalVelocity > 0f && !isBoingerBouncing)
         {
             verticalVelocity *= 0.5f;
         }
@@ -476,7 +508,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isTriggerSliding) return;
 
-        if (verticalVelocity > 0f /*&& hit.normal.y < -0.1f*/)
+        if (verticalVelocity > 0f && hit.normal.y < -0.1f)
         {
             // Combine our current movement into one 3D velocity vector then align it to the plane and apply it to the player. This SHOULD FINALLY FIX HEADHITTERS BY JUST NOT HAVING HEADHITTERS!!!
             Vector3 combinedVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
@@ -532,8 +564,9 @@ public class PlayerController : MonoBehaviour
 
         if (hit.collider.TryGetComponent<OingyBoingy>(out OingyBoingy boingy))
         {
+
             boingy.doBounceAnim();
-            ExecuteJump(boingy.boinginess);
+            ExecuteBounce(boingy.boinginess);
         }
     }
 
