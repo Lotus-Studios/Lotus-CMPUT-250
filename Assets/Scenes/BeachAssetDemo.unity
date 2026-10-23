@@ -20919,6 +20919,46 @@ PrefabInstance:
       propertyPath: waterPostProcess
       value: 
       objectReference: {fileID: 634907849}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpFall.side.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpRise.side.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpFall.side.Array.data[0]
+      value: 
+      objectReference: {fileID: -1480526393, guid: 494909e352657f944addf315f08e3523, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpFall.side.Array.data[1]
+      value: 
+      objectReference: {fileID: -1873587915, guid: 494909e352657f944addf315f08e3523, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpFall.side.Array.data[2]
+      value: 
+      objectReference: {fileID: -466441455, guid: 494909e352657f944addf315f08e3523, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpFall.side.Array.data[3]
+      value: 
+      objectReference: {fileID: 915419617, guid: 494909e352657f944addf315f08e3523, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpRise.side.Array.data[0]
+      value: 
+      objectReference: {fileID: 915419617, guid: 494909e352657f944addf315f08e3523, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpRise.side.Array.data[1]
+      value: 
+      objectReference: {fileID: -466441455, guid: 494909e352657f944addf315f08e3523, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpRise.side.Array.data[2]
+      value: 
+      objectReference: {fileID: -1873587915, guid: 494909e352657f944addf315f08e3523, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpRise.side.Array.data[3]
+      value: 
+      objectReference: {fileID: -1480526393, guid: 494909e352657f944addf315f08e3523, type: 3}
     - target: {fileID: 5455585491281794586, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 1
