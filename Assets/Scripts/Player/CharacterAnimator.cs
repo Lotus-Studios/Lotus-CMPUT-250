@@ -57,6 +57,10 @@ public class CharacterAnimator : AnimatedEntity
         base.AnimationUpdate();
 
         bool isGrounded = playerController.IsGrounded;
+        if (isGrounded)
+        {
+            Looping = true;
+        }
         if (!wasGrounded && isGrounded)
         {
             TriggerLand();
@@ -68,17 +72,17 @@ public class CharacterAnimator : AnimatedEntity
             // Fluttering
             if (playerController.IsFluttering)
             {
-                DefaultAnimationCycle = flutter.GetList(currentFacing);
+                SetCycle(flutter.GetList(currentFacing), true);
             }
             // Jump Rise
             else if (playerController.currentVerticalVelocity > 0)
             {
-                DefaultAnimationCycle = jumpRise.GetList(currentFacing);
+                SetCycle(jumpRise.GetList(currentFacing), false);
             }
             // Jump fall
             else
             {
-                DefaultAnimationCycle = jumpFall.GetList(currentFacing);
+                SetCycle(jumpFall.GetList(currentFacing), false);
             }
         }
 
@@ -117,9 +121,22 @@ public class CharacterAnimator : AnimatedEntity
     // Swaps between idle or walk animation cycles
     public void SetMoving(bool isMoving) {
         DirectionalAnimations set = isMoving ? walk : idle;
-        DefaultAnimationCycle = set.GetList(currentFacing);
+        SetCycle(set.GetList(currentFacing), true);
+    }
 
-        // DefaultAnimationCycle = isMoving ? walk.side : idle.GetList(currentFacing); For no Up or Down anims
+    // to determine whats looping and whats not so jumping cycles arent looping.
+    private void SetCycle(List<Sprite> newCycle, bool loop)
+    {
+        Looping = loop;
+        if (DefaultAnimationCycle != newCycle)
+        {
+            DefaultAnimationCycle = newCycle;
+            index = 0;
+            if (DefaultAnimationCycle != null && DefaultAnimationCycle.Count > 0)
+            {
+                SpriteRenderer.sprite = DefaultAnimationCycle[0];
+            }
+        }
     }
 
     // Plays the landing animation

@@ -7,6 +7,7 @@ public class AnimatedEntity : MonoBehaviour
     public List<Sprite> DefaultAnimationCycle;
     public float Framerate = 12f;//frames per second
     public SpriteRenderer SpriteRenderer;//spriteRenderer
+    public bool Looping = true;
 
     //private animation stuff
     private float animationTimer;//current number of seconds since last animation frame update
@@ -29,25 +30,29 @@ public class AnimatedEntity : MonoBehaviour
     protected void AnimationUpdate(){
         animationTimer+=Time.deltaTime;
 
-        if(animationTimer>animationTimerMax){
+        if (animationTimer > animationTimerMax){
             animationTimer = 0;
-            index++;
 
             if(!interruptFlag){
-                if(DefaultAnimationCycle.Count==0 || index>=DefaultAnimationCycle.Count){
-                    index=0;
-                }
-                if(DefaultAnimationCycle.Count>0){
+                if(DefaultAnimationCycle != null && DefaultAnimationCycle.Count > 0){
+                    if (index >= DefaultAnimationCycle.Count){
+                        index = 0;
+                    } else if (index + 1 < DefaultAnimationCycle.Count){
+                        index++;
+                    } else if (Looping){
+                        index = 0;
+                    }
                     SpriteRenderer.sprite = DefaultAnimationCycle[index];
                 }
             }
             else{
-                if(interruptAnimation==null || index>=interruptAnimation.Count){
-                    index=0;
+                if (interruptAnimation == null || index >= interruptAnimation.Count - 1){
+                    index = 0;
                     interruptFlag = false;
-                    interruptAnimation= null;//clear interrupt animation
+                    interruptAnimation = null;//clear interrupt animation
                 }
                 else{
+                    index++;
                     SpriteRenderer.sprite = interruptAnimation[index];
                 }
             }
