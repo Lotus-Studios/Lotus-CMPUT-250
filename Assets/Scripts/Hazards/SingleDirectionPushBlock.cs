@@ -95,14 +95,22 @@ public class SingleDirectionPushBlock : MonoBehaviour
                 startPosition,
                 progress
             );
-            AudioController.Instance.PlayFromAudioSource(pushBlockSound, audioSource);
+
+            if (AudioController.Instance != null)
+            {
+                AudioController.Instance.PlayFromAudioSource(pushBlockSound, audioSource);
+            }
 
             if (progress >= 1f)
             {
                 transform.localPosition = startPosition;
                 currentState = MoveState.WaitingAtStart;
                 stateTimer = 0f;
-                StartCoroutine(AudioController.Instance.StopAudioSource(audioSource));
+
+                if (AudioController.Instance != null)
+                {
+                    StartCoroutine(AudioController.Instance.StopAudioSource(audioSource));
+                }
             }
         }
 

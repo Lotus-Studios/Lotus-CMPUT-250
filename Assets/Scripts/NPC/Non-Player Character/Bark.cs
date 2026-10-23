@@ -47,7 +47,6 @@ public class Bark : MonoBehaviour
             if(transform.localScale.x > targetScale.x)
             {
                 scaleDirection = 0;
-                textDisplay.text = text;
             }
         }
 
@@ -73,8 +72,9 @@ public class Bark : MonoBehaviour
 
     public void setText(string str) { 
         Debug.Log($"Bark text set to {str}");
-        text = str; 
-        }
+        text = str;
+        textDisplay.text = str;
+    }
     public void setDuration(float dur) { 
         Debug.Log($"Bark duration set to {dur}");
 
