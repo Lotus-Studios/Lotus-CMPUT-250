@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 // TODO:
 // Update animated entity to allow for looping anims until action is done (fluttering, jumping etc.)
@@ -31,7 +32,8 @@ public class CharacterAnimator : AnimatedEntity
     public DirectionalAnimations jumpFall;
     public DirectionalAnimations jumpLand;
 
-    public DirectionalAnimations flutter;
+    public DirectionalAnimations flutterRise;
+    public DirectionalAnimations flutterFall;
 
     private PlayerController playerController;
     private int currentFacing = 0; // 0 is front, 1 is back, 2 is side.
@@ -72,7 +74,17 @@ public class CharacterAnimator : AnimatedEntity
             // Fluttering
             if (playerController.IsFluttering)
             {
-                SetCycle(flutter.GetList(currentFacing), true);
+                // Jump Rise
+                if (playerController.currentVerticalVelocity > 0)
+                {
+                    SetCycle(flutterRise.GetList(currentFacing), true);
+                }
+                // Jump fall
+                else
+                {
+                    SetCycle(flutterFall.GetList(currentFacing), true);
+                }
+                
             }
             // Jump Rise
             else if (playerController.currentVerticalVelocity > 0)
