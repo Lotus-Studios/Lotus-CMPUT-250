@@ -20,9 +20,20 @@ public class GameManager : MonoBehaviour
 
     private PlayerController player;
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        _instance = this;
+    }
+
     void Start()
     {
-        foreach(GameObject pl in GameObject.FindGameObjectsWithTag("Player"))
+        foreach (GameObject pl in GameObject.FindGameObjectsWithTag("Player"))
         {
              if(pl.GetComponent<PlayerController>() != null)
             {
@@ -75,24 +86,25 @@ public class GameManager : MonoBehaviour
         DialogueSystem.Instance.resetTallyScore();
     }
 
-    
+
     // Update is called once per frame
     void Update()
     {
-        //Show game menu only if not in main menu
-        if(Keyboard.current.escapeKey.wasPressedThisFrame && !mainMenu.gameObject.activeSelf && !DialogueSystem.Instance.getIsActive())
+        if (Keyboard.current == null) return;
+        if (mainMenu == null || gameMenu == null) return;
+
+        bool tabPressed = Keyboard.current.tabKey.wasPressedThisFrame;
+        bool isDialogueActive = DialogueSystem.Instance != null && DialogueSystem.Instance.getIsActive();
+
+        if (tabPressed && !mainMenu.gameObject.activeSelf && !isDialogueActive)
         {
             if (gameMenu.gameObject.activeSelf)
             {
-                setCursor(false);
-                setCursorLockState(CursorLockMode.Locked);
-                hideGameMenu();
+                ResumeGame();
             }
             else
             {
-                setCursor(true);
-                setCursorLockState(CursorLockMode.None);
-                showGameMenu();
+                PauseGame();
             }
         }
     }
@@ -131,6 +143,8 @@ public class GameManager : MonoBehaviour
         if(DialogueSystem.Instance.getIsActive()) return;
         Debug.Log("GoToMainMenu starting...");
 
+        Time.timeScale = 1f;
+
         ScreenFadeToBlack fade = ScreenFadeToBlack.Instance;
 
         if(player != null) player.canMove = false;
@@ -154,6 +168,22 @@ public class GameManager : MonoBehaviour
         fade.endBasicFade.AddListener(onEnd);
 
         player.ResetToCurrentCheckpoint();
+    }
+
+    public void PauseGame()
+    {
+        showGameMenu();
+        setCursor(true);
+        setCursorLockState(CursorLockMode.None);
+        //Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        hideGameMenu();
+        setCursor(false);
+        setCursorLockState(CursorLockMode.Locked);
+        //Time.timeScale = 1f;
     }
 
     private void hideMainMenu()

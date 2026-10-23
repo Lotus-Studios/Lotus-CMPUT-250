@@ -38,6 +38,10 @@ public class SingleDirectionPushBlock : MonoBehaviour
 
     void Start()
     {
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
         startPosition = new Vector3(0,0, inWallZDistance);
         targetPosition = new Vector3(0,0,extendedZDistance);
         lastPosition = transform.position;
@@ -66,14 +70,22 @@ public class SingleDirectionPushBlock : MonoBehaviour
                 targetPosition,
                 progress
             );
-            AudioController.Instance.PlayFromAudioSource(pushBlockSound, audioSource);
+
+            if (AudioController.Instance != null && audioSource != null && pushBlockSound != null)
+            {
+                AudioController.Instance.PlayFromAudioSource(pushBlockSound, audioSource);
+            }
 
             if (progress >= 1f)
             {
                 transform.localPosition = targetPosition;
                 currentState = MoveState.WaitingAtEnd;
                 stateTimer = 0f;
-                StartCoroutine(AudioController.Instance.StopAudioSource(audioSource));
+
+                if (AudioController.Instance != null && audioSource != null)
+                {
+                    StartCoroutine(AudioController.Instance.StopAudioSource(audioSource));
+                }
             }
         }
 

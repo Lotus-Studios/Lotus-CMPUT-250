@@ -15,10 +15,7 @@ public class GameMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame && isEnabled)
-        {
-            //playerController.ResetToCurrentCheckpoint();
-        }
+
     }
 
     void setVisible()
