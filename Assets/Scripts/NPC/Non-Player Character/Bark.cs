@@ -35,18 +35,25 @@ public class Bark : MonoBehaviour
         if(scaleDirection == 0)
         {
             currentDuration += Time.deltaTime;
+            
+
             if(currentDuration >= totalDuration)
             {
-                textDisplay.text = "";
+                //textDisplay.text = "";
+                textDisplay.gameObject.SetActive(false);
                 scaleDirection = -1;
             }
         }
 
         if(scaleDirection == 1)
         {
+            textDisplay.text = "";
             if(transform.localScale.x > targetScale.x)
             {
                 scaleDirection = 0;
+                textDisplay.text = text;
+                textDisplay.gameObject.SetActive(true);
+                textDisplay.transform.position = gameObject.transform.position;
             }
         }
 
@@ -80,4 +87,6 @@ public class Bark : MonoBehaviour
 
         totalDuration = dur; 
         }
+    
+    public TextMeshProUGUI getTextDisplay() { return textDisplay; }
 }
