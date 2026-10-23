@@ -20928,6 +20928,14 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpFall.front.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpRise.front.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: jumpFall.side.Array.data[0]
       value: 
       objectReference: {fileID: -1480526393, guid: 494909e352657f944addf315f08e3523, type: 3}
@@ -20959,6 +20967,38 @@ PrefabInstance:
       propertyPath: jumpRise.side.Array.data[3]
       value: 
       objectReference: {fileID: -1480526393, guid: 494909e352657f944addf315f08e3523, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpFall.front.Array.data[0]
+      value: 
+      objectReference: {fileID: -777257320, guid: 5dbe6c8d0d256c844ac333746dde6738, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpFall.front.Array.data[1]
+      value: 
+      objectReference: {fileID: 220559540, guid: 5dbe6c8d0d256c844ac333746dde6738, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpFall.front.Array.data[2]
+      value: 
+      objectReference: {fileID: -1276028295, guid: 5dbe6c8d0d256c844ac333746dde6738, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpFall.front.Array.data[3]
+      value: 
+      objectReference: {fileID: -1067341970, guid: 5dbe6c8d0d256c844ac333746dde6738, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpRise.front.Array.data[0]
+      value: 
+      objectReference: {fileID: -1067341970, guid: 5dbe6c8d0d256c844ac333746dde6738, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpRise.front.Array.data[1]
+      value: 
+      objectReference: {fileID: -1276028295, guid: 5dbe6c8d0d256c844ac333746dde6738, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpRise.front.Array.data[2]
+      value: 
+      objectReference: {fileID: 220559540, guid: 5dbe6c8d0d256c844ac333746dde6738, type: 3}
+    - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: jumpRise.front.Array.data[3]
+      value: 
+      objectReference: {fileID: -777257320, guid: 5dbe6c8d0d256c844ac333746dde6738, type: 3}
     - target: {fileID: 5455585491281794586, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_RenderingLayerMask
       value: 1
