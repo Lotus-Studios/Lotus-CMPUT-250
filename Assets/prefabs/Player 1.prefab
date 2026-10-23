@@ -247,6 +247,7 @@ MonoBehaviour:
   DefaultAnimationCycle: []
   Framerate: 16
   SpriteRenderer: {fileID: 5455585491281794586}
+  Looping: 1
   idle:
     front:
     - {fileID: 1162015259, guid: 25e13bff5cf7be5449320ef6fbeebe89, type: 3}
@@ -340,11 +341,30 @@ MonoBehaviour:
     front: []
     back: []
     side: []
-  flutter:
+  flutterRise:
     front: []
     back: []
     side:
-    - {fileID: -2068661465, guid: c45bf91ad169ae04c998c0705078d36a, type: 3}
+    - {fileID: 714727356, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
+    - {fileID: -1072182708, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
+    - {fileID: -784329896, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
+    - {fileID: -2079036633, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
+  flutterNeutral:
+    front: []
+    back: []
+    side:
+    - {fileID: -1008892987, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
+    - {fileID: -1743490267, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
+    - {fileID: -429583959, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
+    - {fileID: 413939273, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
+  flutterFall:
+    front: []
+    back: []
+    side:
+    - {fileID: 974617984, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
+    - {fileID: -2133710455, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
+    - {fileID: 2038059293, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
+    - {fileID: 726119741, guid: 5966928c5b7d69b47a04f05cf58b5cfd, type: 3}
 --- !u!114 &3493496987756066195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,6 +485,7 @@ MonoBehaviour:
   slideSteerStrength: 0.4
   surfaceFrictionMultiplier: 1
   flutterJumpDuration: 0.8
+  activationCost: 0.11
   flutterMaxSpeed: 2.1
   flutterAirAcceleration: 4
   flutterPower: 7
@@ -476,6 +497,9 @@ MonoBehaviour:
   coyoteTime: 0.1
   speedTrail: {fileID: 6234705465595387566}
   canMove: 1
+  playerTeleported:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5660121774055820558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,6 +639,7 @@ MonoBehaviour:
   baseSize: 0.7
   playerRadius: 0.35
   castStartOffset: 0.5
+  shadowSpriteTransform: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 497

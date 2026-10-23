@@ -33,6 +33,7 @@ public class CharacterAnimator : AnimatedEntity
     public DirectionalAnimations jumpLand;
 
     public DirectionalAnimations flutterRise;
+    public DirectionalAnimations flutterNeutral;
     public DirectionalAnimations flutterFall;
 
     private PlayerController playerController;
@@ -74,12 +75,17 @@ public class CharacterAnimator : AnimatedEntity
             // Fluttering
             if (playerController.IsFluttering)
             {
-                // Jump Rise
-                if (playerController.currentVerticalVelocity > 0)
+                // Flutter Rise
+                if (playerController.currentVerticalVelocity > 0.5)
                 {
                     SetCycle(flutterRise.GetList(currentFacing), true);
                 }
-                // Jump fall
+                // Flutter Neutral
+                else if (playerController.currentVerticalVelocity > -0.5)
+                {
+                    SetCycle(flutterNeutral.GetList(currentFacing), true);
+                }
+                // Flutter Fall
                 else
                 {
                     SetCycle(flutterFall.GetList(currentFacing), true);
