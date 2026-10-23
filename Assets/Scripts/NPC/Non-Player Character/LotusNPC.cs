@@ -54,7 +54,7 @@ public class LotusNPC : MonoBehaviour
     }
     void Update()
     {
-        if (!saidBarkThisLife && Vector3.Distance(player.transform.position, transform.position) < 4)
+        if (!saidBarkThisLife && (Vector3.Distance(player.transform.position, transform.position) < 4))
         {
             afterDeathBark();
         }

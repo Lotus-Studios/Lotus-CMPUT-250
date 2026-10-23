@@ -5,8 +5,10 @@ using TMPro;
 
 public class Bark : MonoBehaviour
 {
-    [SerializeField] private TextMeshPro text;
-    private float totalDuration = 1f;
+    [SerializeField] private TextMeshProUGUI textDisplay;
+
+    [SerializeField] private string text;
+    [SerializeField] private float totalDuration = 1f;
 
     private Vector3 targetScale;
 
@@ -21,17 +23,21 @@ public class Bark : MonoBehaviour
     void Start()
     {
         Debug.Log("New bark initialized.");
+        targetScale = gameObject.transform.localScale;
+        gameObject.transform.localScale = currentScale;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log($"Text Displayed: {textDisplay.text}");
         updateScale();
         if(scaleDirection == 0)
         {
             currentDuration += Time.deltaTime;
             if(currentDuration >= totalDuration)
             {
+                textDisplay.text = "";
                 scaleDirection = -1;
             }
         }
@@ -41,14 +47,16 @@ public class Bark : MonoBehaviour
             if(transform.localScale.x > targetScale.x)
             {
                 scaleDirection = 0;
+                textDisplay.text = text;
             }
         }
 
         if(scaleDirection == -1)
         {
+            
             if(transform.localScale.x <= 0)
             {
-                Destroy(this);
+                Destroy(transform.parent.gameObject);
             }
         }
     }
@@ -65,7 +73,7 @@ public class Bark : MonoBehaviour
 
     public void setText(string str) { 
         Debug.Log($"Bark text set to {str}");
-        text.text = str; 
+        text = str; 
         }
     public void setDuration(float dur) { 
         Debug.Log($"Bark duration set to {dur}");
