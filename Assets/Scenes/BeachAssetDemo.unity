@@ -1091,19 +1091,43 @@ PrefabInstance:
       objectReference: {fileID: 3906974563277171460}
     - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: BarkList.Array.size
-      value: 3
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: BarkList.Array.data[0]
-      value: Bark1
+      value: 'Slow down, the mountain isn''t going anywhere. Probably. '
       objectReference: {fileID: 0}
     - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: BarkList.Array.data[1]
-      value: Bark2
+      value: 'I think you''re a little lower than you planned. '
       objectReference: {fileID: 0}
     - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: BarkList.Array.data[2]
-      value: Bark3
+      value: 'Well, that certainly didn''t go as planned. But most things don''t. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: BarkList.Array.data[3]
+      value: 'I think you were supposed to keep going up. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: BarkList.Array.data[4]
+      value: 'I admire your determination! Your landing technique, less so. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: BarkList.Array.data[5]
+      value: 'At least you''re getting to know the mountain. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: BarkList.Array.data[6]
+      value: 'I see you''ve discovered a very efficient way down. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: BarkList.Array.data[7]
+      value: Gravity seems just as committed as you are.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: BarkList.Array.data[8]
+      value: 'Keep trying. You''ll get it. '
       objectReference: {fileID: 0}
     - target: {fileID: 6657525610790432124, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: m_Name
