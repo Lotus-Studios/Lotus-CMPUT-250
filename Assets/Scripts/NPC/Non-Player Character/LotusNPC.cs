@@ -62,7 +62,7 @@ public class LotusNPC : MonoBehaviour
     private void afterDeathBark()
     {
         saidBarkThisLife = true;
-        BarkSystem.Instance.bark(gameObject, BarkList[barkIndex], 6, new Vector3(0, 1.25f, -0.25f));
+        BarkSystem.Instance.bark(gameObject, BarkList[barkIndex], 6, new Vector3(0, 5.25f, -0.25f));
     }
 
     private void setNewDeathBark()
