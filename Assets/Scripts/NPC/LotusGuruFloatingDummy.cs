@@ -42,8 +42,24 @@ public class LotusGuruFloatingDummy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (mountainCenter == null)
+        {
+            GameObject mountainObj = GameObject.Find("Mountain Center");
+            if (mountainObj != null) mountainCenter = mountainObj.transform;
+        }
+
+        if (water == null)
+        {
+            water = FindObjectOfType<RisingWater>();
+        }
+
+        if (playerDrowning == null)
+        {
+            playerDrowning = FindObjectOfType<PlayerDrowning>();
+        }
+
         ResetMe();
-        water.resetWaterEvent.AddListener(ResetMe);
+        if (water != null) water.resetWaterEvent.AddListener(ResetMe);
     }
 
     // Update is called once per frame

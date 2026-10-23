@@ -43,11 +43,6 @@ public class InputHandler : MonoBehaviour
                 playerController.JumpCancelled();
             }
         }
-
-        if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            playerController.ResetToCurrentCheckpoint();
-        }
     }
 
 }
