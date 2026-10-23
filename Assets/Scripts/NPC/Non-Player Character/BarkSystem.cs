@@ -37,10 +37,12 @@ public class BarkSystem : MonoBehaviour
 
     public void bark(GameObject parent, string text, float duration, Vector3 offset)
     {
-        Bark newBark = Instantiate(barkInstance, parent.transform).GetComponent<Bark>();
+        Bark newBark = Instantiate(barkInstance, parent.transform).GetComponentInChildren<Bark>();
         newBark.setDuration(duration);
         newBark.setText(text);
         newBark.transform.position += offset;
+        newBark.getTextDisplay().transform.position += offset;
+        newBark.getTextDisplay().gameObject.SetActive(false);
         Debug.Log($"Instancing new bark at {parent.transform.position}");
     }
 }
