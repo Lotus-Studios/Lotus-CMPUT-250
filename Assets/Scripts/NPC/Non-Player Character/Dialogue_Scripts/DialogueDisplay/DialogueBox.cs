@@ -105,6 +105,9 @@ namespace Narrative
             animator.SetBool("isOpen", true);
             advanceArrow.SetVisible(false);
             isActive = true;
+            if (AudioController.Instance != null) {
+                AudioController.Instance.PlayOpenWoosh();
+            }
         }
 
         public void ClearName()
@@ -120,6 +123,9 @@ namespace Narrative
             animator.SetBool("isOpen", false);
             lotusLabel.SetActive(false);
             seedlinLabel.SetActive(false);
+            if (AudioController.Instance != null) {
+                AudioController.Instance.PlayCloseWoosh();
+            }
         }
 
         /// <summary>

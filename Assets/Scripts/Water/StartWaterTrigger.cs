@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class WaterStartTrigger : MonoBehaviour
 {
-    [SerializeField] private RisingWater risingWater;
+    [SerializeField] public RisingWater risingWater;
 
     private void OnTriggerEnter(Collider other)
     {
 
         if (other.CompareTag("Player"))
         {
-            if (risingWater != null)
+            if (risingWater != null && !risingWater.allowedToMove) 
             {
                 risingWater.StartMe();
                 if (AudioLayering.Instance != null)

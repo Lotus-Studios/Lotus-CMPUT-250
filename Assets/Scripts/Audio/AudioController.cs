@@ -9,12 +9,19 @@ public class AudioController : MonoBehaviour
     public AudioSource jumpSource;
     public AudioSource loopSource;
     public AudioSource dialogueSource;
+    public AudioSource UISource;
     public AudioSource platformAudioSourceObject;
 
     [Header("Player SFX")]
     public AudioClip jumpSound;
     public AudioClip flutterSound;
     public AudioClip[] footstepSounds;
+
+    [Header("UI SFX")]
+    public AudioClip clickSound;
+    public AudioClip playButtonSound;
+    public AudioClip openWoosh;
+    public AudioClip closeWoosh;
 
 
     private bool isUnderwater = false;
@@ -156,5 +163,13 @@ public class AudioController : MonoBehaviour
         audioSource.clip = null;
         yield break;
     }
+
+    public void PlayOpenWoosh() {
+        UISource.PlayOneShot(openWoosh, 0.3f);
+    }
+    public void PlayCloseWoosh() {
+        UISource.PlayOneShot(closeWoosh, 0.3f);
+    }
+
 
 }
