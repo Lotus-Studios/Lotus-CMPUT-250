@@ -89,7 +89,7 @@ public class AudioController : MonoBehaviour
         float basePitch = Random.Range(1.7f, 1.9f);
         footstepSource.pitch = isUnderwater ? basePitch * 0.85f : basePitch;
 
-        float finalVolume = isUnderwater ? 0.2f : 0.4f;
+        float finalVolume = isUnderwater ? 0.1f : 0.2f;
         //audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
         footstepSource.clip = footstepSounds[randomIndex];
         footstepSource.volume = finalVolume;
