@@ -6,6 +6,7 @@ public class RisingWaterAudio : MonoBehaviour
 {
     public static RisingWaterAudio Instance { get; private set; }    
     [SerializeField] private Transform topOfHeadTransform;
+    [SerializeField] private RisingWater risingWater;
     [SerializeField] private Transform waterTransform;
     [SerializeField] private AudioSource risingWaterSource;
     [SerializeField] private float maxVolume = 0.2f;
@@ -29,7 +30,11 @@ public class RisingWaterAudio : MonoBehaviour
     {
         heightDifference = topOfHeadTransform.position.y - waterTransform.position.y; 
 
-        targetVolume = (maxHeight - heightDifference) * (maxVolume / maxHeight);
+        if (!risingWater.allowedToMove) {
+            targetVolume = (maxHeight - heightDifference) * (maxVolume / maxHeight);
+        } else {
+            targetVolume = maxVolume;
+        }
             
         
         if (heightDifference >= 0) {
