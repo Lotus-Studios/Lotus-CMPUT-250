@@ -74,6 +74,7 @@ MonoBehaviour:
   baseSize: 0.7
   playerRadius: 0.35
   castStartOffset: 0.5
+  shadowSpriteTransform: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 497
@@ -199,7 +200,7 @@ MonoBehaviour:
   tallyThresholdDialogue: {fileID: 0}
   tallyThresholdValue: 0
   BarkList: []
-  dummy: {fileID: 0}
+  water: {fileID: 0}
   dummyPrefab: {fileID: 2895109821281483268, guid: 2c57e33c25782b349b898d4ef5793c00, type: 3}
 --- !u!1 &7933756004556428619
 GameObject:
@@ -274,7 +275,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 540574b5a3a73c04780944c655aa1375, type: 3}
+  m_Sprite: {fileID: -1063223117, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -21,6 +21,8 @@ public class LotusNPC : MonoBehaviour
     [SerializeField] private int tallyThresholdValue = 0;
 
     [SerializeField] private List<string> BarkList;
+
+    [SerializeField] private Vector3 barkOffset = new Vector3(0, 1.25f, -0.25f);
     private int barkIndex = -1;
     private bool saidBarkThisLife = true;
     [SerializeField] RisingWater water;
@@ -62,7 +64,7 @@ public class LotusNPC : MonoBehaviour
     private void afterDeathBark()
     {
         saidBarkThisLife = true;
-        BarkSystem.Instance.bark(gameObject, BarkList[barkIndex], 6, new Vector3(0, 1.25f, -0.25f));
+        BarkSystem.Instance.bark(gameObject, BarkList[barkIndex], 6, barkOffset);
     }
 
     private void setNewDeathBark()
