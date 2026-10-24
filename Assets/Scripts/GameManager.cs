@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool mainMenuBypass = false;
     [SerializeField] private MainMenu mainMenu;
     [SerializeField] private GameMenu gameMenu;
+    [SerializeField] private GameObject inGameTabIcon;
 
     private PlayerController player;
     // Start is called before the first frame update
@@ -43,6 +44,8 @@ public class GameManager : MonoBehaviour
        
         if(player != null)
         {
+            player.playerTeleported.AddListener(OnPlayerTeleported);
+
             if (mainMenuBypass)
             {
                 player.canMove = true;
@@ -62,30 +65,59 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (player != null)
+        {
+            player.playerTeleported.RemoveListener(OnPlayerTeleported);
+        }
+    }
+
+    private void OnPlayerTeleported()
+    {
+        foreach (GameObject npc in GameObject.FindGameObjectsWithTag("NPC"))
+        {
+            LotusNPC lotus = npc.GetComponent<LotusNPC>();
+            if (lotus != null)
+            {
+                if (lotus.getDummy() != null)
+                {
+                    lotus.getDummy().ResetMe();
+                }
+
+                if (Vector3.Distance(lotus.transform.position, player.transform.position) < 35f)
+                {
+                    lotus.gameObject.SetActive(true);
+                }
+            }
+        }
+    }
+
     public void resetGame()
     {
-        //Wait for the player to teleport before resetting the NPC floaters
-        UnityEvent listenedEvent = player.playerTeleported;
-
-        void resetNPCs()
-        {
-            foreach (GameObject npc in GameObject.FindGameObjectsWithTag("NPC"))
-            {
-                LotusNPC lotus = npc.GetComponent<LotusNPC>();
-                
-                lotus.resetDoneFirstDialogue();
-                lotus.getDummy().ResetMe();
-            }
-            //Self unsubscribe
-            listenedEvent.RemoveListener(resetNPCs);
-        }
-
         player.ResetAll();
-        //Add the npc reset to listen to the player teleport
-        listenedEvent.AddListener(resetNPCs);
         DialogueSystem.Instance.resetTallyScore();
     }
 
+    // call this if you want to reset to previous checkpoint
+    public void ResetToPreviousCheckpointClicked()
+    {
+        ResumeGame();
+        if (player != null)
+        {
+            player.ResetToPreviousCheckpoint();
+        }
+    }
+
+    // Call this if you want to reset to current checkpoint
+    public void ResetToCurrentCheckpointClicked()
+    {
+        ResumeGame();
+        if (player != null)
+        {
+            player.ResetToCurrentCheckpoint();
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -172,6 +204,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
+        if (inGameTabIcon != null) inGameTabIcon.SetActive(false);
         showGameMenu();
         setCursor(true);
         setCursorLockState(CursorLockMode.None);
@@ -180,6 +213,7 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        if (inGameTabIcon != null) inGameTabIcon.SetActive(true);
         hideGameMenu();
         setCursor(false);
         setCursorLockState(CursorLockMode.Locked);
