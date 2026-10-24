@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool mainMenuBypass = false;
     [SerializeField] private MainMenu mainMenu;
     [SerializeField] private GameMenu gameMenu;
-    [SerializeField] private GameObject inGameTabIcon;
+    [SerializeField] private Canvas hudCanvas;
 
     private PlayerController player;
     // Start is called before the first frame update
@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
             if (mainMenuBypass)
             {
                 player.canMove = true;
+                if (hudCanvas != null) hudCanvas.gameObject.SetActive(true);
                 setCursor(false);
                 setCursorLockState(CursorLockMode.Locked);
                 hideMainMenu();
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 player.canMove = false;
+                if(hudCanvas != null) hudCanvas.gameObject.SetActive(false);
                 showMainMenu();
             }
         }
@@ -159,8 +161,8 @@ public class GameManager : MonoBehaviour
         void onEnd()
         {
             if(player != null) player.canMove = true;
+            if (hudCanvas != null) hudCanvas.gameObject.SetActive(true);
             GameStart.Invoke();
-            
             fade.endBasicFade.RemoveListener(onEnd); //self unsubcribe
         }
         //Add both as listeners to their respective events in ScreenFadeToBlack
@@ -175,7 +177,7 @@ public class GameManager : MonoBehaviour
         if(DialogueSystem.Instance.getIsActive()) return;
         Debug.Log("GoToMainMenu starting...");
 
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f; 
 
         ScreenFadeToBlack fade = ScreenFadeToBlack.Instance;
 
@@ -183,6 +185,7 @@ public class GameManager : MonoBehaviour
         
         void onBlack()
         {
+            if (hudCanvas != null) hudCanvas.gameObject.SetActive(false);
             hideGameMenu();
             showMainMenu();
             setCursor(true);
@@ -204,7 +207,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        if (inGameTabIcon != null) inGameTabIcon.SetActive(false);
+        if (hudCanvas != null) hudCanvas.gameObject.SetActive(false);
         showGameMenu();
         setCursor(true);
         setCursorLockState(CursorLockMode.None);
@@ -213,7 +216,7 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        if (inGameTabIcon != null) inGameTabIcon.SetActive(true);
+        if (hudCanvas != null) hudCanvas.gameObject.SetActive(true);
         hideGameMenu();
         setCursor(false);
         setCursorLockState(CursorLockMode.Locked);
