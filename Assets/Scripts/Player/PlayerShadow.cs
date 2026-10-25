@@ -13,6 +13,7 @@ public class PlayerShadow : MonoBehaviour
     [SerializeField] private float baseSize = 0.7f;
     [SerializeField] private float playerRadius = 0.35f;
     [SerializeField] private float castStartOffset = 0.5f;
+    [SerializeField] private Transform shadowSpriteTransform;
 
     public LayerMask groundLayer;
 
@@ -33,11 +34,13 @@ public class PlayerShadow : MonoBehaviour
 
             // Shrink the width and height of the decal
             float currentSize = Mathf.Lerp(baseSize, baseSize * 0.5f, heightPercent);
+            float totalDist = Mathf.Max(surfaceDist, 0.05f) + 0.2f;
+            float downwardOffset = playerRadius;
+            float depth = Mathf.Max(totalDist - downwardOffset, 0.05f);
 
-            // Clamp projection depth to the hit surface so it cant project past ledges
-            float depth = Mathf.Max(surfaceDist, 0.05f) + 0.2f;
             decalProjector.size = new Vector3(currentSize, currentSize, depth);
-            decalProjector.pivot = new Vector3(0f, 0f, depth * 0.5f);
+            // Push pivot forward (down along local Z) past the sprite
+            decalProjector.pivot = new Vector3(0f, 0f, downwardOffset + (depth * 0.5f));
         }
         else
         {

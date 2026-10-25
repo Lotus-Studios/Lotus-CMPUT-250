@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class AudioController : MonoBehaviour
 {
@@ -8,12 +9,19 @@ public class AudioController : MonoBehaviour
     public AudioSource jumpSource;
     public AudioSource loopSource;
     public AudioSource dialogueSource;
+    public AudioSource UISource;
     public AudioSource platformAudioSourceObject;
 
     [Header("Player SFX")]
     public AudioClip jumpSound;
     public AudioClip flutterSound;
     public AudioClip[] footstepSounds;
+
+    [Header("UI SFX")]
+    public AudioClip clickSound;
+    public AudioClip playButtonSound;
+    public AudioClip openWoosh;
+    public AudioClip closeWoosh;
 
 
     private bool isUnderwater = false;
@@ -44,7 +52,7 @@ public class AudioController : MonoBehaviour
     public void PlayJump(float pitch = 1f)
     {
         float finalPitch = isUnderwater ? pitch * 0.85f : pitch;
-        float finalVolume = isUnderwater ? 0.40f : 0.60f;
+        float finalVolume = isUnderwater ? 0.25f : 0.50f;
 
         jumpSource.pitch = finalPitch;
         jumpSource.PlayOneShot(jumpSound, finalVolume);
@@ -59,7 +67,7 @@ public class AudioController : MonoBehaviour
 
         // Apply the pitch and volume before starting the loop
         loopSource.pitch = isUnderwater ? 0.85f : 1f;
-        loopSource.volume = isUnderwater ? 0.85f : 1f;
+        loopSource.volume = isUnderwater ? 0.25f : 0.5f;
         loopSource.Play();
     }
 
@@ -67,8 +75,7 @@ public class AudioController : MonoBehaviour
     {
         if (loopSource.clip == flutterSound && loopSource.isPlaying)
         {
-            loopSource.Stop();
-            loopSource.clip = null;
+            StartCoroutine(StopAudioSource(loopSource));
         }
     }
 
@@ -82,7 +89,7 @@ public class AudioController : MonoBehaviour
         float basePitch = Random.Range(1.7f, 1.9f);
         footstepSource.pitch = isUnderwater ? basePitch * 0.85f : basePitch;
 
-        float finalVolume = isUnderwater ? 0.01f : 0.05f;
+        float finalVolume = isUnderwater ? 0.1f : 0.2f;
         //audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
         footstepSource.clip = footstepSounds[randomIndex];
         footstepSource.volume = finalVolume;
@@ -127,6 +134,41 @@ public class AudioController : MonoBehaviour
     {
         source.volume = volume;
         source.pitch = pitch;
+    }
+
+
+    // https://johnleonardfrench.music/how-to-fade-audio-in-unity-i-tested-every-method-this-ones-the-best/
+    // this one's not the best but it works
+    public IEnumerator FadeAudioSource(AudioSource audioSource, float duration, float targetVolume)
+    {
+        float currentTime = 0;
+        float start = audioSource.volume;
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            yield return null;
+        }
+        yield break;
+    }
+
+    public IEnumerator StopAudioSource(AudioSource audioSource) 
+    {
+        float volume = audioSource.volume;
+        float duration = 0.05f;
+        StartCoroutine(FadeAudioSource(audioSource, duration, 0));
+        yield return new WaitForSeconds(duration);
+        audioSource.Stop();
+        audioSource.volume = volume;
+        audioSource.clip = null;
+        yield break;
+    }
+
+    public void PlayOpenWoosh() {
+        UISource.PlayOneShot(openWoosh, 0.3f);
+    }
+    public void PlayCloseWoosh() {
+        UISource.PlayOneShot(closeWoosh, 0.3f);
     }
 
 

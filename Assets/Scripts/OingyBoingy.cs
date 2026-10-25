@@ -12,7 +12,7 @@ public class OingyBoingy : MonoBehaviour
     public void doBounceAnim()
     {
         bounceAnim.Play();
-        AudioController.Instance.PlayFromAudioSource(boingSound, boingSource);
+        boingSource.Play();
     }
 
     // Start is called before the first frame update

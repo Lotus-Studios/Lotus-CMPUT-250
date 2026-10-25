@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LotusGuruFloatingDummy : MonoBehaviour
 {
-    [SerializeField] RisingWater water;
+    [SerializeField] public RisingWater water;
 
     [SerializeField] PlayerDrowning playerDrowning;
     bool floatingState;
@@ -32,7 +32,7 @@ public class LotusGuruFloatingDummy : MonoBehaviour
     [SerializeField] Transform resetToTransform;
 
 
-
+    //private bool canFloat = false;
     // [Header("drifting")]
     // [SerializeField] float driftFrequency = 0.2f;
     // [SerializeField] float driftAmplitude;
@@ -42,8 +42,24 @@ public class LotusGuruFloatingDummy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (mountainCenter == null)
+        {
+            GameObject mountainObj = GameObject.Find("Mountain Center");
+            if (mountainObj != null) mountainCenter = mountainObj.transform;
+        }
+
+        if (water == null)
+        {
+            water = FindObjectOfType<RisingWater>();
+        }
+
+        if (playerDrowning == null)
+        {
+            playerDrowning = FindObjectOfType<PlayerDrowning>();
+        }
+
         ResetMe();
-        water.resetWaterEvent.AddListener(ResetMe);
+        if (water != null) water.resetWaterEvent.AddListener(ResetMe);
     }
 
     // Update is called once per frame
@@ -56,6 +72,7 @@ public class LotusGuruFloatingDummy : MonoBehaviour
                 floatingState = true;
                 standingSprite.enabled = false;
                 lilypadSprite.enabled = true;
+                Debug.Log("Starting to float");
             }
         }
 

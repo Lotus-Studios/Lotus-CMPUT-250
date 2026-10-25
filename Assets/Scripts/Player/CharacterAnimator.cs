@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 // TODO:
 // Update animated entity to allow for looping anims until action is done (fluttering, jumping etc.)
@@ -31,7 +32,9 @@ public class CharacterAnimator : AnimatedEntity
     public DirectionalAnimations jumpFall;
     public DirectionalAnimations jumpLand;
 
-    public DirectionalAnimations flutter;
+    public DirectionalAnimations flutterRise;
+    public DirectionalAnimations flutterNeutral;
+    public DirectionalAnimations flutterFall;
 
     private PlayerController playerController;
     private int currentFacing = 0; // 0 is front, 1 is back, 2 is side.
@@ -57,6 +60,10 @@ public class CharacterAnimator : AnimatedEntity
         base.AnimationUpdate();
 
         bool isGrounded = playerController.IsGrounded;
+        if (isGrounded)
+        {
+            Looping = true;
+        }
         if (!wasGrounded && isGrounded)
         {
             TriggerLand();
@@ -68,17 +75,32 @@ public class CharacterAnimator : AnimatedEntity
             // Fluttering
             if (playerController.IsFluttering)
             {
-                DefaultAnimationCycle = flutter.GetList(currentFacing);
+                // Flutter Rise
+                if (playerController.currentVerticalVelocity > 0.5)
+                {
+                    SetCycle(flutterRise.GetList(currentFacing), true);
+                }
+                // Flutter Neutral
+                else if (playerController.currentVerticalVelocity > -0.5)
+                {
+                    SetCycle(flutterNeutral.GetList(currentFacing), true);
+                }
+                // Flutter Fall
+                else
+                {
+                    SetCycle(flutterFall.GetList(currentFacing), true);
+                }
+                
             }
             // Jump Rise
             else if (playerController.currentVerticalVelocity > 0)
             {
-                DefaultAnimationCycle = jumpRise.GetList(currentFacing);
+                SetCycle(jumpRise.GetList(currentFacing), false);
             }
             // Jump fall
             else
             {
-                DefaultAnimationCycle = jumpFall.GetList(currentFacing);
+                SetCycle(jumpFall.GetList(currentFacing), false);
             }
         }
 
@@ -117,9 +139,22 @@ public class CharacterAnimator : AnimatedEntity
     // Swaps between idle or walk animation cycles
     public void SetMoving(bool isMoving) {
         DirectionalAnimations set = isMoving ? walk : idle;
-        DefaultAnimationCycle = set.GetList(currentFacing);
+        SetCycle(set.GetList(currentFacing), true);
+    }
 
-        // DefaultAnimationCycle = isMoving ? walk.side : idle.GetList(currentFacing); For no Up or Down anims
+    // to determine whats looping and whats not so jumping cycles arent looping.
+    private void SetCycle(List<Sprite> newCycle, bool loop)
+    {
+        Looping = loop;
+        if (DefaultAnimationCycle != newCycle)
+        {
+            DefaultAnimationCycle = newCycle;
+            index = 0;
+            if (DefaultAnimationCycle != null && DefaultAnimationCycle.Count > 0)
+            {
+                SpriteRenderer.sprite = DefaultAnimationCycle[0];
+            }
+        }
     }
 
     // Plays the landing animation

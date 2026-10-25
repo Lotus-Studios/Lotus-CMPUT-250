@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /*  Videos:
  *  https://www.youtube.com/watch?v=v2pRG7n_-cs - Unity - Screen fader
@@ -31,6 +32,9 @@ public class ScreenFadeToBlack : MonoBehaviour
     private PlayerController savedPlayer;
     private Vector3 savedPosition;
 
+    public UnityEvent beginBasicFade;
+    public UnityEvent endBasicFade;
+    public UnityEvent beginWaitOnBlack;
     public bool IsScreenBlack => currentState == FadeState.WaitingOnBlack;
 
     private void Awake()
@@ -71,6 +75,7 @@ public class ScreenFadeToBlack : MonoBehaviour
     {
         timer = 0f;
         currentState = FadeState.FadingOut;
+        beginBasicFade.Invoke();
     }
 
 
@@ -97,6 +102,7 @@ public class ScreenFadeToBlack : MonoBehaviour
 
                 timer = 0f;
                 currentState = FadeState.WaitingOnBlack;
+                beginWaitOnBlack.Invoke();
             }
         }
         else if (currentState == FadeState.WaitingOnBlack)
@@ -123,6 +129,7 @@ public class ScreenFadeToBlack : MonoBehaviour
 
                 currentPurpose = FadePurpose.None;
                 currentState = FadeState.Idle;
+                endBasicFade.Invoke();
             }
         }
     }

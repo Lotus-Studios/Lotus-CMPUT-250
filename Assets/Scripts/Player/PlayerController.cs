@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Controls player movement, jump physics, coyote time, jump buffering, etc.
 // Also passes motion and directional data to CharacterAnimator.cs
@@ -94,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Flutter Jump")]
     [SerializeField] private float flutterJumpDuration = 0.8f;
+    [SerializeField] private float activationCost = 0.11f;
     [SerializeField] private float flutterMaxSpeed = 2.1f;
     [SerializeField] private float flutterAirAcceleration = 4f;
     [SerializeField] private float flutterPower = 9f;
@@ -101,10 +103,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float flutterMomentumDecayMult = 0.9f;
     [SerializeField] private float flutterSteerStrength = 2.1f;
 
+    private bool isBoingerBouncing = false;
+
     private float flutterTimeCounter;
     private bool isFluttering;
     public bool IsFluttering => isFluttering;
-    private bool hasFluttered;
 
     [Header("Movement Tuning")]
     [SerializeField] private float jumpBufferTime = 0.15f;
@@ -129,7 +132,11 @@ public class PlayerController : MonoBehaviour
     // => means it recalculates it every time its called
     public bool IsGrounded => characterController.isGrounded && (Time.time - lastGroundedTime < 0.05f);
 
-    public bool canMove = true;
+    public bool canMove = false;
+
+    #region Events
+    public UnityEvent playerTeleported;
+    #endregion
 
     void Start()
     {
@@ -226,7 +233,11 @@ public class PlayerController : MonoBehaviour
 
         if (IsGrounded)
         {
-            hasFluttered = false;
+            if (verticalVelocity <= 0f)
+            {
+                isBoingerBouncing = false;
+            }
+            flutterTimeCounter = flutterJumpDuration;
 
             // incase the rare moment happens where the player is fluttering when touching the ground
             if (isFluttering)
@@ -246,7 +257,7 @@ public class PlayerController : MonoBehaviour
         camRight.Normalize();
 
         // calculate move direction relative to where the camera is facing
-        Vector3 moveDirection = (camForward * input.y + camRight * input.x).normalized;    
+        Vector3 moveDirection = (camForward * input.y + camRight * input.x).normalized;
 
         if (isTriggerSliding)
         {
@@ -266,6 +277,7 @@ public class PlayerController : MonoBehaviour
                 if (flutterTimeCounter <= 0)
                 {
                     isFluttering = false;
+                    flutterTimeCounter = 0;
                     if (AudioController.Instance != null) AudioController.Instance.StopFlutterLoop();
                 }
                 else
@@ -388,7 +400,7 @@ public class PlayerController : MonoBehaviour
         bool nearGround = Physics.SphereCast(transform.position, 0.3f, Vector3.down, out _, jumpBufferRayCast);
 
         // if player isn't on the ground and hasn't yet fluttered this jump, execute the flutter
-        if (!IsGrounded && !hasFluttered && coyoteTimeCounter <= 0f && !nearGround)
+        if (!IsGrounded && flutterTimeCounter > 0 && coyoteTimeCounter <= 0f && !nearGround)
         {
             ExecuteFlutter();
             return;
@@ -419,18 +431,53 @@ public class PlayerController : MonoBehaviour
             currentChain = 0f;
         }
 
-        verticalVelocity = finalJumpForce;
+        verticalVelocity = Mathf.Max(verticalVelocity, finalJumpForce);
         coyoteTimeCounter = 0;
         jumpBufferCounter = 0;
     }
+
+
+    public void ExecuteBounce(float bounceForce)
+    {
+
+        isBoingerBouncing = true;
+        // Stop fluttering
+        isFluttering = false;
+
+        if (AudioController.Instance != null)
+        {
+            AudioController.Instance.StopFlutterLoop();
+        }
+
+        // Apply bounce
+        verticalVelocity = Mathf.Max(verticalVelocity, bounceForce);
+
+        // Clear jump buffering
+        coyoteTimeCounter = 0f;
+        jumpBufferCounter = 0f;
+
+        // Reset chain jumping
+        currentChain = 0f;
+    }
+
+
 
     // Initiates flutter jump physics, timers, and animations
     public void ExecuteFlutter()
     {
         isFluttering = true;
-        hasFluttered = true;
         currentChain = 0f;
-        flutterTimeCounter = flutterJumpDuration;
+
+        if (flutterTimeCounter < flutterJumpDuration)
+        {
+            flutterTimeCounter = Mathf.Max(0f, flutterTimeCounter - activationCost);
+
+            if (flutterTimeCounter <= 0f)
+            {
+                isFluttering = false;
+                return;
+            }
+        }
 
         if (AudioController.Instance != null) AudioController.Instance.StartFlutterLoop();
 
@@ -450,7 +497,7 @@ public class PlayerController : MonoBehaviour
             if (AudioController.Instance != null) AudioController.Instance.StopFlutterLoop();
         }
 
-        if (verticalVelocity > 0f)
+        if (verticalVelocity > 0f && !isBoingerBouncing)
         {
             verticalVelocity *= 0.5f;
         }
@@ -460,6 +507,16 @@ public class PlayerController : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (isTriggerSliding) return;
+
+        if (verticalVelocity > 0f && (!isBoingerBouncing || hit.normal.y < -0.1f))
+        {
+            // Combine our current movement into one 3D velocity vector then align it to the plane and apply it to the player. This SHOULD FINALLY FIX HEADHITTERS BY JUST NOT HAVING HEADHITTERS!!!
+            Vector3 combinedVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
+            Vector3 slidingVelocity = Vector3.ProjectOnPlane(combinedVelocity, hit.normal);
+
+            horizontalVelocity = new Vector3(slidingVelocity.x, 0f, slidingVelocity.z);
+            verticalVelocity = slidingVelocity.y;
+        }
 
         // only trigger headhitting if its a flat-ish wall and if it is on the inner area of the head
         if (verticalVelocity > 0f && hit.normal.y < -0.7f)
@@ -485,7 +542,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                surfaceFrictionMultiplier = 1f; 
+                surfaceFrictionMultiplier = 1f;
             }
         }
 
@@ -507,8 +564,9 @@ public class PlayerController : MonoBehaviour
 
         if (hit.collider.TryGetComponent<OingyBoingy>(out OingyBoingy boingy))
         {
+
             boingy.doBounceAnim();
-            ExecuteJump(boingy.boinginess);
+            ExecuteBounce(boingy.boinginess);
         }
     }
 
@@ -582,7 +640,7 @@ public class PlayerController : MonoBehaviour
         surfaceFrictionMultiplier = 1f;
         isTriggerSliding = false;
         isFluttering = false;
-        hasFluttered = false;
+        flutterTimeCounter = flutterJumpDuration;
         if (AudioLayering.Instance != null) AudioLayering.Instance.FadeToChill(); 
         if (activeWater != null) activeWater.RiseToCheckpoint(pendingWaterLevel, 10000f); //10000f for instant snapping (not ideal but it works)
 
@@ -590,7 +648,7 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
         characterController.enabled = true;
         if (orbitCamera != null) orbitCamera.ResetCamera();
-
+        playerTeleported.Invoke();
     }
 
     // reset the player to their current checkpoint

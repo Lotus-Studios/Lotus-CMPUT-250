@@ -17,8 +17,8 @@ public class InputHandler : MonoBehaviour
         jump = InputSystem.actions.FindAction("Jump");
 
         // Hides cursor and locks it when in game
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //GameManager.Instance.setCursor(false);
+        //GameManager.Instance.setCursorLockState(CursorLockMode.Locked);
     }
 
     void Update()
@@ -42,11 +42,6 @@ public class InputHandler : MonoBehaviour
             {
                 playerController.JumpCancelled();
             }
-        }
-
-        if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            playerController.ResetToCurrentCheckpoint();
         }
     }
 
