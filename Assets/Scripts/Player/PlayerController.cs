@@ -50,13 +50,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("Respawn Point")]
     public Vector3 currentCheckpointPosition;
-    public Vector3 previousCheckpointPosition;
+    public List<Vector3> checkpointHistory = new List<Vector3>();
     public Vector3 startPosition;
 
     [Header("Water Save States")]
     public RisingWater activeWater;
     public float currentWaterLevel;
-    public float previousWaterLevel;
+    public List<float> waterLevelHistory = new List<float>();
     public float startWaterLevel;
     private float pendingWaterLevel;
 
@@ -156,7 +156,6 @@ public class PlayerController : MonoBehaviour
         }
 
         currentCheckpointPosition = transform.position;
-        previousCheckpointPosition = transform.position;
         startPosition = transform.position;
 
         activeWater = FindObjectOfType<RisingWater>();
@@ -164,7 +163,6 @@ public class PlayerController : MonoBehaviour
         {
             startWaterLevel = activeWater.transform.position.y;
             currentWaterLevel = startWaterLevel;
-            previousWaterLevel = startWaterLevel;
         }
     }
 
@@ -662,18 +660,33 @@ public class PlayerController : MonoBehaviour
     // reset player to their previous checkpoint
     public void ResetToPreviousCheckpoint()
     {
-        pendingWaterLevel = previousWaterLevel;
-        ScreenFadeToBlack.Instance.FadeAndRespawn(this, previousCheckpointPosition);
+        if (checkpointHistory.Count > 0)
+        {
+            int lastIndex = checkpointHistory.Count - 1;
+
+            currentCheckpointPosition = checkpointHistory[lastIndex];
+            currentWaterLevel = waterLevelHistory[lastIndex];
+            pendingWaterLevel = currentWaterLevel;
+
+            checkpointHistory.RemoveAt(lastIndex);
+            waterLevelHistory.RemoveAt(lastIndex);
+
+            ScreenFadeToBlack.Instance.FadeAndRespawn(this, currentCheckpointPosition);
+        }
+        else
+        {
+            ResetAll();
+        }
     }
 
     // reset ALL progress, make sure to add confirmation for this and the previous checkpoint one
     public void ResetAll()
     {
-        currentCheckpointPosition = startPosition;
-        previousCheckpointPosition = startPosition;
+        checkpointHistory.Clear();
+        waterLevelHistory.Clear();
 
+        currentCheckpointPosition = startPosition;
         currentWaterLevel = startWaterLevel;
-        previousWaterLevel = startWaterLevel;
         pendingWaterLevel = startWaterLevel;
 
         ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);

@@ -25,8 +25,11 @@ public class Checkpoint : MonoBehaviour
             PlayerController player = other.GetComponent<PlayerController>();
             if (player != null)
             {
-                player.previousCheckpointPosition = player.currentCheckpointPosition;
-                player.previousWaterLevel = player.currentWaterLevel;
+                if (player.currentCheckpointPosition != transform.position)
+                {
+                    player.checkpointHistory.Add(player.currentCheckpointPosition);
+                    player.waterLevelHistory.Add(player.currentWaterLevel);
+                }
 
                 // Update the player's respawn position to this checkpoint's exact location
                 if (customSpawnPoint != null)
