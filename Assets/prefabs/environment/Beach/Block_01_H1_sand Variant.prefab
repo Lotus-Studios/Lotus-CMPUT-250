@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1261348963024531452, guid: 070bbe131578c61498544980586594e5, type: 3}
       propertyPath: m_Name
-      value: Block_01_H1_grass Variant
+      value: Block_01_H1_sand Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1930608958512444742, guid: 070bbe131578c61498544980586594e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51,6 +51,10 @@ PrefabInstance:
     - target: {fileID: 1930608958512444742, guid: 070bbe131578c61498544980586594e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348868039729285302, guid: 070bbe131578c61498544980586594e5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7348868039729285302, guid: 070bbe131578c61498544980586594e5, type: 3}
       propertyPath: m_Materials.Array.data[0]

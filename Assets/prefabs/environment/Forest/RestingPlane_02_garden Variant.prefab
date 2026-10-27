@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1f950f90b9bcc4d4d9a0816d45d3fd9d, type: 2}
     - target: {fileID: 3748180912313405612, guid: a44b72ae8a286374c9773bf8b2c393fc, type: 3}
       propertyPath: m_Name
-      value: RestingPlane_02_Grass Variant
+      value: RestingPlane_02_garden Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4562117847083862550, guid: a44b72ae8a286374c9773bf8b2c393fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54,6 +54,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562117847083862550, guid: a44b72ae8a286374c9773bf8b2c393fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4792125663874713898, guid: a44b72ae8a286374c9773bf8b2c393fc, type: 3}
+      propertyPath: m_Convex
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

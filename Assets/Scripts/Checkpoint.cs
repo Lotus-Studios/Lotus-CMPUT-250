@@ -13,33 +13,23 @@ public class Checkpoint : MonoBehaviour
     [SerializeField] private float waterOffsetBelowCheckpoint = 3f;
     [SerializeField] private float waterRiseSpeed = 0.7f; // For moving the water to the checkpoint
 
-    private bool hasBeenActivated = false;
     private void OnTriggerEnter(Collider other)
     {
-        // Thank you for finding this bug Cass.
-        if (hasBeenActivated) return;
-
-        // Ensure your player has the "Player" tag in the Inspector
         if (other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
             if (player != null)
             {
-                if (player.currentCheckpointPosition != transform.position)
-                {
-                    player.checkpointHistory.Add(player.currentCheckpointPosition);
-                    player.waterLevelHistory.Add(player.currentWaterLevel);
-                }
 
-                // Update the player's respawn position to this checkpoint's exact location
-                if (customSpawnPoint != null)
-                {
-                    player.currentCheckpointPosition = customSpawnPoint.position;
-                }
-                else
-                {
-                    player.currentCheckpointPosition = transform.position;
-                }
+                Vector3 mySpawnPos = customSpawnPoint != null ? customSpawnPoint.position : transform.position;
+
+                if (player.currentCheckpointPosition == mySpawnPos) return;
+
+                // save the previous checkpoint and water level to history before the update
+                player.checkpointHistory.Add(player.currentCheckpointPosition);
+                player.waterLevelHistory.Add(player.currentWaterLevel);
+
+                player.currentCheckpointPosition = mySpawnPos;
 
                 if (water != null)
                 {
@@ -53,8 +43,6 @@ public class Checkpoint : MonoBehaviour
                 {
                     AudioLayering.Instance.FadeToChill();
                 }
-
-                hasBeenActivated = true;
             }
         }
     }

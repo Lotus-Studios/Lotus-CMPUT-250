@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3662353048798771288, guid: 4814e33c8f434f34f8e363052924bf31, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8597465375037879631, guid: 4814e33c8f434f34f8e363052924bf31, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8942888379757506549, guid: 4814e33c8f434f34f8e363052924bf31, type: 3}
       propertyPath: m_Name
-      value: tree_03_grass Variant
+      value: tree_03_sand Variant
       objectReference: {fileID: 0}
     - target: {fileID: 9088640821077724806, guid: 4814e33c8f434f34f8e363052924bf31, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -29,6 +29,9 @@ public class RisingWater : MonoBehaviour
     [HideInInspector]
     public UnityEvent resetWaterEvent;
 
+    private List<Renderer> submergedRenderers = new List<Renderer>();
+    private List<Collider> submergedColliders = new List<Collider>();
+
     // Update is called once per frame
     void Update()
     {
@@ -72,7 +75,8 @@ public class RisingWater : MonoBehaviour
         currentRiseSpeed = riseSpeed;
 
         allowedToMove = false; 
-        isRisingToCheckpoint = true; 
+        isRisingToCheckpoint = true;
+        RestoreSubmergedObjects();
     }
 
     //We can decide later whether water is responsible for knowing about checkpoints or not, basic implemenation here
@@ -86,7 +90,23 @@ public class RisingWater : MonoBehaviour
         pos.y = respawnLevel;
         transform.position = pos;
 
+        RestoreSubmergedObjects();
         resetWaterEvent.Invoke();
+    }
+
+    private void RestoreSubmergedObjects()
+    {
+        foreach (Renderer rend in submergedRenderers)
+        {
+            if (rend != null) rend.enabled = true;
+        }
+        foreach (Collider col in submergedColliders)
+        {
+            if (col != null) col.enabled = true;
+        }
+
+        submergedRenderers.Clear();
+        submergedColliders.Clear();
     }
 
     public void StartMe()
@@ -99,8 +119,32 @@ public class RisingWater : MonoBehaviour
     {
         return isRisingToCheckpoint;
     }
-    // public void StartMe()
-    // {
-    //     allowedToMove = true;
-    // }
+
+    // Game objects that hit the trigger stops being rendered and collision is disabled, gets culled
+    private void OnTriggerEnter(Collider other)
+    {
+        // Ignore the player, checkpoints, or cameras
+        if (other.CompareTag("Player") || other.CompareTag("MainCamera") || other.isTrigger) return;
+
+        StartCoroutine(WaitUntilSubmerged(other));
+    }
+
+    // Only disable the game object if the water is higher than its highest point
+    private IEnumerator WaitUntilSubmerged(Collider col)
+    {
+        yield return new WaitUntil(() => transform.position.y > col.bounds.max.y);
+
+        Renderer rend = col.GetComponent<Renderer>();
+        if (rend != null && rend.enabled)
+        {
+            rend.enabled = false;
+            submergedRenderers.Add(rend);
+        }
+
+        if (col.enabled)
+        {
+            col.enabled = false;
+            submergedColliders.Add(col);
+        }
+    }
 }
