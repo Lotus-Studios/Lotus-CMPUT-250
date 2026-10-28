@@ -172,7 +172,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6267768714492735780}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
@@ -462,11 +462,11 @@ MonoBehaviour:
   cameraTransform: {fileID: 0}
   orbitCamera: {fileID: 0}
   currentCheckpointPosition: {x: 0, y: 0, z: 0}
-  previousCheckpointPosition: {x: 0, y: 0, z: 0}
+  checkpointHistory: []
   startPosition: {x: 0, y: 0, z: 0}
   activeWater: {fileID: 0}
   currentWaterLevel: 0
-  previousWaterLevel: 0
+  waterLevelHistory: []
   startWaterLevel: 0
   maxSpeed: 6.5
   gravity: -50
@@ -591,13 +591,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8342722283111348720}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.063, z: -0.18}
   m_LocalScale: {x: 0.14285713, y: 1, z: 0.14285712}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7982337436736058433}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &2773612351664385403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,10 +635,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 25
-  shrinkDistance: 4
-  baseSize: 0.7
+  shrinkDistance: 8
+  baseSize: 0.8
   playerRadius: 0.35
-  castStartOffset: 0.5
+  castStartOffset: 0
   shadowSpriteTransform: {fileID: 0}
   groundLayer:
     serializedVersion: 2

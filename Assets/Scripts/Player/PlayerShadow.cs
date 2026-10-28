@@ -24,6 +24,8 @@ public class PlayerShadow : MonoBehaviour
 
     void Update()
     {
+        transform.rotation = Quaternion.LookRotation(Vector3.down, Vector3.forward);
+
         Vector3 origin = transform.position + Vector3.up * castStartOffset;
         if (Physics.SphereCast(origin, playerRadius, Vector3.down, out RaycastHit hit, maxDistance + castStartOffset, groundLayer))
         {

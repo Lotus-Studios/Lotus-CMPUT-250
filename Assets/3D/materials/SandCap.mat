@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SandPlane 1
+  m_Name: SandCap
   m_Shader: {fileID: -6465566751694194690, guid: c9540e7454afdaf4ba2563263ba0fb37, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -29,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_Map:
-        m_Texture: {fileID: 2800000, guid: 9f0a6d22ae9e0ab43b85073601497d45, type: 3}
+        m_Texture: {fileID: 2800000, guid: e3f2dceda37eb8940b5a28db35324773, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -123,6 +123,10 @@ Material:
     - _SampleGI: 0
     - _Saturation: 1
     - _Shininess: 0
+    - _SlopeDarkness: 0.3
+    - _SlopeEnd: 0.7
+    - _SlopePower: 0
+    - _SlopeStart: 0.1
     - _Smoothness: 0.5
     - _SmoothnessSource: 1
     - _SmoothnessTextureChannel: 0
@@ -146,6 +150,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _LightColor1: {r: 0.9339623, g: 0.7671981, b: 0.29516727, a: 0}
     - _OverallTint: {r: 1, g: 1, b: 1, a: 0}
+    - _SlopeTint: {r: 1, g: 1, b: 1, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   m_BuildTextureStacks: []
