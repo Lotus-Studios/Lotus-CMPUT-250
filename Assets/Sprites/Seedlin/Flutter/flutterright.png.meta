@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0c027efdbc66f80409b5d63b8afdb2e0
+guid: 5966928c5b7d69b47a04f05cf58b5cfd
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,169 +110,253 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WalkUpSpriteSheet_0
+      name: flutterright_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1050
+        width: 350
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af5e117e17202e243bf0a169c112db2b
+      internalID: 2015436504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flutterright_1
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 1050
+        width: 350
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afb184bcd7c69764086cb75b2a8b470a
+      internalID: 1892118661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flutterright_2
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 1050
+        width: 350
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41c288e25255a6e429f65045e6c34fbe
+      internalID: -1295332771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flutterright_3
       rect:
         serializedVersion: 2
         x: 0
         y: 700
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f6acb30af00b5946a68c121d5b3077f
-      internalID: -448697597
+      spriteID: 9390c98427f85824fa84e9686bba1d15
+      internalID: -2114708350
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkUpSpriteSheet_1
+      name: flutterright_4
       rect:
         serializedVersion: 2
         x: 350
         y: 700
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e4fb6d49b4267542a54e802e10afbe5
-      internalID: 1753088397
+      spriteID: 697df46ad5b0acd4e9018eb6f687a7f3
+      internalID: 1742846026
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkUpSpriteSheet_2
+      name: flutterright_5
       rect:
         serializedVersion: 2
         x: 700
         y: 700
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f1117f080a635347a85c1b4992d36b9
-      internalID: -906648932
+      spriteID: 76f4c6e108be0634cac153b8494d40cd
+      internalID: -613075037
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkUpSpriteSheet_3
+      name: flutterright_6
       rect:
         serializedVersion: 2
         x: 0
         y: 350
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 342fc14cc5e8cc749b07aaf07d87ff5e
-      internalID: 1734260825
+      spriteID: b0b436b069909ae4d9ef247ff25a8b87
+      internalID: -2003173417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkUpSpriteSheet_4
+      name: flutterright_7
       rect:
         serializedVersion: 2
         x: 350
         y: 350
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83bead6f6405f0c48919f743a72dcc69
-      internalID: 330429052
+      spriteID: 3ecb439674602d04ea2400d37f5e4233
+      internalID: -1274959391
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkUpSpriteSheet_5
+      name: flutterright_8
       rect:
         serializedVersion: 2
         x: 700
         y: 350
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1247228fa9ad5c429260bd19602d458
-      internalID: 1511383218
+      spriteID: e972f7086f4655e47955c9e2e542e914
+      internalID: -1864241243
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkUpSpriteSheet_6
+      name: flutterright_9
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a430cb1d8046f174d9bd11656e332c92
-      internalID: 2143501621
+      spriteID: 1d0f36d4d2bbc334a8f48d81e620ee06
+      internalID: -949510180
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkUpSpriteSheet_7
+      name: flutterright_10
       rect:
         serializedVersion: 2
         x: 350
         y: 0
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1da665a4723f804790e62bb7ad0e6de
-      internalID: -1150366780
+      spriteID: 8c0560187cbf1524eb866945ccf4d153
+      internalID: 1407941685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flutterright_11
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 0
+        width: 350
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62a362cb7c28e2847b9a04bbdd340418
+      internalID: -953187481
       vertices: []
       indices: 
       edges: []
@@ -280,7 +364,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: d3893fe95cefdfe44b080d2acfac64b8
+    spriteID: 6b67cca4c87cb1f4a8e4ac7ba4b49534
     internalID: 0
     vertices: []
     indices: 
@@ -288,14 +372,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WalkUpSpriteSheet_0: -448697597
-      WalkUpSpriteSheet_1: 1753088397
-      WalkUpSpriteSheet_2: -906648932
-      WalkUpSpriteSheet_3: 1734260825
-      WalkUpSpriteSheet_4: 330429052
-      WalkUpSpriteSheet_5: 1511383218
-      WalkUpSpriteSheet_6: 2143501621
-      WalkUpSpriteSheet_7: -1150366780
+      flutterright_0: 2015436504
+      flutterright_1: 1892118661
+      flutterright_10: 1407941685
+      flutterright_11: -953187481
+      flutterright_2: -1295332771
+      flutterright_3: -2114708350
+      flutterright_4: 1742846026
+      flutterright_5: -613075037
+      flutterright_6: -2003173417
+      flutterright_7: -1274959391
+      flutterright_8: -1864241243
+      flutterright_9: -949510180
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

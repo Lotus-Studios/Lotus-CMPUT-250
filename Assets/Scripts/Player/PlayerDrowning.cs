@@ -110,12 +110,7 @@ public class PlayerDrowning : MonoBehaviour
         playerController.ResetToCurrentCheckpoint();
 
         if (AudioController.Instance != null) AudioController.Instance.StopAllAudio();
-
-        if (underwaterVignette != null)
-        {
-            underwaterVignette.intensity.value = 0.3f;
-        }
-
+        
 
         playerDied?.Invoke();
     }

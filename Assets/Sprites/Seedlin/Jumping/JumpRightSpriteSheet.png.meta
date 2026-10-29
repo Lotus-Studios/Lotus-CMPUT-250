@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a94e0c232313dc644a5aebbea916f46e
+guid: 494909e352657f944addf315f08e3523
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,169 +110,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WalkDownSpriteSheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 700
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f1ebf240a286d0d4c835107a93832aac
-      internalID: -1181840788
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkDownSpriteSheet_1
-      rect:
-        serializedVersion: 2
-        x: 350
-        y: 700
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6932091d2ed7bb41acc74c4a8abd6bc
-      internalID: 61890892
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkDownSpriteSheet_2
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 700
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1e84496345a0768499e3715896530955
-      internalID: -100231387
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkDownSpriteSheet_3
+      name: jumphightest_0
       rect:
         serializedVersion: 2
         x: 0
         y: 350
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2893f1b8491afe64e809d13f8c210dc1
-      internalID: 1575283728
+      spriteID: a0be0f7fd37b51546abb43e70f42473c
+      internalID: 915419617
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkDownSpriteSheet_4
+      name: jumphightest_1
       rect:
         serializedVersion: 2
         x: 350
         y: 350
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e02f59e8d3d60546983f28faea33220
-      internalID: -1924460271
+      spriteID: 7b383f3ea9a811e4b92099cdf5faab8d
+      internalID: -466441455
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkDownSpriteSheet_5
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 350
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0313dd862ec32d346a46312309d43656
-      internalID: 1693774028
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WalkDownSpriteSheet_6
+      name: jumphightest_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b1e1acda694a194d8f61548eb60f5fc
-      internalID: 1496475319
+      spriteID: 3dd42641fabf52b41bcb8fd90ca84df9
+      internalID: -1873587915
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkDownSpriteSheet_7
+      name: jumphightest_3
       rect:
         serializedVersion: 2
         x: 350
         y: 0
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31b39fca0d4ea8847a0c014c04e4ca03
-      internalID: -1179128084
+      spriteID: ce53dc8044803f747b335a3d46fa9cc6
+      internalID: -1480526393
       vertices: []
       indices: 
       edges: []
@@ -280,7 +196,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: eaa1840bf87ebbd469324a7b03419797
+    spriteID: 9b65cb6810f329a478eee9deb34573f6
     internalID: 0
     vertices: []
     indices: 
@@ -288,14 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WalkDownSpriteSheet_0: -1181840788
-      WalkDownSpriteSheet_1: 61890892
-      WalkDownSpriteSheet_2: -100231387
-      WalkDownSpriteSheet_3: 1575283728
-      WalkDownSpriteSheet_4: -1924460271
-      WalkDownSpriteSheet_5: 1693774028
-      WalkDownSpriteSheet_6: 1496475319
-      WalkDownSpriteSheet_7: -1179128084
+      jumphightest_0: 915419617
+      jumphightest_1: -466441455
+      jumphightest_2: -1873587915
+      jumphightest_3: -1480526393
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

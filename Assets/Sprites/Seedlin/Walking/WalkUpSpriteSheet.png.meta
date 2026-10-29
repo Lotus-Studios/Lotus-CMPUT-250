@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e7277f77c2ae214b8ea9f2609b339dc
+guid: 0c027efdbc66f80409b5d63b8afdb2e0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,253 +110,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: flutterup_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1050
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 47f127d9db31df8498099d7299ba50db
-      internalID: -263945339
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: flutterup_1
-      rect:
-        serializedVersion: 2
-        x: 350
-        y: 1050
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ac2362c83d380f543b7696f40c492703
-      internalID: -336506538
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: flutterup_2
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 1050
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 58cd5e43349b230418842d2b62c1b9dc
-      internalID: 409613945
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: flutterup_3
+      name: WalkUpSpriteSheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 700
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 026af719fd5f2f94cae9f6f6f2977f60
-      internalID: -1728146820
+      spriteID: 2f6acb30af00b5946a68c121d5b3077f
+      internalID: -448697597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flutterup_4
+      name: WalkUpSpriteSheet_1
       rect:
         serializedVersion: 2
         x: 350
         y: 700
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ac616af097a48e4b9711004164f5d05
-      internalID: -1048231538
+      spriteID: 8e4fb6d49b4267542a54e802e10afbe5
+      internalID: 1753088397
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flutterup_5
+      name: WalkUpSpriteSheet_2
       rect:
         serializedVersion: 2
         x: 700
         y: 700
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 354fe332e0c6ee04584293cecb30a36c
-      internalID: 70667612
+      spriteID: 6f1117f080a635347a85c1b4992d36b9
+      internalID: -906648932
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flutterup_6
+      name: WalkUpSpriteSheet_3
       rect:
         serializedVersion: 2
         x: 0
         y: 350
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e24a5fe93685a2e41baae8d7fe084f83
-      internalID: 851426671
+      spriteID: 342fc14cc5e8cc749b07aaf07d87ff5e
+      internalID: 1734260825
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flutterup_7
+      name: WalkUpSpriteSheet_4
       rect:
         serializedVersion: 2
         x: 350
         y: 350
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a61d00d87c849044b7d2348a8279943
-      internalID: 129775422
+      spriteID: 83bead6f6405f0c48919f743a72dcc69
+      internalID: 330429052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flutterup_8
+      name: WalkUpSpriteSheet_5
       rect:
         serializedVersion: 2
         x: 700
         y: 350
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8210279a6a73264e99b6eb8de5dcff5
-      internalID: 917135048
+      spriteID: e1247228fa9ad5c429260bd19602d458
+      internalID: 1511383218
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flutterup_9
+      name: WalkUpSpriteSheet_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 386255461449e444bb4bc5dad3d1117a
-      internalID: -1677393108
+      spriteID: a430cb1d8046f174d9bd11656e332c92
+      internalID: 2143501621
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flutterup_10
+      name: WalkUpSpriteSheet_7
       rect:
         serializedVersion: 2
         x: 350
         y: 0
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e732c8d8dfb89464a9e6c09152b6cf51
-      internalID: 1124025252
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: flutterup_11
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 0
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b58547b52aa85304885146a429fd65f4
-      internalID: -565844401
+      spriteID: c1da665a4723f804790e62bb7ad0e6de
+      internalID: -1150366780
       vertices: []
       indices: 
       edges: []
@@ -364,7 +280,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: b6dbaf0bfa513a34b8d8903c1ee42e22
+    spriteID: d3893fe95cefdfe44b080d2acfac64b8
     internalID: 0
     vertices: []
     indices: 
@@ -372,18 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      flutterup_0: -263945339
-      flutterup_1: -336506538
-      flutterup_10: 1124025252
-      flutterup_11: -565844401
-      flutterup_2: 409613945
-      flutterup_3: -1728146820
-      flutterup_4: -1048231538
-      flutterup_5: 70667612
-      flutterup_6: 851426671
-      flutterup_7: 129775422
-      flutterup_8: 917135048
-      flutterup_9: -1677393108
+      WalkUpSpriteSheet_0: -448697597
+      WalkUpSpriteSheet_1: 1753088397
+      WalkUpSpriteSheet_2: -906648932
+      WalkUpSpriteSheet_3: 1734260825
+      WalkUpSpriteSheet_4: 330429052
+      WalkUpSpriteSheet_5: 1511383218
+      WalkUpSpriteSheet_6: 2143501621
+      WalkUpSpriteSheet_7: -1150366780
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

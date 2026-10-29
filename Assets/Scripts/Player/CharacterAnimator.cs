@@ -41,6 +41,21 @@ public class CharacterAnimator : AnimatedEntity
 
     private bool wasGrounded = true;
 
+    [Header("Perspective Scaling")]
+    public Transform mainCamera;
+    [SerializeField] private float minDistance = 5f;
+    [SerializeField] private float maxDistance = 30f;
+    [SerializeField] private float closeScale = 1.3f;
+    [SerializeField] private float farScale = 0.7f;  
+
+    [Header("Squash and Stretch")]
+    [SerializeField] private float stretchMultiplier = 0.02f;
+    [SerializeField] private float maxStretch = 0.05f;
+    [SerializeField] private float landSquashAmount = 0.4f;
+    [SerializeField] private float squashRecoverSpeed = 10f;  
+
+    private float currentSquash = 0f;
+
     void Start()
     {
         // finds sprite renderer component on this object or any of its children
@@ -51,7 +66,7 @@ public class CharacterAnimator : AnimatedEntity
 
         // get playerController
         playerController = GetComponentInParent<PlayerController>();
-
+        
         base.AnimationSetup();
     }
     void Update()
@@ -117,6 +132,32 @@ public class CharacterAnimator : AnimatedEntity
         }
     }
 
+    // calculates the scale of the player based on distance from camera and vertical velocity
+    private void LateUpdate()
+    {
+
+        if (SpriteRenderer == null || mainCamera == null) return;
+
+        float distance = Vector3.Distance(mainCamera.position, transform.position);
+        float distance01 = Mathf.Clamp01((distance - minDistance) / (maxDistance - minDistance));
+        float playerScale = Mathf.Lerp(closeScale, farScale, distance01);
+
+        currentSquash = Mathf.Lerp(currentSquash, 0f, squashRecoverSpeed * Time.deltaTime);
+
+        float velocityStretch = 0f; // since the gravity to force seedlin down is naturally -6f it stretches seedlin when hes doing nothing
+        if (!playerController.IsGrounded)
+        {
+            float rawStretch = Mathf.Abs(playerController.currentVerticalVelocity) * (stretchMultiplier * 0.1f);
+            velocityStretch = Mathf.Min(rawStretch, maxStretch);
+        }
+
+
+        float scaleX = (playerScale - velocityStretch + currentSquash) * 7f;
+        float scaleY = (playerScale + velocityStretch - currentSquash) * 7f;
+
+        SpriteRenderer.transform.localScale = new Vector3(scaleX, scaleY, playerScale);
+    }
+
     // Reads input then changes direction of the sprite
     public void UpdateFacing(Vector2 input)
     {
@@ -162,5 +203,7 @@ public class CharacterAnimator : AnimatedEntity
     {
         List<Sprite> landCycle = jumpLand.GetList(currentFacing);
         base.Interrupt(landCycle);
+
+        currentSquash = landSquashAmount;
     }
 }

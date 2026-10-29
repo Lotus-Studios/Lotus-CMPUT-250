@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c45bf91ad169ae04c998c0705078d36a
+guid: c7a0f5e5fb350334bba019931e649bee
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -37,8 +37,8 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
   nPOTScale: 0
   lightmap: 0
@@ -98,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,169 +110,253 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WalkRLSpriteSheet_0
+      name: flutterback_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1050
+        width: 350
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8171f0fd94e09ab469b6d49edb1cdfe0
+      internalID: 2146029202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flutterback_1
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 1050
+        width: 350
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41afaf1f437c1db41803fa2ce0c9c282
+      internalID: -2090700365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flutterback_2
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 1050
+        width: 350
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f35df916dc5c407468cf1102641124eb
+      internalID: 532313126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flutterback_3
       rect:
         serializedVersion: 2
         x: 0
         y: 700
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6accd1a6f77767e4e99dcf55d932a11f
-      internalID: 2116513018
+      spriteID: 9946bb555c88cf5498fa84f05a020a6d
+      internalID: -1166167728
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkRLSpriteSheet_1
+      name: flutterback_4
       rect:
         serializedVersion: 2
         x: 350
         y: 700
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2a79b2b4e042a240986aa5f0c961072
-      internalID: -252747757
+      spriteID: a32fc75adeff7194d834d27815fd8b6a
+      internalID: -565029033
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkRLSpriteSheet_2
+      name: flutterback_5
       rect:
         serializedVersion: 2
         x: 700
         y: 700
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 481bacffc7c4bfc48bc71b64775d94cb
-      internalID: -2068661465
+      spriteID: ac760b72a93748541b8ffb97b923d34e
+      internalID: 141442222
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkRLSpriteSheet_3
+      name: flutterback_6
       rect:
         serializedVersion: 2
         x: 0
         y: 350
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1a138f3704cba7468093e48880e9ce0
-      internalID: 1844515933
+      spriteID: 13fb06264936a954c8ff17cc69f4f2b6
+      internalID: -1285107309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkRLSpriteSheet_4
+      name: flutterback_7
       rect:
         serializedVersion: 2
         x: 350
         y: 350
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4b825e8c9fe38942baa2b026978b11e
-      internalID: 1231772530
+      spriteID: c79ddbda6ea21314ca87dd4f58f29326
+      internalID: -1478160333
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkRLSpriteSheet_5
+      name: flutterback_8
       rect:
         serializedVersion: 2
         x: 700
         y: 350
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c9817a3bbeddd143afeb5b6e58dd67c
-      internalID: -319048408
+      spriteID: c74ed16c0c261cc4989285cbc750e589
+      internalID: -1814853523
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkRLSpriteSheet_6
+      name: flutterback_9
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a631c56073c77a349998f84382c13192
-      internalID: -1927731584
+      spriteID: b7621aafe9350124bba46152e88933b6
+      internalID: -156468208
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkRLSpriteSheet_7
+      name: flutterback_10
       rect:
         serializedVersion: 2
         x: 350
         y: 0
         width: 350
         height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f8fc326e9578cf4a88abf339edc3aa7
-      internalID: -1157223099
+      spriteID: 71748bd0c89bf4d488444966eb877d2d
+      internalID: 841340777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flutterback_11
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 0
+        width: 350
+        height: 350
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cc0b84d1c998bd4c9f2c5b2c3ae2d84
+      internalID: -319280779
       vertices: []
       indices: 
       edges: []
@@ -280,7 +364,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 38cdcc95879135d47b7ee54ed81119b4
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -288,14 +372,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WalkRLSpriteSheet_0: 2116513018
-      WalkRLSpriteSheet_1: -252747757
-      WalkRLSpriteSheet_2: -2068661465
-      WalkRLSpriteSheet_3: 1844515933
-      WalkRLSpriteSheet_4: 1231772530
-      WalkRLSpriteSheet_5: -319048408
-      WalkRLSpriteSheet_6: -1927731584
-      WalkRLSpriteSheet_7: -1157223099
+      flutterback_0: 2146029202
+      flutterback_1: -2090700365
+      flutterback_10: 841340777
+      flutterback_11: -319280779
+      flutterback_2: 532313126
+      flutterback_3: -1166167728
+      flutterback_4: -565029033
+      flutterback_5: 141442222
+      flutterback_6: -1285107309
+      flutterback_7: -1478160333
+      flutterback_8: -1814853523
+      flutterback_9: -156468208
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
