@@ -11,6 +11,7 @@ public class OrbitCamera : MonoBehaviour
 
     [Header("Camera Settings")]
     [SerializeField] private float angularDeadzone = 20f;
+    [SerializeField] private float depthDeadzone = 3f;
     [SerializeField] private float verticalDeadzone = 2.2f;
     [SerializeField] private float verticalSmoothSpeed = 4f;
 
@@ -24,6 +25,7 @@ public class OrbitCamera : MonoBehaviour
     private float currentTargetHeight;
 
     private float lockedAngleX;
+    private Vector3 lockedFocusPoint;
     private float lockedBaseHeight;
     private float currentCameraY;
 
@@ -53,6 +55,7 @@ public class OrbitCamera : MonoBehaviour
         Vector3 offset = lookAtTransform.position - mountainCenter.position;
         offset.y = 0;
 
+        lockedFocusPoint = lookAtTransform.position;
         // SignedAngle compares the forward angle from mountain (or 'north') and player offset. the vector3.up tells its that we are measuring flat against the ground.
         lockedAngleX = Vector3.SignedAngle(Vector3.forward, offset, Vector3.up);
     }
@@ -90,10 +93,28 @@ public class OrbitCamera : MonoBehaviour
         Quaternion angleRotation = Quaternion.Euler(0f, lockedAngleX, 0f);
         Vector3 lockedOutwardDir = angleRotation * Vector3.forward;
 
-        // if interacting with an NPC, get the mid point and focus on there and set camera settings to dialogue, otherwise normal.
+        Vector3 focusDiff = lookAtTransform.position - lockedFocusPoint;
+        focusDiff.y = 0;
+
+        Vector3 camForward = -lockedOutwardDir;
+        Vector3 camRight = Vector3.Cross(Vector3.up, camForward).normalized;
+
+        // Project the player movement onto those axes
+        float distZ = Vector3.Dot(focusDiff, camForward);
+        float distX = Vector3.Dot(focusDiff, camRight);
+
+        lockedFocusPoint += camRight * distX;
+
+        if (Mathf.Abs(distZ) > depthDeadzone)
+        {
+            float excess = Mathf.Sign(distZ) * (Mathf.Abs(distZ) - depthDeadzone);
+            lockedFocusPoint += camForward * excess;
+        }
+
         Vector3 targetFocusPoint;
         float targetRadius;
         float targetHeightOffset;
+
         if (activeNPC != null)
         {
             targetFocusPoint = (lookAtTransform.position + activeNPC.position) * 0.5f;
@@ -102,7 +123,9 @@ public class OrbitCamera : MonoBehaviour
         }
         else
         {
-            targetFocusPoint = lookAtTransform.position;
+            targetFocusPoint = lockedFocusPoint;
+            targetFocusPoint.y = lookAtTransform.position.y;
+
             targetRadius = orbitRadius;
             targetHeightOffset = height;
         }
@@ -135,6 +158,7 @@ public class OrbitCamera : MonoBehaviour
 
         // target heights and focus points directly to the player
         lockedBaseHeight = lookAtTransform.position.y;
+        lockedFocusPoint = lookAtTransform.position;
         currentCameraY = lockedBaseHeight + height;
         currentRadius = orbitRadius;
         currentTargetHeight = height;
