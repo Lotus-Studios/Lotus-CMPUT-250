@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 using UnityEngine.Events;
 
@@ -28,11 +29,14 @@ public class PlayerDrowning : MonoBehaviour
     // [SerializeField] private Transform playerResetPosition;
 
     [SerializeField] private PlayerController playerController;
+    private Vignette underwaterVignette;
+
+    public float DrowningIntensity => 1f - Mathf.Clamp01(drownTimer / timeToDrown);
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        waterPostProcess.profile.TryGet(out underwaterVignette);
     }
 
     // Update is called once per frame
@@ -79,6 +83,11 @@ public class PlayerDrowning : MonoBehaviour
                 Die();
             }
 
+            if (underwaterVignette != null)
+            {
+                underwaterVignette.intensity.value = Mathf.Lerp(0.3f, 0.7f, DrowningIntensity);
+            }
+
             waterPostProcess.weight = Mathf.Lerp(waterPostProcess.weight, 1.0f, waterPostProcessLerpSpeed * Time.deltaTime);
         }
         else
@@ -101,7 +110,12 @@ public class PlayerDrowning : MonoBehaviour
         playerController.ResetToCurrentCheckpoint();
 
         if (AudioController.Instance != null) AudioController.Instance.StopAllAudio();
-        
+
+        if (underwaterVignette != null)
+        {
+            underwaterVignette.intensity.value = 0.3f;
+        }
+
 
         playerDied?.Invoke();
     }
