@@ -29,6 +29,13 @@ public class EnvironmentBillboard : MonoBehaviour
     {
         Camera targetCam = Camera.main;
 
+#if UNITY_EDITOR
+        if (!Application.isPlaying && UnityEditor.SceneView.lastActiveSceneView != null)
+        {
+            targetCam = UnityEditor.SceneView.lastActiveSceneView.camera;
+        }
+#endif
+
         if (targetCam == null || grassTransforms == null) return;
 
         float camYaw = targetCam.transform.eulerAngles.y;
