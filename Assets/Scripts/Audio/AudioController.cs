@@ -86,7 +86,7 @@ public class AudioController : MonoBehaviour
         int randomIndex = Random.Range(0, footstepSounds.Length);
 
         // Base pitch is 1.7 to 1.9, multiplied by 0.85 if underwater
-        float basePitch = Random.Range(1.7f, 1.9f);
+        float basePitch = Random.Range(1.4f, 2.1f);
         footstepSource.pitch = isUnderwater ? basePitch * 0.85f : basePitch;
 
         float finalVolume = isUnderwater ? 0.1f : 0.2f;
@@ -107,7 +107,6 @@ public class AudioController : MonoBehaviour
         if (loopSource != null) loopSource.Stop();
         if (footstepSource != null) footstepSource.Stop();
     }
-
 
     public void PlayPlatformSound(AudioClip clip, Vector3 position, float volume, float time) {
         // spawn audio source at position (Quaternion.identity is base rotation)
