@@ -474,8 +474,8 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   minDistance: 5
   maxDistance: 35
-  closeScale: 1.3
-  farScale: 0.7
+  closeScale: 1.2
+  farScale: 0.8
   stretchMultiplier: 1
   maxStretch: 0.035
   landSquashAmount: 0.1
@@ -576,6 +576,8 @@ MonoBehaviour:
   characterAnimator: {fileID: 2923715324180639927}
   cameraTransform: {fileID: 0}
   orbitCamera: {fileID: 0}
+  useDebugSpawn: 0
+  debugSpawnPoint: {fileID: 0}
   currentCheckpointPosition: {x: 0, y: 0, z: 0}
   checkpointHistory: []
   startPosition: {x: 0, y: 0, z: 0}

@@ -48,6 +48,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
     [SerializeField] OrbitCamera orbitCamera;
 
+    [Header("Debug Spawn")]
+    [SerializeField] private bool useDebugSpawn = false;
+    [SerializeField] private Transform debugSpawnPoint;
+
     [Header("Respawn Point")]
     public Vector3 currentCheckpointPosition;
     public List<Vector3> checkpointHistory = new List<Vector3>();
@@ -153,6 +157,13 @@ public class PlayerController : MonoBehaviour
         if (characterAnimator == null)
         {
             characterAnimator = GetComponentInChildren<CharacterAnimator>();
+        }
+
+        if (useDebugSpawn && debugSpawnPoint != null)
+        {
+            characterController.enabled = false;
+            transform.position = debugSpawnPoint.position;
+            characterController.enabled = true;
         }
 
         currentCheckpointPosition = transform.position;
