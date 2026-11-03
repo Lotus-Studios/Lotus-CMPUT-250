@@ -19,6 +19,14 @@ public class OrbitCamera : MonoBehaviour
     [SerializeField] private float dialogueZoomRadius = 8f;
     [SerializeField] private float dialogueHeight = 6f;
     [SerializeField] private float zoomTransitionSpeed = 3.5f;
+
+    [Header("Camera Zone")]
+    private Transform activeCameraTarget;
+    private float zoneMovementSpeed = 3f;
+    private float zoneRotationSpeed = 3f;
+    private bool isZoneTransitioning = false;
+
+
     private Transform activeNPC;
     private Vector3 currentFocusPoint;
     private float currentRadius;
@@ -141,13 +149,87 @@ public class OrbitCamera : MonoBehaviour
         // position camera along the outward vector from the smoothed focus point
         Vector3 targetPos = currentFocusPoint + (lockedOutwardDir * currentRadius);
         targetPos.y = currentCameraY;
-        transform.position = targetPos;
+  
 
         // aim camera using the smoothed baseline height so small jumps inside deadzone don't tilt the camera
         Vector3 lookTarget = currentFocusPoint;
         lookTarget.y = currentCameraY - currentTargetHeight + 1.2f;
 
-        transform.LookAt(lookTarget);
+        Quaternion targetRotation = Quaternion.LookRotation(
+            lookTarget - targetPos,
+            Vector3.up
+        );
+
+        //If we are in a camera zone
+        if (activeCameraTarget != null)
+        {
+            //Smooth camera motion towards target
+            transform.position = Vector3.Lerp(
+                transform.position,
+                activeCameraTarget.position,
+                zoneMovementSpeed * Time.deltaTime
+            );
+            //Smooth camrea rotation towards target rotation
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                activeCameraTarget.rotation,
+                zoneRotationSpeed * Time.deltaTime
+            );
+        }
+        else if (isZoneTransitioning)
+        {
+            // Smooth camera motion towards normal position
+            transform.position = Vector3.Lerp(
+                transform.position,
+                targetPos,
+                zoneMovementSpeed * Time.deltaTime
+            );
+
+            // Smooth rotation towards normal rotation
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                zoneRotationSpeed * Time.deltaTime
+            );
+
+            // Check whether the camera has nearly reached its normal position
+            if (Vector3.Distance(transform.position, targetPos) < 0.05f &&
+                Quaternion.Angle(transform.rotation, targetRotation) < 0.5f)
+            {
+                isZoneTransitioning = false;
+            }
+        }
+        else //Regular camera movement
+        {
+            transform.position = targetPos;
+            transform.rotation = targetRotation;
+        }
+
+        
+
+    }
+
+    public void SetCameraZone(Transform target, float movementSpeed, float rotationSpeed)
+    {
+        if (target == null) return;
+        //get the target for the camera to move to
+        activeCameraTarget = target;
+        //Prevent movement speed from being too small
+        zoneMovementSpeed = Mathf.Max(0.1f, movementSpeed);
+        zoneRotationSpeed = Mathf.Max(0.1f, rotationSpeed);
+        //start moving the camera to the new target
+        isZoneTransitioning = true; 
+        Debug.Log("OrbitCamera received camera zone: " + target.name);
+    }
+
+    public void ClearCameraZone(Transform target)
+    {
+        //Make sure the zone being exited is the one that is being targeted
+        if (activeCameraTarget != target) return;
+
+        activeCameraTarget = null;
+        //Start moving the camera back to normal orbit position
+        isZoneTransitioning = true;
     }
 
     public void ResetCamera()
