@@ -575,6 +575,7 @@ public class PlayerController : MonoBehaviour
         {
 
             boingy.doBounceAnim();
+            flutterTimeCounter = flutterJumpDuration;
             ExecuteBounce(boingy.boinginess);
         }
     }
