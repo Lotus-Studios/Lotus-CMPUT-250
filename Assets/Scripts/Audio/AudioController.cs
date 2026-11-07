@@ -17,6 +17,7 @@ public class AudioController : MonoBehaviour
     public AudioClip flutterSound;
     public AudioClip[] sandFootsteps;
     public AudioClip[] grassFootsteps;
+    public AudioClip[] stoneFootsteps;
     private int groundLayer = 0;
     private AudioClip[] footstepSounds;
 
@@ -88,7 +89,7 @@ public class AudioController : MonoBehaviour
         if (layerName == "Sand") {
             footstepSounds = sandFootsteps;
         } else if (layerName == "Stone") {
-            footstepSounds = sandFootsteps;
+            footstepSounds = stoneFootsteps;
         } else {
             footstepSounds = grassFootsteps;
         }
