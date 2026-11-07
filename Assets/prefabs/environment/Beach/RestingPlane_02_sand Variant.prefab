@@ -10,7 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 79200359919774283, guid: 2e6c4f1e8a27dc4498f78736671f4087, type: 3}
       propertyPath: m_Name
-      value: RestingPlane_02_Garden Variant
+      value: RestingPlane_02_sand Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 79200359919774283, guid: 2e6c4f1e8a27dc4498f78736671f4087, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 79200359919774283, guid: 2e6c4f1e8a27dc4498f78736671f4087, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 743851374750052593, guid: 2e6c4f1e8a27dc4498f78736671f4087, type: 3}
       propertyPath: m_LocalPosition.x

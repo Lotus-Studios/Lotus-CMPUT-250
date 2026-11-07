@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01_H1_sand Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1261348963024531452, guid: 070bbe131578c61498544980586594e5, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1930608958512444742, guid: 070bbe131578c61498544980586594e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -51,6 +55,14 @@ PrefabInstance:
     - target: {fileID: 1930608958512444742, guid: 070bbe131578c61498544980586594e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4080564068853903842, guid: 070bbe131578c61498544980586594e5, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880321005089741371, guid: 070bbe131578c61498544980586594e5, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7348868039729285302, guid: 070bbe131578c61498544980586594e5, type: 3}
       propertyPath: m_Enabled

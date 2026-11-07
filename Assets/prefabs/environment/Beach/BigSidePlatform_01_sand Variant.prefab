@@ -16,13 +16,25 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.16
       objectReference: {fileID: 0}
+    - target: {fileID: 2682755082371517595, guid: 2c3f897730b2b3a49a29a6ef836709df, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7322715005842952465, guid: 2c3f897730b2b3a49a29a6ef836709df, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7f75b98e20daf56428eaeab62abd0e59, type: 2}
+    - target: {fileID: 8322895668164941852, guid: 2c3f897730b2b3a49a29a6ef836709df, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8334702789740593871, guid: 2c3f897730b2b3a49a29a6ef836709df, type: 3}
       propertyPath: m_Name
-      value: BigSidePlatform_01_grass Variant
+      value: BigSidePlatform_01_sand Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334702789740593871, guid: 2c3f897730b2b3a49a29a6ef836709df, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8710243891573577845, guid: 2c3f897730b2b3a49a29a6ef836709df, type: 3}
       propertyPath: m_LocalPosition.x

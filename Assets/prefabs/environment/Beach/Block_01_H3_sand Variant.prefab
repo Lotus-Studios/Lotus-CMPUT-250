@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e9d62b0bf4dd0204cbbf094accb146cf, type: 2}
+    - target: {fileID: 471710984494039451, guid: 3fff30e235852014190c94ac10bb7d11, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1556833739428838214, guid: 3fff30e235852014190c94ac10bb7d11, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -55,6 +59,14 @@ PrefabInstance:
     - target: {fileID: 2220605178557489660, guid: 3fff30e235852014190c94ac10bb7d11, type: 3}
       propertyPath: m_Name
       value: Block_01_H3_sand Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2220605178557489660, guid: 3fff30e235852014190c94ac10bb7d11, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7256412599681404518, guid: 3fff30e235852014190c94ac10bb7d11, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
