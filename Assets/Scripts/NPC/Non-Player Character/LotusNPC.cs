@@ -100,6 +100,12 @@ public class LotusNPC : MonoBehaviour
         {
             DialogueSystem.Instance.startDialogue(firstDialogue.ToString());
         }
+
+        if (AudioLayering.Instance != null) 
+        {
+            // Mute environment volume (push blocks)
+            StartCoroutine(AudioLayering.Instance.SetEnvironmentVolume(0));
+        }
         
         doneFirstDialogue = true;
 
