@@ -3,7 +3,12 @@ guid: 15ce16c86802db249a7a78a5ae4e386e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Buoy
+    second: {fileID: 2100000, guid: 17815d8b85edce34592f2a3d75b1282e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
