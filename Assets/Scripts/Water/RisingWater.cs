@@ -29,8 +29,91 @@ public class RisingWater : MonoBehaviour
     [HideInInspector]
     public UnityEvent resetWaterEvent;
 
-    private List<Renderer> submergedRenderers = new List<Renderer>();
-    private List<Collider> submergedColliders = new List<Collider>();
+    [Header("Object Culling")]
+    [SerializeField] private Transform[] levelRoots;
+    [SerializeField] private float disableDepth = 15f;
+
+    // stores a prefab or game objects components (renderer and collider) and its higher point in world space
+    private struct CullableObject
+    {
+        public Renderer[] renderers;
+        public Collider[] colliders;
+        public float highestY;
+        public bool isSubmerged;
+    }
+
+    private List<CullableObject> levelObjects = new List<CullableObject>();
+
+    public void Start()
+    {
+        if (levelRoots == null || levelRoots.Length == 0) return;
+
+        // loop through the levels referenced
+        foreach (Transform root in levelRoots) 
+        {
+            if (root == null) return;
+
+            // check all direct children under the level root (so in beach there would be the seashells and palm trees)
+            foreach (Transform child in root)
+            {
+                // checks if its an organizational folder by seeing if it has children and if it has no renderer and collider
+                bool inFolder = child.childCount > 0 && child.GetComponent<Renderer>() == null && child.GetComponent<Collider>() == null;
+
+                if (inFolder)
+                {
+                    // register all prefabs
+                    foreach (Transform prefabInstance in child)
+                    {
+                        RegisterPrefabUnit(prefabInstance);
+                    }
+                }
+                else
+                {
+                    RegisterPrefabUnit(child);
+                }
+            }
+        }
+
+        UpdateSubmergedObjects();
+    }
+
+    private void RegisterPrefabUnit(Transform root)
+    {
+        if (root.CompareTag("Player") || root.CompareTag("MainCamera")) return;
+
+        // get all renderers
+        Renderer[] rends = root.GetComponentsInChildren<Renderer>();
+        if (rends.Length == 0) return;
+
+        // get all colliders
+        Collider[] allCols = root.GetComponentsInChildren<Collider>();
+        List<Collider> solidCols = new List<Collider>();
+
+        // loops through the colliders and ignores trigger colliders
+        foreach (Collider c in allCols)
+        {
+            if (!c.isTrigger) solidCols.Add(c);
+        }
+
+        // highest Y point (so multi part prefabs dont disappear part by part and only if the entire thing is submerged)
+        float maxY = float.MinValue;
+        foreach (Renderer r in rends)
+        {
+            if (r.bounds.max.y > maxY)
+            {
+                maxY = r.bounds.max.y;
+            }
+        }
+
+        // add to list with its stats
+        levelObjects.Add(new CullableObject
+        {
+            renderers = rends,
+            colliders = solidCols.ToArray(),
+            highestY = maxY,
+            isSubmerged = false
+        });
+    }
 
     // Update is called once per frame
     void Update()
@@ -49,12 +132,15 @@ public class RisingWater : MonoBehaviour
 
                 isRisingToCheckpoint = false;
                 allowedToMove = false; // for the start water rising trigger at the start of the actual stage
+
             }
+            UpdateSubmergedObjects();
             return; 
 
         }
         if (!allowedToMove) return;
         transform.position += Vector3.up* getCurrentRubberBandSpeed() * Time.deltaTime;
+        UpdateSubmergedObjects();
     }
 
     float getCurrentRubberBandSpeed()
@@ -76,7 +162,7 @@ public class RisingWater : MonoBehaviour
 
         allowedToMove = false; 
         isRisingToCheckpoint = true;
-        RestoreSubmergedObjects();
+        UpdateSubmergedObjects();
     }
 
     //We can decide later whether water is responsible for knowing about checkpoints or not, basic implemenation here
@@ -90,23 +176,8 @@ public class RisingWater : MonoBehaviour
         pos.y = respawnLevel;
         transform.position = pos;
 
-        RestoreSubmergedObjects();
+        UpdateSubmergedObjects();
         resetWaterEvent.Invoke();
-    }
-
-    private void RestoreSubmergedObjects()
-    {
-        foreach (Renderer rend in submergedRenderers)
-        {
-            if (rend != null) rend.enabled = true;
-        }
-        foreach (Collider col in submergedColliders)
-        {
-            if (col != null) col.enabled = true;
-        }
-
-        submergedRenderers.Clear();
-        submergedColliders.Clear();
     }
 
     public void StartMe()
@@ -120,31 +191,33 @@ public class RisingWater : MonoBehaviour
         return isRisingToCheckpoint;
     }
 
-    // Game objects that hit the trigger stops being rendered and collision is disabled, gets culled
-    private void OnTriggerEnter(Collider other)
+    private void UpdateSubmergedObjects()
     {
-        // Ignore the player, checkpoints, or cameras
-        if (other.CompareTag("Player") || other.CompareTag("MainCamera") || other.isTrigger) return;
+        // subtracted by disableDepth so prefab must be submerged X amount befor ebeing disabled
+        float waterCullY = transform.position.y - disableDepth;
 
-        StartCoroutine(WaitUntilSubmerged(other));
-    }
-
-    // Only disable the game object if the water is higher than its highest point
-    private IEnumerator WaitUntilSubmerged(Collider col)
-    {
-        yield return new WaitUntil(() => transform.position.y > col.bounds.max.y);
-
-        Renderer rend = col.GetComponent<Renderer>();
-        if (rend != null && rend.enabled)
+        for (int i = 0; i < levelObjects.Count; i++) 
         {
-            rend.enabled = false;
-            submergedRenderers.Add(rend);
-        }
+            CullableObject obj = levelObjects[i];
+            bool shouldBeSubmerged = waterCullY > obj.highestY;
 
-        if (col.enabled)
-        {
-            col.enabled = false;
-            submergedColliders.Add(col);
+            // if object submerged stat changed then loop through it
+            if (shouldBeSubmerged != obj.isSubmerged)
+            {
+                obj.isSubmerged = shouldBeSubmerged;
+                levelObjects[i] = obj;
+
+                // toggle renderers and colliders
+                bool visible = !shouldBeSubmerged;
+                foreach (Renderer r in obj.renderers)
+                {
+                    if (r != null) r.enabled = visible;
+                }
+                foreach (Collider c in obj.colliders)
+                { 
+                    if (c != null) c.enabled = visible;
+                }
+            }
         }
     }
 }

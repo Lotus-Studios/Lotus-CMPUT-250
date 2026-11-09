@@ -7,26 +7,42 @@ public class CustomCursor : MonoBehaviour
 {
     public Texture2D cursorArrow;
     public Texture2D cursorArrow2;
-    
+    [SerializeField] private Vector2 hotSpot = Vector2.zero;
+    private bool wasLocked = true;
+
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.SetCursor(cursorArrow, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(cursorArrow, hotSpot, CursorMode.Auto);
     }
 
     // Update is called once per frame
     void Update()
     {
+        bool isUnlocked = Cursor.lockState == CursorLockMode.None;
+
+        // Whenever the game transitions from locked to unlocked it replaces the os cursor with the custom one. 
+        if (isUnlocked && wasLocked)
+        {
+            ApplyCursor(cursorArrow);
+        }
+        wasLocked = !isUnlocked;
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Cursor.SetCursor(cursorArrow2, Vector2.zero, CursorMode.ForceSoftware);
-            var screenPos = Input.mousePosition;
-            screenPos.z = 10;
+            Cursor.SetCursor(cursorArrow2, hotSpot, CursorMode.Auto);
         }
 
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-            Cursor.SetCursor(cursorArrow, Vector2.zero, CursorMode.ForceSoftware);
+            Cursor.SetCursor(cursorArrow, hotSpot, CursorMode.Auto);
+        }
+    }
+
+    private void ApplyCursor(Texture2D tex)
+    {
+        if (tex != null)
+        {
+            Cursor.SetCursor(tex, hotSpot, CursorMode.Auto);
         }
     }
 }

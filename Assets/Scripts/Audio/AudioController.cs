@@ -15,7 +15,11 @@ public class AudioController : MonoBehaviour
     [Header("Player SFX")]
     public AudioClip jumpSound;
     public AudioClip flutterSound;
-    public AudioClip[] footstepSounds;
+    public AudioClip[] sandFootsteps;
+    public AudioClip[] grassFootsteps;
+    public AudioClip[] stoneFootsteps;
+    private int groundLayer = 0;
+    private AudioClip[] footstepSounds;
 
     [Header("UI SFX")]
     public AudioClip clickSound;
@@ -81,13 +85,20 @@ public class AudioController : MonoBehaviour
 
     public void PlayFootstep()
     {
+        string layerName = LayerMask.LayerToName(groundLayer);
+        if (layerName == "Sand") {
+            footstepSounds = sandFootsteps;
+        } else if (layerName == "Stone") {
+            footstepSounds = stoneFootsteps;
+        } else {
+            footstepSounds = grassFootsteps;
+        }
         if (footstepSounds.Length == 0) return;
 
         int randomIndex = Random.Range(0, footstepSounds.Length);
-
         // Base pitch is 1.7 to 1.9, multiplied by 0.85 if underwater
-        float basePitch = Random.Range(1.4f, 2.6f);
-        footstepSource.pitch = isUnderwater ? basePitch * 0.45f : basePitch;
+        float basePitch = Random.Range(1.4f, 2.3f);
+        footstepSource.pitch = isUnderwater ? basePitch * 0.8f : basePitch;
 
         float finalVolume = isUnderwater ? 0.1f : 0.2f;
         //audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
@@ -170,5 +181,9 @@ public class AudioController : MonoBehaviour
         UISource.PlayOneShot(closeWoosh, 0.3f);
     }
 
+    public void SetFootsteps(int layer) 
+    {
+        groundLayer = layer;
+    }
 
 }

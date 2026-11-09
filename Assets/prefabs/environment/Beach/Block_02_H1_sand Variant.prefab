@@ -8,9 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2012176128519507763, guid: 697f84a7fd5c66e42b032b5a79358088, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517169138181556357, guid: 697f84a7fd5c66e42b032b5a79358088, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4687042478779369299, guid: 697f84a7fd5c66e42b032b5a79358088, type: 3}
       propertyPath: m_Name
       value: Block_02_H1_sand Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4687042478779369299, guid: 697f84a7fd5c66e42b032b5a79358088, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5350391675854249449, guid: 697f84a7fd5c66e42b032b5a79358088, type: 3}
       propertyPath: m_LocalPosition.x

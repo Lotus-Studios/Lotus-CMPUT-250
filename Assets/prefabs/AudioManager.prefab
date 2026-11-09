@@ -706,7 +706,16 @@ MonoBehaviour:
   platformAudioSourceObject: {fileID: 3950987337325754147, guid: 4b350c62e5c474cb48377f785b2dffea, type: 3}
   jumpSound: {fileID: 8300000, guid: da5051916ae16614d8b6effe6ea251bc, type: 3}
   flutterSound: {fileID: 8300000, guid: 55cea41c2efe84a46b839da108655906, type: 3}
-  footstepSounds:
+  sandFootsteps:
+  - {fileID: 8300000, guid: d64a27d64c2cc49c9af78f570ec7fed9, type: 3}
+  - {fileID: 8300000, guid: 32f27df5f5b4141c2b5c3cc3427f3611, type: 3}
+  - {fileID: 8300000, guid: 3c7f61150234241af85bf716440f631d, type: 3}
+  grassFootsteps:
+  - {fileID: 8300000, guid: 81b0c47569e5b4579aad439fd62b973f, type: 3}
+  - {fileID: 8300000, guid: 978e07ac5379f4c25b57acdb38daaccf, type: 3}
+  - {fileID: 8300000, guid: aa149c363eb294497bae61de7342cf50, type: 3}
+  - {fileID: 8300000, guid: 81b0c47569e5b4579aad439fd62b973f, type: 3}
+  stoneFootsteps:
   - {fileID: 8300000, guid: 3062913f14ee141adb124651b8b14872, type: 3}
   - {fileID: 8300000, guid: 3f338bf02f97f4c49b2afa5eb9c852ee, type: 3}
   - {fileID: 8300000, guid: 14bc67304880e47348bf306bffa104c7, type: 3}
@@ -761,6 +770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topOfHeadTransform: {fileID: 0}
+  risingWater: {fileID: 0}
   waterTransform: {fileID: 3643377400158246909, guid: 2eb10a4641888174ea67160f41c83b67, type: 3}
   risingWaterSource: {fileID: 8510675303742124884}
   maxVolume: 0.2

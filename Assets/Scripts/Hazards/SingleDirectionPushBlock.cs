@@ -34,7 +34,7 @@ public class SingleDirectionPushBlock : MonoBehaviour
         MovingBack
     };
 
-    private MoveState currentState = MoveState.WaitingAtStart;
+    private MoveState currentState = MoveState.WaitingAtEnd;
 
     void Start()
     {
@@ -46,6 +46,8 @@ public class SingleDirectionPushBlock : MonoBehaviour
         targetPosition = new Vector3(0,0,extendedZDistance);
         lastPosition = transform.position;
         stateTimer = -initialStartDelay;
+
+        transform.localPosition = new Vector3(0, 0, extendedZDistance);
     }
 
     void Update()
