@@ -26,7 +26,7 @@ public class PushBlock : MonoBehaviour
         MovingBack
     };
 
-    private MoveState currentState = MoveState.WaitingAtStart;
+    private MoveState currentState = MoveState.WaitingAtEnd;
 
     void Start()
     {
