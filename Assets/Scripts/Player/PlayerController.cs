@@ -125,9 +125,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TrailRenderer speedTrail;
 
     private float verticalVelocity;
-    private Vector3 horizontalVelocity;
+    private  Vector3 horizontalVelocity;
 
     public float currentVerticalVelocity => verticalVelocity;
+
+    // Next three declarations are to be used for shadow cheating 
+    public Vector3 CurrentHorizontalVelocity => horizontalVelocity;
+    public float Gravity => gravity;
+    public float TerminalVelocity => terminalVelocity;
     private Vector3 lastExternalVelocity;
     private bool hasExternalMovement;
 
