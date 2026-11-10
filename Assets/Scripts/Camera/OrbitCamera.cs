@@ -26,6 +26,12 @@ public class OrbitCamera : MonoBehaviour
     private float zoneRotationSpeed = 3f;
     private bool isZoneTransitioning = false;
 
+    [SerializeField] private float returnDuration = 1f;
+
+    private float returnElapsed = 0f;
+    private Vector3 returnStartPosition;
+    private Quaternion returnStartRotation;
+
 
     private Transform activeNPC;
     private Vector3 currentFocusPoint;
@@ -178,23 +184,30 @@ public class OrbitCamera : MonoBehaviour
         }
         else if (isZoneTransitioning)
         {
-            // Smooth camera motion towards normal position
+            returnElapsed += Time.deltaTime;
+
+            // Calculate transition progress
+            float t = Mathf.Clamp01(returnElapsed / Mathf.Max(0.01f, returnDuration));
+
+            // Smoothly ease in and out
+            float smoothT = Mathf.SmoothStep(0f, 1f, t);
+
+            // Move toward the normal orbit camera position
             transform.position = Vector3.Lerp(
-                transform.position,
+                returnStartPosition,
                 targetPos,
-                zoneMovementSpeed * Time.deltaTime
+                smoothT
             );
 
-            // Smooth rotation towards normal rotation
+            // Rotate toward the normal orbit camera rotation
             transform.rotation = Quaternion.Slerp(
-                transform.rotation,
+                returnStartRotation,
                 targetRotation,
-                zoneRotationSpeed * Time.deltaTime
+                smoothT
             );
 
-            // Check whether the camera has nearly reached its normal position
-            if (Vector3.Distance(transform.position, targetPos) < 0.05f &&
-                Quaternion.Angle(transform.rotation, targetRotation) < 0.5f)
+            // Restore normal orbit behaviour 
+            if (t >= 1f)
             {
                 isZoneTransitioning = false;
             }
@@ -224,11 +237,19 @@ public class OrbitCamera : MonoBehaviour
 
     public void ClearCameraZone(Transform target)
     {
-        //Make sure the zone being exited is the one that is being targeted
+        // Only exit if this is the currently active zone
         if (activeCameraTarget != target) return;
 
         activeCameraTarget = null;
-        //Start moving the camera back to normal orbit position
+
+        // Record the camera's position and rotation when exiting
+        returnStartPosition = transform.position;
+        returnStartRotation = transform.rotation;
+
+        // Reset the timer
+        returnElapsed = 0f;
+
+        // Begin returning to normal camera 
         isZoneTransitioning = true;
     }
 
