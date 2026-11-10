@@ -12,6 +12,7 @@ public class Checkpoint : MonoBehaviour
     [SerializeField] private RisingWater water;
     [SerializeField] private float waterOffsetBelowCheckpoint = 3f;
     [SerializeField] private float waterRiseSpeed = 0.7f; // For moving the water to the checkpoint
+    [SerializeField] private bool isHalfCheckpoint = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -36,7 +37,11 @@ public class Checkpoint : MonoBehaviour
                     // Calculate where the water should be at below the checkpoint
                     float targetWaterLevel = player.currentCheckpointPosition.y - waterOffsetBelowCheckpoint;
                     player.currentWaterLevel = targetWaterLevel;
-                    water.RiseToCheckpoint(targetWaterLevel, waterRiseSpeed);
+
+                    if (!isHalfCheckpoint) 
+                    {
+                        water.RiseToCheckpoint(targetWaterLevel, waterRiseSpeed);
+                    }
                 }
 
                 if (AudioLayering.Instance != null)

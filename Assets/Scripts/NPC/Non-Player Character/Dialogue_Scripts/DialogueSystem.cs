@@ -227,6 +227,12 @@ public class DialogueSystem : MonoBehaviour
                 {
                     playerController.canMove = true;
                 }
+
+                if (AudioLayering.Instance != null)
+                {
+                    // Unmute environment volume (push blocks)
+                    StartCoroutine(AudioLayering.Instance.SetEnvironmentVolume(1));
+                }
                 dialogueFinished?.Invoke();
                 isActive = false;
             }
