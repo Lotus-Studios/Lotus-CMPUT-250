@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 currentCheckpointPosition;
     public List<Vector3> checkpointHistory = new List<Vector3>();
     public Vector3 startPosition;
+    [SerializeField] private BuoyManager buoyManager;
 
     [Header("Water Save States")]
     public RisingWater activeWater;
@@ -651,8 +652,9 @@ public class PlayerController : MonoBehaviour
         isTriggerSliding = false;
         isFluttering = false;
         flutterTimeCounter = flutterJumpDuration;
-        if (AudioLayering.Instance != null) AudioLayering.Instance.FadeToChill(); 
+        if (AudioLayering.Instance != null) AudioLayering.Instance.FadeToChill();
         if (activeWater != null) activeWater.RiseToCheckpoint(pendingWaterLevel, 10000f); //10000f for instant snapping (not ideal but it works)
+        if (buoyManager != null) buoyManager.ResetBouys();
 
         characterController.enabled = false;
         transform.position = position;
