@@ -36,7 +36,7 @@ public class PlayerShadow : MonoBehaviour
 
             // Shrink the width and height of the decal
             float currentSize = Mathf.Lerp(baseSize, baseSize * 0.5f, heightPercent);
-            float totalDist = Mathf.Max(surfaceDist, 0.05f) + 0.2f;
+            float totalDist = Mathf.Max(surfaceDist, 0.05f) + 1.0f;
             float downwardOffset = playerRadius;
             float depth = Mathf.Max(totalDist - downwardOffset, 0.05f);
 
