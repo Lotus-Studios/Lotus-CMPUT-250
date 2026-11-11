@@ -36,6 +36,7 @@ public class ScreenFadeToBlack : MonoBehaviour
     public UnityEvent endBasicFade;
     public UnityEvent beginWaitOnBlack;
     public bool IsScreenBlack => currentState == FadeState.WaitingOnBlack;
+    public bool IsRespawning => currentPurpose == FadePurpose.RespawnPlayer;
 
     private void Awake()
     {

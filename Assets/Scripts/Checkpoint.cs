@@ -21,7 +21,7 @@ public class Checkpoint : MonoBehaviour
             PlayerController player = other.GetComponent<PlayerController>();
             if (player != null)
             {
-
+                bool isRespawning = ScreenFadeToBlack.Instance != null && ScreenFadeToBlack.Instance.IsRespawning;
                 Vector3 mySpawnPos = customSpawnPoint != null ? customSpawnPoint.position : transform.position;
 
                 if (player.currentCheckpointPosition == mySpawnPos) return;
@@ -46,7 +46,11 @@ public class Checkpoint : MonoBehaviour
 
                 if (AudioLayering.Instance != null)
                 {
-                    AudioLayering.Instance.FadeToChill();
+                    if (!isHalfCheckpoint || isRespawning) 
+                    {
+                        AudioLayering.Instance.FadeToChill();
+                    }
+                    
                 }
             }
         }

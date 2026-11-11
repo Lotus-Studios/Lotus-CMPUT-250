@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2559152618193605512}
   - component: {fileID: 3141102499016631791}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2559152618193605512
 Transform:
@@ -63,12 +63,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2524664046720957718}
   - component: {fileID: 7508876172707424444}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2524664046720957718
 Transform:
@@ -116,12 +116,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4402682108887639723}
   - component: {fileID: 7956131499318883810}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4402682108887639723
 Transform:
@@ -210,6 +210,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ad96ccc360cfbd041aa0c146044db315, type: 3}
       propertyPath: m_Name
       value: CityEntranceStairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ad96ccc360cfbd041aa0c146044db315, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ad96ccc360cfbd041aa0c146044db315, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

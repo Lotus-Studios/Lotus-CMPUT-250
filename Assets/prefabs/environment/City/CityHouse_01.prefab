@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4468100494970122994}
   - component: {fileID: 4722701527172118632}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4468100494970122994
 Transform:
@@ -63,12 +63,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1173237641235011013}
   - component: {fileID: 4097112276262126515}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1173237641235011013
 Transform:
@@ -116,12 +116,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7668381557472281517}
   - component: {fileID: 7984692734306361922}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7668381557472281517
 Transform:
@@ -169,12 +169,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3902587774863573596}
   - component: {fileID: 4300437510920878311}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3902587774863573596
 Transform:
@@ -222,12 +222,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7132858207791410671}
   - component: {fileID: 2738748226285341446}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7132858207791410671
 Transform:
@@ -313,9 +313,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6088722030638587907, guid: 1eeb8e9830598bf4b8e9b16a1139f8c6, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -6088722030638587907, guid: 1eeb8e9830598bf4b8e9b16a1139f8c6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1eeb8e9830598bf4b8e9b16a1139f8c6, type: 3}
       propertyPath: m_Name
       value: CityHouse_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1eeb8e9830598bf4b8e9b16a1139f8c6, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1eeb8e9830598bf4b8e9b16a1139f8c6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
