@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 900718133100855286, guid: 110dc76f311687b489ce421936742a83, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 2359898648427084652, guid: 110dc76f311687b489ce421936742a83, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -19,6 +23,10 @@ PrefabInstance:
     - target: {fileID: 6034238931685339279, guid: 110dc76f311687b489ce421936742a83, type: 3}
       propertyPath: m_Name
       value: Block_03_H3_city
+      objectReference: {fileID: 0}
+    - target: {fileID: 6034238931685339279, guid: 110dc76f311687b489ce421936742a83, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6410378168181434933, guid: 110dc76f311687b489ce421936742a83, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59,6 +67,10 @@ PrefabInstance:
     - target: {fileID: 6410378168181434933, guid: 110dc76f311687b489ce421936742a83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8882823282446291059, guid: 110dc76f311687b489ce421936742a83, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
