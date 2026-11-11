@@ -41,6 +41,7 @@ public class CrackBlockJiggler : MonoBehaviour
             crackPieces[i].restPosition = crackPieces[i].transform.position;
             crackPieces[i].restRotation = crackPieces[i].transform.rotation;
             crackPieces[i].GetComponent<Collider>().enabled = false;
+            
             crackPieces[i].Rigidbody.isKinematic = true;
         }
 
