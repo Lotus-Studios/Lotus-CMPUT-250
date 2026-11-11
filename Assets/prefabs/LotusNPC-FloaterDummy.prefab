@@ -248,9 +248,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1381718734618997686}
-  - component: {fileID: 8915700395565945741}
+  - component: {fileID: 7390797479758461828}
   m_Layer: 0
-  m_Name: BreatheAnimator
+  m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,7 +273,7 @@ Transform:
   - {fileID: 3731951252376615821}
   m_Father: {fileID: 5927698322754521956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8915700395565945741
+--- !u!114 &7390797479758461828
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -282,11 +282,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 5209809111168648753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fb242cc4e29c234bb53f2c7584f5db2, type: 3}
+  m_Script: {fileID: 11500000, guid: 71aaa9022a78848479819dcced51a659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  breatheFrequency: 1
-  breathScaleAddAmplitude: {x: 0.025, y: 0.05, z: 0}
+  DefaultAnimationCycle:
+  - {fileID: -1063223117, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -459733900, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -1387717625, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -1785125642, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: 582968020, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: 2039011357, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: 270280153, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -1920897233, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -2020323049, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: 1880410689, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -2020663994, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -1385130731, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -1191655566, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  Framerate: 12
+  SpriteRenderer: {fileID: 4911907810409373863}
+  Looping: 1
 --- !u!1 &5345915588212416624
 GameObject:
   m_ObjectHideFlags: 0

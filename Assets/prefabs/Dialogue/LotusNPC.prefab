@@ -1,83 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4526014268472480637
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4633554042115952556}
-  - component: {fileID: 4964680887770613804}
-  - component: {fileID: 1106680175772881257}
-  m_Layer: 3
-  m_Name: Shadow Decal Projector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4633554042115952556
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4526014268472480637}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.068, y: -0.837, z: 0.098}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 821790450485912119}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4964680887770613804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4526014268472480637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: abfc7c4d59b37b04092a941dd08173ad, type: 2}
-  m_DrawDistance: 1000
-  m_FadeScale: 1
-  m_StartAngleFade: 180
-  m_EndAngleFade: 180
-  m_UVScale: {x: 1, y: 1}
-  m_UVBias: {x: 0, y: 0}
-  m_DecalLayerMask: 1
-  m_ScaleMode: 0
-  m_Offset: {x: 0, y: 0, z: 2}
-  m_Size: {x: 2, y: 1.73, z: 4}
-  m_FadeFactor: 1
---- !u!114 &1106680175772881257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4526014268472480637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 183eee8cac406de47889c5f9f2cfc506, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDistance: 25
-  shrinkDistance: 4
-  baseSize: 0.7
-  playerRadius: 0.35
-  castStartOffset: 0.5
-  shadowSpriteTransform: {fileID: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 497
 --- !u!1 &5336631005282665021
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5336631005282665021}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.145, z: 0}
+  m_LocalRotation: {x: -0, y: -0.14436172, z: -0, w: 0.98952496}
+  m_LocalPosition: {x: -1.83, y: 0.14500046, z: -1.04}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 821790450485912119}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -16.601, z: 0}
 --- !u!65 &6867201829791585657
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -130,8 +52,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.56, y: 0.45000002, z: 0.4620386}
+  m_Center: {x: 2.2619229e-10, y: 0, z: 0.051019505}
 --- !u!114 &4450904823823753217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,16 +92,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6657525610790432124}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0.14173111, z: -0, w: 0.9899052}
+  m_LocalPosition: {x: 35.42465, y: 24.37, z: -23.258284}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3659290866001263973}
   - {fileID: 3225590712477461401}
-  - {fileID: 4633554042115952556}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -16.296, z: 0}
 --- !u!114 &4898553815996156563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,10 +117,20 @@ MonoBehaviour:
   forcedDialogueCollider: {fileID: 6867201829791585657}
   sprite: {fileID: 925848907555591746}
   doneFirstDialogue: 0
-  firstDialogue: {fileID: 0}
+  firstDialogue: {fileID: 4900000, guid: ef84cb8baf8072b488788ab6e0be8a7d, type: 3}
   tallyThresholdDialogue: {fileID: 0}
   tallyThresholdValue: 0
-  BarkList: []
+  BarkList:
+  - 'Slow down, the mountain isn''t going anywhere. Probably. '
+  - 'I think you''re a little lower than you planned. '
+  - 'Well, that certainly didn''t go as planned. But most things don''t. '
+  - 'I think you were supposed to keep going up. '
+  - 'I admire your determination! Your landing technique, less so. '
+  - 'At least you''re getting to know the mountain. '
+  - 'I see you''ve discovered a very efficient way down. '
+  - Gravity seems just as committed as you are.
+  - 'Keep trying. You''ll get it. '
+  barkOffset: {x: 0, y: 3, z: -1.74}
   water: {fileID: 0}
   dummyPrefab: {fileID: 2895109821281483268, guid: 2c57e33c25782b349b898d4ef5793c00, type: 3}
 --- !u!1 &7933756004556428619
@@ -295,9 +226,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3225590712477461401}
-  - component: {fileID: 9211399920701645146}
+  - component: {fileID: 7184163570508407204}
   m_Layer: 0
-  m_Name: BreatheAnimator
+  m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -311,15 +242,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8509821664688417417}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.68693703, z: -0, w: 0.726717}
   m_LocalPosition: {x: 0, y: -1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1116538215680692123}
   m_Father: {fileID: 821790450485912119}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9211399920701645146
+  m_LocalEulerAnglesHint: {x: 0, y: -86.776, z: 0}
+--- !u!114 &7184163570508407204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -328,8 +259,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 8509821664688417417}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fb242cc4e29c234bb53f2c7584f5db2, type: 3}
+  m_Script: {fileID: 11500000, guid: 71aaa9022a78848479819dcced51a659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  breatheFrequency: 1
-  breathScaleAddAmplitude: {x: 0.025, y: 0.05, z: 0}
+  DefaultAnimationCycle:
+  - {fileID: -1063223117, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -459733900, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -1387717625, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -1785125642, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: 582968020, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: 2039011357, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: 270280153, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -1920897233, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -2020323049, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: 1880410689, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -2020663994, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -1385130731, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  - {fileID: -1191655566, guid: 9c86ce7869a3a734d890936012a81c18, type: 3}
+  Framerate: 12
+  SpriteRenderer: {fileID: 925848907555591746}
+  Looping: 1
