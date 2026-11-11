@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -27,7 +28,7 @@ public class PlayerShadow : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(Vector3.down, Vector3.forward);
 
         Vector3 origin = transform.position + Vector3.up * castStartOffset;
-        if (Physics.SphereCast(origin, playerRadius, Vector3.down, out RaycastHit hit, maxDistance + castStartOffset, groundLayer))
+        if (Physics.SphereCast(origin, playerRadius, Vector3.down, out RaycastHit hit, maxDistance + castStartOffset, groundLayer, QueryTriggerInteraction.Ignore))
         {
             // hit.distance is the spheres travel distance
             float surfaceDist = transform.position.y - hit.point.y;
