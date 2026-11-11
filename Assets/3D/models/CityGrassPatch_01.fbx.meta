@@ -3,7 +3,17 @@ guid: c182c3123349abc4b9c9b6eb044aa274
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CityBackground
+    second: {fileID: 2100000, guid: 42f450db12b78134ebe113596ed40dc2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrassTexture
+    second: {fileID: 2100000, guid: f89e598c6f7194947b5239c5da91e926, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
