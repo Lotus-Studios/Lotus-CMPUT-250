@@ -389,8 +389,11 @@ public class PlayerController : MonoBehaviour
         }
 
         // Combine horizontal motion and vertical velocity, then apply via CharacterController
+    
         Vector3 motion = horizontalVelocity + (Vector3.up * verticalVelocity);
         characterController.Move(motion * Time.deltaTime);
+
+    
 
         // if we arent getting pushed via pushblock anymore then clear the external momentum
         if (!hasExternalMovement && lastExternalVelocity.magnitude > 0f)
@@ -518,7 +521,8 @@ public class PlayerController : MonoBehaviour
     {
         if (isTriggerSliding) return;
 
-        if (verticalVelocity > 0f && (!isBoingerBouncing || hit.normal.y < -0.1f))
+
+        if (verticalVelocity > 0f && (!isBoingerBouncing || hit.normal.y < 0f))
         {
             // Combine our current movement into one 3D velocity vector then align it to the plane and apply it to the player. This SHOULD FINALLY FIX HEADHITTERS BY JUST NOT HAVING HEADHITTERS!!!
             Vector3 combinedVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
@@ -557,7 +561,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Makes it so only steep walls or vertical walls or overhang walls will set perpendicular momentum to 0
-        if (hit.normal.y < 0.7f && hit.normal.y > -0.7f)
+        if (hit.normal.y < 0.7f && hit.normal.y > -0.7f /*&& !(isBoingerBouncing && hit.normal.y < -0.1f)*/)
         {
             // Dot product to see if theres momentum going into the wall
             if (Vector3.Dot(horizontalVelocity, hit.normal) < 0f)
@@ -579,6 +583,7 @@ public class PlayerController : MonoBehaviour
             flutterTimeCounter = flutterJumpDuration;
             ExecuteBounce(boingy.boinginess);
         }
+
     }
 
     // keeps track of whether the player successfully chains a jump or can chain a jump
