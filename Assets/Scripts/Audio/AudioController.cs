@@ -18,6 +18,8 @@ public class AudioController : MonoBehaviour
     public AudioClip[] sandFootsteps;
     public AudioClip[] grassFootsteps;
     public AudioClip[] stoneFootsteps;
+    public AudioClip[] snowFootsteps;
+
     private int groundLayer = 0;
     private AudioClip[] footstepSounds;
 
@@ -90,6 +92,8 @@ public class AudioController : MonoBehaviour
             footstepSounds = sandFootsteps;
         } else if (layerName == "Stone") {
             footstepSounds = stoneFootsteps;
+        } else if (layerName == "Grass") {
+            footstepSounds = grassFootsteps;
         } else {
             footstepSounds = grassFootsteps;
         }
@@ -100,7 +104,7 @@ public class AudioController : MonoBehaviour
         float basePitch = Random.Range(1.4f, 2.3f);
         footstepSource.pitch = isUnderwater ? basePitch * 0.8f : basePitch;
 
-        float finalVolume = isUnderwater ? 0.1f : 0.2f;
+        float finalVolume = isUnderwater ? 0f : 0.13f;
         //audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
         footstepSource.clip = footstepSounds[randomIndex];
         footstepSource.volume = finalVolume;
@@ -183,7 +187,9 @@ public class AudioController : MonoBehaviour
 
     public void SetFootsteps(int layer) 
     {
-        groundLayer = layer;
+        if (layer != 0) {
+            groundLayer = layer;
+        }
     }
 
 }
