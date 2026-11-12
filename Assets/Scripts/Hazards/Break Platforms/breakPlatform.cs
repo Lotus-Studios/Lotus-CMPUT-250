@@ -13,6 +13,7 @@ public class breakPlatform : MonoBehaviour
     [SerializeField] CrackBlockJiggler vfx;
     [SerializeField] private AudioClip breakBlockJiggleClip;
     [SerializeField] private AudioClip breakBlockShatterClip;
+    [SerializeField] private float breakBlockVolume = 1f;
 
     private Collider platformCollider;
 
@@ -45,7 +46,9 @@ public class breakPlatform : MonoBehaviour
         {   
             if(!broken){
                 breakCoroutine = StartCoroutine(BreakPlatform());
-                AudioController.Instance.PlayPlatformSound(breakBlockJiggleClip, transform.position, 1f, breakTime);
+                if (AudioController.Instance != null) {
+                    AudioController.Instance.PlayPlatformSound(breakBlockJiggleClip, transform.position, breakBlockVolume, breakTime);
+                }
             }
         }
     }
@@ -63,17 +66,21 @@ public class breakPlatform : MonoBehaviour
 
         breakCoroutine = null;
 
-        if(!broken)
-            AudioController.Instance.PlayPlatformSound(breakBlockShatterClip, transform.position, 1f, breakBlockShatterClip.length);
+        if(!broken) {
 
-        broken = true;
-        yield return new WaitForSeconds(resetTime);
-        broken = false;
+            if (AudioController.Instance != null) {
+                AudioController.Instance.PlayPlatformSound(breakBlockShatterClip, transform.position, breakBlockVolume, breakBlockShatterClip.length);
+            }
 
-        vfx.Reform();
-        vfx.JigglePercentInfluence = 0.0f;
+            broken = true;
+            yield return new WaitForSeconds(resetTime);
+            broken = false;
 
-        platformCollider.enabled = true;
+            vfx.Reform();
+            vfx.JigglePercentInfluence = 0.0f;
+
+            platformCollider.enabled = true;
+        }
 
     }
 }
