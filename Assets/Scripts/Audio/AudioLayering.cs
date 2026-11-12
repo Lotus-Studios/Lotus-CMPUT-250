@@ -110,4 +110,9 @@ public class AudioLayering : MonoBehaviour
         }
         yield break;
     }
+
+    public void SetPlayerVolume(float targetVolume)
+    {
+        mainMixer.SetFloat("PlayerVolume", Mathf.Log10(targetVolume) * 20);
+    }
 }

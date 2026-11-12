@@ -595,6 +595,7 @@ public class PlayerController : MonoBehaviour
             if (!wasGrounded)
             {
                 timeGrounded = 0f;
+                if (AudioController.Instance != null) AudioController.Instance.PlayLanding();
             }
             timeGrounded += Time.deltaTime;
 
