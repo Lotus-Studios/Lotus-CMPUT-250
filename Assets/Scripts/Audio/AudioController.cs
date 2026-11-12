@@ -15,10 +15,17 @@ public class AudioController : MonoBehaviour
     [Header("Player SFX")]
     public AudioClip jumpSound;
     public AudioClip flutterSound;
+    [Header("Footstep SFX")]
     public AudioClip[] sandFootsteps;
     public AudioClip[] grassFootsteps;
     public AudioClip[] stoneFootsteps;
     public AudioClip[] snowFootsteps;
+
+    [Header("Landing SFX")]
+    public AudioClip[] sandLandings;
+    public AudioClip[] grassLandings;
+    public AudioClip[] stoneLandings;
+    public AudioClip[] snowLandings;
 
     private int groundLayer = 0;
     private AudioClip[] footstepSounds;
@@ -85,6 +92,7 @@ public class AudioController : MonoBehaviour
         }
     }
 
+
     public void PlayFootstep()
     {
         string layerName = LayerMask.LayerToName(groundLayer);
@@ -94,8 +102,10 @@ public class AudioController : MonoBehaviour
             footstepSounds = stoneFootsteps;
         } else if (layerName == "Grass") {
             footstepSounds = grassFootsteps;
+        } else if (layerName == "Snow") {
+            footstepSounds = snowFootsteps;
         } else {
-            footstepSounds = grassFootsteps;
+            footstepSounds = stoneFootsteps;
         }
         if (footstepSounds.Length == 0) return;
 
@@ -107,6 +117,38 @@ public class AudioController : MonoBehaviour
         float finalVolume = isUnderwater ? 0f : 0.13f;
         //audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
         footstepSource.clip = footstepSounds[randomIndex];
+        footstepSource.volume = finalVolume;
+        footstepSource.Play();
+    }
+
+    public void PlayLanding()
+    {
+        string layerName = LayerMask.LayerToName(groundLayer);
+        AudioClip[] landingSounds = {};
+
+        if (layerName == "Sand") {
+            landingSounds = sandLandings;
+        } else if (layerName == "Stone") {
+            landingSounds = stoneLandings;
+        } else if (layerName == "Grass") {
+            landingSounds = grassLandings;
+        } else if (layerName == "Snow") {
+            landingSounds = snowLandings;
+        } else {
+            landingSounds = stoneLandings;
+        }
+
+        if (landingSounds.Length == 0) return;
+
+        int randomIndex = Random.Range(0, landingSounds.Length);
+        // Base pitch is 1.7 to 1.9, multiplied by 0.85 if underwater
+        float basePitch = Random.Range(1.0f, 1.5f);
+
+        // Play from footstep source
+        footstepSource.pitch = isUnderwater ? basePitch * 0.8f : basePitch;
+        float finalVolume = isUnderwater ? 0f : 0.13f;
+        //audioSource.PlayOneShot(footstepSounds[randomIndex], finalVolume);
+        footstepSource.clip = landingSounds[randomIndex];
         footstepSource.volume = finalVolume;
         footstepSource.Play();
     }
@@ -185,7 +227,7 @@ public class AudioController : MonoBehaviour
         UISource.PlayOneShot(closeWoosh, 0.3f);
     }
 
-    public void SetFootsteps(int layer) 
+    public void SetGroundLayer(int layer) 
     {
         if (layer != 0) {
             groundLayer = layer;

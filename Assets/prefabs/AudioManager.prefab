@@ -425,7 +425,7 @@ AudioSource:
   m_GameObject: {fileID: 4797852472837178050}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2494748761769302782, guid: 1daf12999d147d34db1059ab127d33d6, type: 2}
+  OutputAudioMixerGroup: {fileID: 941368758573872556, guid: 1daf12999d147d34db1059ab127d33d6, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -553,7 +553,7 @@ AudioSource:
   m_GameObject: {fileID: 5187878776904582762}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2494748761769302782, guid: 1daf12999d147d34db1059ab127d33d6, type: 2}
+  OutputAudioMixerGroup: {fileID: 941368758573872556, guid: 1daf12999d147d34db1059ab127d33d6, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -707,9 +707,8 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: da5051916ae16614d8b6effe6ea251bc, type: 3}
   flutterSound: {fileID: 8300000, guid: 55cea41c2efe84a46b839da108655906, type: 3}
   sandFootsteps:
-  - {fileID: 8300000, guid: d64a27d64c2cc49c9af78f570ec7fed9, type: 3}
-  - {fileID: 8300000, guid: 32f27df5f5b4141c2b5c3cc3427f3611, type: 3}
   - {fileID: 8300000, guid: 3c7f61150234241af85bf716440f631d, type: 3}
+  - {fileID: 8300000, guid: b9d988fc744fc45168a0371a2d67fe48, type: 3}
   grassFootsteps:
   - {fileID: 8300000, guid: 81b0c47569e5b4579aad439fd62b973f, type: 3}
   - {fileID: 8300000, guid: 978e07ac5379f4c25b57acdb38daaccf, type: 3}
@@ -723,6 +722,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: aab817d24f84642c499b9f8c4caa2fef, type: 3}
   - {fileID: 8300000, guid: 90071adb1765b410bbb171b5f942bef0, type: 3}
   - {fileID: 8300000, guid: 58d81cb2d756648d68f86bd512181435, type: 3}
+  sandLandings:
+  - {fileID: 8300000, guid: d64a27d64c2cc49c9af78f570ec7fed9, type: 3}
+  grassLandings:
+  - {fileID: 8300000, guid: 45ffb76e3a9094fbc9a3c39064c6d670, type: 3}
+  stoneLandings:
+  - {fileID: 8300000, guid: 5c59252977b8a4e5eab6caa010b33b8b, type: 3}
+  snowLandings:
+  - {fileID: 8300000, guid: 87cfe5e3c6f07462786873e9a3d45672, type: 3}
   clickSound: {fileID: 8300000, guid: 7b6877b2020b54f59894bbe33926342b, type: 3}
   playButtonSound: {fileID: 8300000, guid: 8e823816448804161831fdff655988cb, type: 3}
   openWoosh: {fileID: 8300000, guid: 10b32a9f022cc4a6abc0511afb9aef42, type: 3}
@@ -919,7 +926,7 @@ AudioSource:
   m_GameObject: {fileID: 5881920737204050054}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2494748761769302782, guid: 1daf12999d147d34db1059ab127d33d6, type: 2}
+  OutputAudioMixerGroup: {fileID: 941368758573872556, guid: 1daf12999d147d34db1059ab127d33d6, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1303,7 +1310,7 @@ AudioSource:
   m_GameObject: {fileID: 8325233392793708653}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2494748761769302782, guid: 1daf12999d147d34db1059ab127d33d6, type: 2}
+  OutputAudioMixerGroup: {fileID: 941368758573872556, guid: 1daf12999d147d34db1059ab127d33d6, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.464

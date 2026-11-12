@@ -13,7 +13,7 @@ public class GetGroundLayer : MonoBehaviour
         if (Physics.Raycast(playerTransform.position, playerTransform.TransformDirection(Vector3.down), out hit, Mathf.Infinity)) 
         {
             if (AudioController.Instance != null) {
-                AudioController.Instance.SetFootsteps(hit.transform.gameObject.layer);
+                AudioController.Instance.SetGroundLayer(hit.transform.gameObject.layer);
             }
         } 
         
