@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour
     public float currentVerticalVelocity => verticalVelocity;
     private Vector3 lastExternalVelocity;
     private bool hasExternalMovement;
+    [SerializeField] private int bankedCollectibleCount = 0;
 
     private float lastGroundedTime;
     // since characterController keeps returning true when hugging a wall. Now player will only be considered grounded if their last grounded time is < 0.05 and isGrounded 
@@ -665,6 +666,7 @@ public class PlayerController : MonoBehaviour
         characterController.enabled = false;
         transform.position = position;
         characterController.enabled = true;
+        Collectible.ResetAllCollectibles(); //Static method to reset positions of collected collectibles
         if (orbitCamera != null) orbitCamera.ResetCamera();
         playerTeleported.Invoke();
     }
@@ -711,4 +713,22 @@ public class PlayerController : MonoBehaviour
 
         ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);
     }
+
+    public void AddBankedCollectibles(int amount)
+    {
+        if (amount <= 0)
+            return;
+
+        bankedCollectibleCount += amount;
+
+        Debug.Log($"Banked collectibles: {bankedCollectibleCount}");
+    }
+
+
+    [ContextMenu("Test Bank Collectibles")]
+    private void TestBankCollectibles()
+    {
+        Collectible.BankAllCollectibles(this);
+    }
+
 }
