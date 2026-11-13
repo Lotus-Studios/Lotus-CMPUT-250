@@ -1,11 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-[merge "unityyamlmerge"]
-    name = Unity YAML Merge
-    driver = "C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Data\Tools\UnityYAMLMerge.exe" merge -p "%O" "%A" "%B" "%P"
-    recursive = binary
-
 # Unity SmartMerge (UnityYAMLMerge) Configuration
 *.unity merge=unityyamlmerge
 *.prefab merge=unityyamlmerge
