@@ -74,6 +74,8 @@ MonoBehaviour:
   splitForce: 2
   maxSplitTorque: 50
   particles: {fileID: 4710010606821306908}
+  shrinkDelay: 0.5
+  shrinkDuration: 1.5
 --- !u!114 &7048176324824727559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,6 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   breakTime: 1
   resetTime: 2
+  permanentDestruction: 0
   vfx: {fileID: 8932048998483023795}
   breakBlockJiggleClip: {fileID: 8300000, guid: ae0d0e3fc2f1e410bb2af1c45822a082, type: 3}
   breakBlockShatterClip: {fileID: 8300000, guid: 08eff8ca174914ddc97a6dc3806b0b0f, type: 3}

@@ -12,9 +12,9 @@ public class CrackBlockJiggler : MonoBehaviour
     [SerializeField] Vector3 pieceDirectionalAmplitudes = new Vector3(0.05f, 0.05f, 0.05f);
     [SerializeField] float pieceNoiseFrequency = 10f;
     //set on start
-    float _jigglePercentInfluence = 0.0f; 
+    float _jigglePercentInfluence = 0.0f;
     //Clamps from 0-100% range (0.0 to 1.0f)
-    public float JigglePercentInfluence {get{return _jigglePercentInfluence;} set{_jigglePercentInfluence = Mathf.Clamp(value, 0.0f, 1.0f);}}
+    public float JigglePercentInfluence { get { return _jigglePercentInfluence; } set { _jigglePercentInfluence = Mathf.Clamp(value, 0.0f, 1.0f); } }
 
     [SerializeField]
     breakPlatform platform;
@@ -24,13 +24,17 @@ public class CrackBlockJiggler : MonoBehaviour
     [SerializeField] float blockNoiseFrequency = 5f;
     [SerializeField] Vector3 blockNoiseAmplitudes = new Vector3(0.1f, 0.05f, 0.1f);
 
-    
+
     [SerializeField] float splitForce = 2.0f;
     [SerializeField] float maxSplitTorque = 50f;
 
     [SerializeField] ParticleSystem particles;
 
-
+    [Header("Debris")]
+    [SerializeField] private bool enableShrink = false;
+    [SerializeField] private float shrinkDelay = 3f;
+    [SerializeField] private float shrinkDuration = 3f;
+    private Coroutine shrinkCoroutine;
 
     // Start is called before the first frame update
     void Start()
@@ -44,8 +48,6 @@ public class CrackBlockJiggler : MonoBehaviour
             
             crackPieces[i].Rigidbody.isKinematic = true;
         }
-
-
 
         blockRestPoint = transform.position;
     }
@@ -90,15 +92,52 @@ public class CrackBlockJiggler : MonoBehaviour
             );
 
         }
+
+        if (enableShrink) 
+        {
+            if (shrinkCoroutine != null) StopCoroutine(shrinkCoroutine);
+            shrinkCoroutine = StartCoroutine(fadeBlocks());
+        }
+        
     }
 
     private IEnumerator fadeBlocks()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(shrinkDelay);
+
+        if (enableShrink)
+        {
+            // disable collider
+            for (int i = 0; i < crackPieces.Length; i++)
+            {
+                crackPieces[i].GetComponent<Collider>().enabled = false;
+                crackPieces[i].Rigidbody.isKinematic = true;
+            }
+
+            float shrinkTimer = 0f;
+            while (shrinkTimer < shrinkDuration)
+            {
+                shrinkTimer += Time.deltaTime;
+                float t = shrinkTimer / shrinkDuration; // percentage of time
+
+                for (int i = 0; i < crackPieces.Length; i++)
+                {
+                    crackPieces[i].transform.localScale = Vector3.Lerp(crackPieces[i].restScale, Vector3.zero, t); // lerp restScale to 0 at rate of t
+                }
+
+                yield return null;
+            }
+        }
     }
 
     public void Reform()
     {
+        if (shrinkCoroutine != null && enableShrink) 
+        {
+            StopCoroutine(shrinkCoroutine);
+            shrinkCoroutine = null;
+        }
+
         for(int i = 0; i < crackPieces.Length; i++)
         {
             crackPieces[i].Rigidbody.isKinematic = true;
