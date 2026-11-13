@@ -9,6 +9,7 @@ public class breakPlatform : MonoBehaviour
 {
     [SerializeField] private float breakTime = 1f;
     [SerializeField] private float resetTime = 1f;
+    [SerializeField] private bool permanentDestruction = false;
 
     [SerializeField] CrackBlockJiggler vfx;
     [SerializeField] private AudioClip breakBlockJiggleClip;
@@ -25,8 +26,6 @@ public class breakPlatform : MonoBehaviour
 
     void Start()
     {
-
-
         // Get the collider that is NOT a trigger
         Collider[] colliders = GetComponents<Collider>();
 
@@ -73,6 +72,9 @@ public class breakPlatform : MonoBehaviour
             }
 
             broken = true;
+
+            if (permanentDestruction) yield break;
+                     
             yield return new WaitForSeconds(resetTime);
             broken = false;
 

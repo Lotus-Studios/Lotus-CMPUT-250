@@ -10,6 +10,9 @@ public class BrokenPlatformVisualFragment : MonoBehaviour
     private Quaternion _restRotation;
     public Quaternion restRotation { get { return _restRotation; } set { _restRotation = value; } }
 
+    private Vector3 _restScale;
+    public Vector3 restScale { get { return _restScale; } set { _restScale = value; } }
+
     private Rigidbody _rigidbody;
     public Rigidbody Rigidbody {get{return _rigidbody;}}
     Renderer _renderer;
@@ -21,6 +24,13 @@ public class BrokenPlatformVisualFragment : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _renderer = GetComponent<Renderer>();
+        _restScale = transform.localScale;
+    }
+
+    public void ResetScale() 
+    {
+        transform.localScale = _restScale;
+        if (_renderer != null) _renderer.enabled = true;
     }
 
 }
