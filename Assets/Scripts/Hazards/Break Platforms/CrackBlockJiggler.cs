@@ -25,7 +25,8 @@ public class CrackBlockJiggler : MonoBehaviour
     [SerializeField] Vector3 blockNoiseAmplitudes = new Vector3(0.1f, 0.05f, 0.1f);
 
 
-    [SerializeField] float splitForce = 2.0f;
+    [SerializeField] float outwardSplitForce = 2.0f;
+    [SerializeField] float forwardSplitForce = 4.0f;
     [SerializeField] float maxSplitTorque = 50f;
 
     [SerializeField] ParticleSystem particles;
@@ -81,8 +82,11 @@ public class CrackBlockJiggler : MonoBehaviour
         {
             crackPieces[i].Rigidbody.isKinematic = false;
             crackPieces[i].GetComponent<Collider>().enabled = true;
-            Vector3 forceDir = -(transform.position - crackPieces[i].transform.position).normalized;
-            crackPieces[i].Rigidbody.AddForce(forceDir*splitForce);
+            // Vector3 forceDir = -(transform.position - crackPieces[i].transform.position).normalized;
+            // crackPieces[i].Rigidbody.AddForce(forceDir*randomSplitForce + -transform.right * forwardSplitForce);
+            crackPieces[i].Rigidbody.AddForce(-transform.right * forwardSplitForce, ForceMode.Impulse);
+
+            
 
 
             crackPieces[i].Rigidbody.AddTorque(new Vector3(
