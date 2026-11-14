@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,10 +18,14 @@ public class RisingWater : MonoBehaviour
     //curve to sample for how fast to go
     [Header("Water Rising Speed")]
     [SerializeField] AnimationCurve waterRubberBandCurve;
-    [SerializeField] float curveMaxSpeed = 3f;
-    [SerializeField] float curveMinSpeed = 0.7f;
     [SerializeField] float maxDistance = 25;
     [SerializeField] float minDistance = 3;
+
+    [SerializeField] LevelSpeed beachSpeed;
+    [SerializeField] LevelSpeed forestSpeed;
+    [SerializeField] LevelSpeed citySpeed;
+
+    [HideInInspector] public LevelSpeed currentSpeed;
 
     private bool isRisingToCheckpoint = false;
     private float targetRiseLevel;
@@ -32,6 +37,24 @@ public class RisingWater : MonoBehaviour
     [Header("Object Culling")]
     [SerializeField] private Transform[] levelRoots;
     [SerializeField] private float disableDepth = 15f;
+
+    [Serializable]
+    public struct LevelSpeed
+    {
+        public float min;
+        public float max;
+
+        public LevelSpeed(float min, float max)
+        {
+            this.min = min;
+            this.max = max;
+        }
+
+        public float Evaluate(AnimationCurve curve, float t)
+        {
+            return Mathf.Lerp(min, max, curve.Evaluate(t));
+        }
+    }
 
     // stores a prefab or game objects components (renderer and collider) and its higher point in world space
     private struct CullableObject
@@ -47,6 +70,7 @@ public class RisingWater : MonoBehaviour
     public void Start()
     {
         if (levelRoots == null || levelRoots.Length == 0) return;
+        currentSpeed = beachSpeed;
 
         // loop through the levels referenced
         foreach (Transform root in levelRoots) 
@@ -146,12 +170,22 @@ public class RisingWater : MonoBehaviour
     float getCurrentRubberBandSpeed()
     {
         float distance = playerTarget.position.y - transform.position.y;
-        distance = Mathf.Clamp(distance,minDistance, maxDistance);
+        distance = Mathf.Clamp(distance, minDistance, maxDistance);
         float curveSamplePercent = (distance - minDistance) / (maxDistance - minDistance);
 
-        // so it scales from min speed to max speed
-        float curveWeight = waterRubberBandCurve.Evaluate(curveSamplePercent);
-        return Mathf.Lerp(curveMinSpeed, curveMaxSpeed, curveWeight);
+        return currentSpeed.Evaluate(waterRubberBandCurve, curveSamplePercent);
+    }
+
+    public void SetLevelSpeed(bool isForest, bool isCity)
+    {
+        if (isCity) currentSpeed = citySpeed;
+        else if (isForest) currentSpeed = forestSpeed;
+        else currentSpeed = beachSpeed;
+    }
+
+    public void SetSpeed(LevelSpeed speed)
+    {
+        currentSpeed = speed;
     }
 
     public void RiseToCheckpoint(float targetY, float riseSpeed)

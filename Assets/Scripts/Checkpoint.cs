@@ -12,7 +12,13 @@ public class Checkpoint : MonoBehaviour
     [SerializeField] private RisingWater water;
     [SerializeField] private float waterOffsetBelowCheckpoint = 3f;
     [SerializeField] private float waterRiseSpeed = 0.7f; // For moving the water to the checkpoint
+    [SerializeField] private bool moveWaterToCheckpoint = true;
     [SerializeField] private bool isHalfCheckpoint = false;
+
+    [Header("Levels")]
+    [SerializeField] private bool setBeachSpeed = false;
+    [SerializeField] private bool setForestSpeed = false;
+    [SerializeField] private bool setCitySpeed = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,18 +35,27 @@ public class Checkpoint : MonoBehaviour
                 // save the previous checkpoint and water level to history before the update
                 player.checkpointHistory.Add(player.currentCheckpointPosition);
                 player.waterLevelHistory.Add(player.currentWaterLevel);
+                if (water != null) player.speedHistory.Add(water.currentSpeed);
 
                 player.currentCheckpointPosition = mySpawnPos;
 
                 if (water != null)
                 {
-                    // Calculate where the water should be at below the checkpoint
-                    float targetWaterLevel = player.currentCheckpointPosition.y - waterOffsetBelowCheckpoint;
-                    player.currentWaterLevel = targetWaterLevel;
-
-                    if (!isHalfCheckpoint) 
+                    if (moveWaterToCheckpoint)
                     {
-                        water.RiseToCheckpoint(targetWaterLevel, waterRiseSpeed);
+                        // Calculate where the water should be at below the checkpoint
+                        float targetWaterLevel = player.currentCheckpointPosition.y - waterOffsetBelowCheckpoint;
+                        player.currentWaterLevel = targetWaterLevel;
+
+                        if (!isHalfCheckpoint)
+                        {
+                            water.RiseToCheckpoint(targetWaterLevel, waterRiseSpeed);
+                        }
+                    }
+
+                    if (setBeachSpeed || setForestSpeed || setCitySpeed)
+                    {
+                        water.SetLevelSpeed(setForestSpeed, setCitySpeed);
                     }
                 }
 
