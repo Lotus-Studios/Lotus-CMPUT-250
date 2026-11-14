@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LotusNPC : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class LotusNPC : MonoBehaviour
     [SerializeField] RisingWater water;
     private LotusGuruFloatingDummy dummy;
     [SerializeField] private GameObject dummyPrefab;
+
+    public UnityEvent finishedFirstDialogue;
     // Start is called before the first frame update
     void Start()
     {
@@ -110,13 +113,14 @@ public class LotusNPC : MonoBehaviour
         doneFirstDialogue = true;
 
         //Manage re enabling player movement
-        void reenablePlayerMovement()
+        void reenablePlayerMovementAndInvokeEnd()
         { 
             playerController.canMove = true;
-            DialogueSystem.Instance.dialogueFinished.RemoveListener(reenablePlayerMovement);
+            finishedFirstDialogue.Invoke();
+            DialogueSystem.Instance.dialogueFinished.RemoveListener(reenablePlayerMovementAndInvokeEnd);
         }
 
-        DialogueSystem.Instance.dialogueFinished.AddListener(reenablePlayerMovement);
+        DialogueSystem.Instance.dialogueFinished.AddListener(reenablePlayerMovementAndInvokeEnd);
     }
 
     void hide()
