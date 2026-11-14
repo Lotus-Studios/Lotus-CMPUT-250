@@ -172,6 +172,37 @@ public class GameManager : MonoBehaviour
         fade.BasicFade();
     }
 
+    //TODO: Finish this function
+    public void GoToCredits()
+    {
+        GoToMainMenu();
+        // Debug.Log("Beginning GoToCredits");
+        // //Reference to fade class
+        // ScreenFadeToBlack fade = ScreenFadeToBlack.Instance;
+
+        // //behaviour when the screen is fully black
+        // void onBlack()
+        // {   
+        //     hideMainMenu();
+        //     setCursor(false);
+        //     setCursorLockState(CursorLockMode.Locked);
+        //     fade.beginWaitOnBlack.RemoveListener(onBlack); //self unsubcribe
+        // }
+        // //Behaviour when the animation is complete
+        // void onEnd()
+        // {
+        //     if(player != null) player.canMove = true;
+        //     if (hudCanvas != null) hudCanvas.gameObject.SetActive(true);
+        //     GameStart.Invoke();
+        //     fade.endBasicFade.RemoveListener(onEnd); //self unsubcribe
+        // }
+        // //Add both as listeners to their respective events in ScreenFadeToBlack
+        // ScreenFadeToBlack.Instance.beginWaitOnBlack.AddListener(onBlack);
+        // ScreenFadeToBlack.Instance.endBasicFade.AddListener(onEnd);
+        // //Call the function
+        // fade.BasicFade();
+    }
+
     public void GoToMainMenu()
     {
         if(DialogueSystem.Instance.getIsActive()) return;

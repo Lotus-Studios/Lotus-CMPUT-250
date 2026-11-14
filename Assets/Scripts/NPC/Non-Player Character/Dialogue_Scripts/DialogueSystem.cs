@@ -38,6 +38,8 @@ public class DialogueSystem : MonoBehaviour
     //Current chunk being displayed
     private int chunkIndex = 0;
 
+    [SerializeField] private int goodEndingMinTallyScore = 1;
+
     private int tallyScore = 0;
     //Current dialogue being worked through
     private Dialogue currentDialogue = null;
@@ -322,4 +324,7 @@ public class DialogueSystem : MonoBehaviour
     {
         tallyScore = 0;
     }
+
+    //Returns if the player is elligible for the good ending.
+    public bool hasGoodEnding() { return tallyScore > goodEndingMinTallyScore; }
 }

@@ -62,7 +62,6 @@ public class PlayerController : MonoBehaviour
     public RisingWater activeWater;
     public float currentWaterLevel;
     public List<float> waterLevelHistory = new List<float>();
-    public List<RisingWater.LevelSpeed> speedHistory = new List<RisingWater.LevelSpeed>();
     public float startWaterLevel;
     private float pendingWaterLevel;
 
@@ -691,12 +690,6 @@ public class PlayerController : MonoBehaviour
             currentWaterLevel = waterLevelHistory[lastIndex];
             pendingWaterLevel = currentWaterLevel;
 
-            if (activeWater != null && speedHistory.Count > lastIndex)
-            {
-                activeWater.SetSpeed(speedHistory[lastIndex]);
-                speedHistory.RemoveAt(lastIndex);
-            }
-
             checkpointHistory.RemoveAt(lastIndex);
             waterLevelHistory.RemoveAt(lastIndex);
 
@@ -709,22 +702,16 @@ public class PlayerController : MonoBehaviour
     }
 
     // reset ALL progress, make sure to add confirmation for this and the previous checkpoint one
-    public void ResetAll()
+    public void ResetAll(bool doFade = true)
     {
         checkpointHistory.Clear();
         waterLevelHistory.Clear();
-        speedHistory.Clear();
 
         currentCheckpointPosition = startPosition;
         currentWaterLevel = startWaterLevel;
         pendingWaterLevel = startWaterLevel;
 
-        if (activeWater != null)
-        {
-            activeWater.SetLevelSpeed(false, false); // Resets back to Beach speed
-        }
-
-        ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);
+        if(doFade) ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);
     }
 
     public void AddBankedCollectibles(int amount)
