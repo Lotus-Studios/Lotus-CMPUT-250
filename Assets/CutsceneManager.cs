@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
@@ -106,28 +107,46 @@ public class CutsceneManager : MonoBehaviour
     {
         scrBlack.beginWaitOnBlack.AddListener(startDrownAnim);
         scrBlack.BasicFade();
+
         void startDrownAnim()
         {
+            scrBlack.beginWaitOnBlack.RemoveListener(startDrownAnim);
             Debug.Log("Starting animation");
             drownAnim.activate();
             player.canMove = false;
             playerSprite.enabled = false;
-            scrBlack.beginWaitOnBlack.RemoveListener(startDrownAnim);
 
-            drownAnim.finishedAnimation.AddListener(() => {player.ResetAll(true);});
-            scrBlack.beginWaitOnBlack.AddListener(respawnAtStart);
+            drownAnim.finishedAnimation.AddListener(onDrownFinished);
         }
+
+        void onDrownFinished()
+        {
+            drownAnim.finishedAnimation.RemoveListener(onDrownFinished);
+            scrBlack.beginWaitOnBlack.AddListener(respawnAtStart);
+            scrBlack.BasicFade();
+        }
+
         void respawnAtStart()
         {
-            respawnAnim.activate();
-            respawnAnim.finishedAnimation.AddListener(() => {
-                player.ResetToCurrentCheckpoint();
-                respawnAnim.deactivate();
-                drownAnim.deactivate();
-                player.canMove = true;
-                playerSprite.enabled = true;
-        });
             scrBlack.beginWaitOnBlack.RemoveListener(respawnAtStart);
+            respawnAnim.activate();
+            respawnAnim.finishedAnimation.AddListener(onRespawnFinished);
+        }
+
+        void onRespawnFinished()
+        {
+            respawnAnim.finishedAnimation.RemoveListener(onRespawnFinished);
+            scrBlack.beginWaitOnBlack.AddListener(finishRespawn);
+            player.ResetAll(true);
+        }
+
+        void finishRespawn()
+        {
+            scrBlack.beginWaitOnBlack.RemoveListener(finishRespawn);
+            drownAnim.deactivate();
+            respawnAnim.deactivate();
+            player.canMove = true;
+            playerSprite.enabled = true;
         }
     }
 

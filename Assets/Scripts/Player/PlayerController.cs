@@ -162,15 +162,15 @@ public class PlayerController : MonoBehaviour
             characterAnimator = GetComponentInChildren<CharacterAnimator>();
         }
 
+        currentCheckpointPosition = transform.position;
+        startPosition = transform.position;
+
         if (useDebugSpawn && debugSpawnPoint != null)
         {
             characterController.enabled = false;
             transform.position = debugSpawnPoint.position;
             characterController.enabled = true;
         }
-
-        currentCheckpointPosition = transform.position;
-        startPosition = transform.position;
 
         activeWater = FindObjectOfType<RisingWater>();
         if (activeWater != null)
