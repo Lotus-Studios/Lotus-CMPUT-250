@@ -13,6 +13,8 @@ public class AudioLayering : MonoBehaviour
     [Header("Audio Sources")]
     public AudioSource chillSource;
     public AudioSource excitingSource;
+    public AudioSource chillUnderwaterSource;
+    public AudioSource excitingUnderwaterSource;
 
     [Header("Audio Clips (Normal)")]
     public AudioClip chillNormal;
@@ -24,9 +26,14 @@ public class AudioLayering : MonoBehaviour
 
     [Header("Settings")]
     public float fadeSpeed = 0.5f;
+    public float fadeDuration = 0.5f;
 
     private bool isExciting = false;
     private bool isUnderwater = false;
+    private AudioSource currentSource;
+    private AudioSource targetSource;
+    private IEnumerator lastCurrentCoroutine = null;
+    private IEnumerator lastTargetCoroutine = null;
 
     void Awake()
     {
@@ -50,19 +57,64 @@ public class AudioLayering : MonoBehaviour
         double syncTime = AudioSettings.dspTime + 0.1;
         chillSource.PlayScheduled(syncTime);
         excitingSource.PlayScheduled(syncTime);
+        chillUnderwaterSource.PlayScheduled(syncTime);
+        excitingUnderwaterSource.PlayScheduled(syncTime);
 
-        chillSource.volume = 1f;
+        chillSource.volume = 0f;
         excitingSource.volume = 0f;
+
+        currentSource = chillSource;
+        targetSource = chillSource;
+        if (AudioController.Instance != null) {
+            StartCoroutine(AudioController.Instance.FadeAudioSource(currentSource, 3f, 1f));
+        } else {
+            chillSource.volume = 1f;
+        }
     }
+
+
 
     void Update()
     {
-        float targetChill = isExciting ? 0f : 1f;
-        float targetExciting = isExciting ? 1f : 0f;
+        targetSourceCheck();
 
-        chillSource.volume = Mathf.MoveTowards(chillSource.volume, targetChill, fadeSpeed * Time.deltaTime);
-        excitingSource.volume = Mathf.MoveTowards(excitingSource.volume, targetExciting, fadeSpeed * Time.deltaTime);
+        if (targetSource != currentSource) 
+        {
+            if (AudioController.Instance != null)
+            {
+                lastCurrentCoroutine = AudioController.Instance.FadeAudioSource(currentSource, fadeDuration, 0f);
+                lastTargetCoroutine = AudioController.Instance.FadeAudioSource(targetSource, fadeDuration, 1f);
+                StartCoroutine(lastCurrentCoroutine);
+                StartCoroutine(lastTargetCoroutine);
+            }
+            currentSource = targetSource;
+        }
     }
+
+    private void targetSourceCheck() {
+        if (isExciting) 
+        {
+            if (isUnderwater) targetSource = excitingUnderwaterSource;
+            else targetSource = excitingSource;
+        } 
+        else 
+        {
+            if (isUnderwater) targetSource = chillUnderwaterSource;
+            else targetSource = chillSource;
+        }
+    }
+
+    private void targetSourceCheck2() {
+        if (isExciting && !isUnderwater) 
+        {
+            targetSource = excitingSource;
+        } 
+        else 
+        {
+            targetSource = excitingUnderwaterSource;
+        }
+    }
+
 
     public void FadeToExciting()
     {
@@ -80,16 +132,19 @@ public class AudioLayering : MonoBehaviour
         isUnderwater = underwater;
 
         // Swap the audio file inside both sources
+        /*
         SwapClip(chillSource, underwater ? chillUnderwater : chillNormal);
         SwapClip(excitingSource, underwater ? excitingUnderwater : excitingNormal);
+        */
     }
 
     private void SwapClip(AudioSource source, AudioClip newClip)
     {
         // saves the time then swaps the clips and plays it
-        int currentSample = source.timeSamples;
+        // h
+        float currentTime = source.time;
         source.clip = newClip;
-        source.timeSamples = currentSample;
+        source.time = currentTime;
         source.Play();
     }
 
