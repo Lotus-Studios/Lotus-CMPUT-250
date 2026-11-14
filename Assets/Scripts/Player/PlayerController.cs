@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     [Header("Respawn Point")]
     public Vector3 currentCheckpointPosition;
     public List<Vector3> checkpointHistory = new List<Vector3>();
+    public List<RisingWater.LevelSpeed> speedHistory = new List<RisingWater.LevelSpeed>();
     public Vector3 startPosition;
     [SerializeField] private BuoyManager buoyManager;
 
@@ -698,6 +699,12 @@ public class PlayerController : MonoBehaviour
             currentWaterLevel = waterLevelHistory[lastIndex];
             pendingWaterLevel = currentWaterLevel;
 
+            if (activeWater != null && speedHistory.Count > lastIndex)
+            {
+                activeWater.SetSpeed(speedHistory[lastIndex]);
+                speedHistory.RemoveAt(lastIndex);
+            }
+
             checkpointHistory.RemoveAt(lastIndex);
             waterLevelHistory.RemoveAt(lastIndex);
 
@@ -714,12 +721,18 @@ public class PlayerController : MonoBehaviour
     {
         checkpointHistory.Clear();
         waterLevelHistory.Clear();
+        speedHistory.Clear();
 
         currentCheckpointPosition = startPosition;
         currentWaterLevel = startWaterLevel;
         pendingWaterLevel = startWaterLevel;
 
-        if(doFade) ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);
+        if (activeWater != null)
+        {
+            activeWater.SetLevelSpeed(false, false);
+        }
+
+        if (doFade) ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);
     }
 
     public void AddBankedCollectibles(int amount)

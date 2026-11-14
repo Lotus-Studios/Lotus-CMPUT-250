@@ -53,6 +53,10 @@ public class BuoyManager : MonoBehaviour
 
                 buoys[i].position = new Vector3(buoys[i].position.x, offset, buoys[i].position.z);
             }
+            else if (buoys[i].position.y != initialY[i])
+            {
+                buoys[i].position = new Vector3(buoys[i].position.x, initialY[i], buoys[i].position.z);
+            }
         }
 
         DrawRopes();
@@ -115,5 +119,7 @@ public class BuoyManager : MonoBehaviour
         {
             buoys[i].position = new Vector3(buoys[i].position.x, initialY[i], buoys[i].position.z);
         }
+
+        DrawRopes();
     }
 }
