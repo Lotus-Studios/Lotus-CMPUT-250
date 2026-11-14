@@ -36,7 +36,11 @@ public class PlayerDrowning : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        waterPostProcess.profile.TryGet(out underwaterVignette);
+        drownTimer = timeToDrown;
+        if (waterPostProcess != null && waterPostProcess.profile != null)
+        {
+            waterPostProcess.profile.TryGet(out underwaterVignette);
+        }
     }
 
     // Update is called once per frame
@@ -69,8 +73,10 @@ public class PlayerDrowning : MonoBehaviour
                 UnderwaterAudio.Instance.EnableUnderwaterAudio();
             }
 
+            Vector3 waterSurfacePoint = new Vector3(playerController.transform.position.x, water.transform.position.y, playerController.transform.position.z);
+
             // checks if the player is within X units of ground, if not then die otherwise they can fall and land on it.
-            bool isDeep = !Physics.Raycast(playerController.transform.position, Vector3.down, requiredDepthForDeath, groundLayerMask);
+            bool isDeep = !Physics.Raycast(waterSurfacePoint, Vector3.down, requiredDepthForDeath, groundLayerMask, QueryTriggerInteraction.Ignore);
             if (playerController.currentVerticalVelocity <= deadlySpeed && isDeep)
             {
                 Die();

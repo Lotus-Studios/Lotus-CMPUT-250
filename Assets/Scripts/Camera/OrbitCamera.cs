@@ -258,6 +258,8 @@ public class OrbitCamera : MonoBehaviour
         if (lookAtTransform == null || mountainCenter == null) return;
 
         ClearDialogueTarget();
+        activeCameraTarget = null;
+        isZoneTransitioning = false;
 
         // target heights and focus points directly to the player
         lockedBaseHeight = lookAtTransform.position.y;

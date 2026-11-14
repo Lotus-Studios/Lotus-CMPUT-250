@@ -86,9 +86,6 @@ public class CrackBlockJiggler : MonoBehaviour
             // crackPieces[i].Rigidbody.AddForce(forceDir*randomSplitForce + -transform.right * forwardSplitForce);
             crackPieces[i].Rigidbody.AddForce(-transform.right * forwardSplitForce, ForceMode.Impulse);
 
-            
-
-
             crackPieces[i].Rigidbody.AddTorque(new Vector3(
                 UnityEngine.Random.Range(-maxSplitTorque, maxSplitTorque), 
             UnityEngine.Random.Range(-maxSplitTorque, maxSplitTorque), 
@@ -131,7 +128,17 @@ public class CrackBlockJiggler : MonoBehaviour
 
                 yield return null;
             }
+
+            for (int i = 0; i < crackPieces.Length; i++)
+            {
+                if (crackPieces[i].Renderer != null)
+                {
+                    crackPieces[i].Renderer.enabled = false;
+                }
+            }
         }
+
+        shrinkCoroutine = null;
     }
 
     public void Reform()
@@ -148,6 +155,7 @@ public class CrackBlockJiggler : MonoBehaviour
             crackPieces[i].GetComponent<Collider>().enabled = false;
             crackPieces[i].Rigidbody.position = crackPieces[i].restPosition;
             crackPieces[i].Rigidbody.rotation = crackPieces[i].restRotation;
+            crackPieces[i].ResetScale();
         }
     }
 }

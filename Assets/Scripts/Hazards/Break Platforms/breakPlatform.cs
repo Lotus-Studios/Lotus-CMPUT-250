@@ -73,8 +73,12 @@ public class breakPlatform : MonoBehaviour
 
             broken = true;
 
-            if (permanentDestruction) yield break;
-                     
+            if (permanentDestruction)
+            {
+                breakCoroutine = null;
+                yield break;
+            }
+
             yield return new WaitForSeconds(resetTime);
             broken = false;
 
@@ -83,6 +87,7 @@ public class breakPlatform : MonoBehaviour
 
             platformCollider.enabled = true;
         }
-
+       
+        breakCoroutine = null;
     }
 }
