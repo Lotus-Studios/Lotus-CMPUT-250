@@ -391,11 +391,19 @@ public class PlayerController : MonoBehaviour
         }
 
         // Combine horizontal motion and vertical velocity, then apply via CharacterController
-    
+        float beforeMoveY = transform.position.y;
         Vector3 motion = horizontalVelocity + (Vector3.up * verticalVelocity);
         characterController.Move(motion * Time.deltaTime);
 
-    
+        float actualDeltaY = transform.position.y - beforeMoveY;
+        float expectedDeltaY = verticalVelocity * Time.deltaTime;
+
+        // Only clamp downward speed buildup if falling is blocked (actual movement < 10% of expected)
+        if (verticalVelocity < -6f && !isTriggerSliding && Mathf.Abs(actualDeltaY) < Mathf.Abs(expectedDeltaY) * 0.1f)
+        {
+            verticalVelocity = -6f;
+        }
+
 
         // if we arent getting pushed via pushblock anymore then clear the external momentum
         if (!hasExternalMovement && lastExternalVelocity.magnitude > 0f)
