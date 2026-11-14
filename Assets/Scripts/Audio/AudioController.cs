@@ -98,7 +98,7 @@ public class AudioController : MonoBehaviour
         string layerName = LayerMask.LayerToName(groundLayer);
         if (layerName == "Sand") {
             footstepSounds = sandFootsteps;
-        } else if (layerName == "Stone") {
+        } else if (layerName == "Stone" || layerName == "Debris") {
             footstepSounds = stoneFootsteps;
         } else if (layerName == "Grass") {
             footstepSounds = grassFootsteps;
@@ -124,6 +124,7 @@ public class AudioController : MonoBehaviour
     public void PlayLanding()
     {
         string layerName = LayerMask.LayerToName(groundLayer);
+        if (layerName == "Debris") return;
         AudioClip[] landingSounds = {};
 
         if (layerName == "Sand") {
