@@ -10,27 +10,28 @@ public class CutsceneManager : MonoBehaviour
 {
     private static CutsceneManager _instance;
     public static CutsceneManager Instance { get { return _instance; } }
-    [SerializeField] private ScreenFadeToBlack scrBlack = ScreenFadeToBlack.Instance;
-    [SerializeField] private DialogueSystem diaSys = DialogueSystem.Instance;
-    [SerializeField] private PlayerController player;
-    [SerializeField] private Camera badEndRespawnCamera;
     private bool _inCutscene = false;
     
-    [SerializeField] private PlayableDirector _director;
-    //Respawn animation for restarting at the bottom of the mountain.
-    [SerializeField] private PlayableAsset badEndingSeedlinBouceOutOfCave;
     [Header("Both Ending Assets")]
+    [SerializeField] private PlayerController player;
+    [SerializeField] private ScreenFadeToBlack scrBlack = ScreenFadeToBlack.Instance;
     [SerializeField] private LotusNPC waterPoolLotus;
     //[SerializeField] private Vector3 playerEndCutsceneStartPosition;
     [SerializeField] private TextAsset onPoolEnterDialogue;
     [SerializeField] private TextAsset badEndingDialogue;
     [SerializeField] private EndingPool pool;
+
+    //Used to hide the player rudimentarily
     private SpriteRenderer playerSprite;
 
     [Header("Good Ending Assets")]
     
     [SerializeField] private GameObject lotusBloomAnimationHandler;
     [SerializeField] private GoodEndingCutsceneCamera goodCam;
+
+    [Header("Bad Ending Assets")]
+    [SerializeField] private LotusBadEndingRespawnAnimationHandler respawnAnim;
+    [SerializeField] private LotusDrownAnimationHandler drownAnim;
 
     
     // Start is called before the first frame update
@@ -97,15 +98,45 @@ public class CutsceneManager : MonoBehaviour
             goodCam.activate();
             scrBlack.beginWaitOnBlack.RemoveListener(startCameraOrbit);
             lotusBloomAnimationHandler.SetActive(true);
+            lotusBloomAnimationHandler.GetComponentInChildren<EndingTriggerZone>().finishedAnimation.AddListener(transitionToCredits);
         }
     }
 
     private void badEndingCutscene()
     {
-        
+        scrBlack.beginWaitOnBlack.AddListener(startDrownAnim);
+        scrBlack.BasicFade();
+        void startDrownAnim()
+        {
+            Debug.Log("Starting animation");
+            drownAnim.activate();
+            player.canMove = false;
+            playerSprite.enabled = false;
+            scrBlack.beginWaitOnBlack.RemoveListener(startDrownAnim);
+
+            drownAnim.finishedAnimation.AddListener(() => {player.ResetAll(true);});
+            scrBlack.beginWaitOnBlack.AddListener(respawnAtStart);
+        }
+        void respawnAtStart()
+        {
+            respawnAnim.activate();
+            respawnAnim.finishedAnimation.AddListener(() => {
+                player.ResetToCurrentCheckpoint();
+                respawnAnim.deactivate();
+                drownAnim.deactivate();
+                player.canMove = true;
+                playerSprite.enabled = true;
+        });
+            scrBlack.beginWaitOnBlack.RemoveListener(respawnAtStart);
+        }
     }
 
-    
+    private void transitionToCredits()
+    {
+        goodCam.deactivate();
+        drownAnim.deactivate();
+        GameManager.Instance.GoToMainMenu();
+    }
 
     public bool inCutscene() { return _inCutscene; }
 }

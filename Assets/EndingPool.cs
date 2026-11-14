@@ -32,7 +32,7 @@ public class EndingPool : MonoBehaviour
             currentPoolAlarm = inPoolWaitAlarm;
         }
 
-        Debug.Log($"Current pool alarm {currentPoolAlarm}");
+        //Debug.Log($"Current pool alarm {currentPoolAlarm}");
     }
 
     void OnTriggerEnter(Collider other)

@@ -702,7 +702,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // reset ALL progress, make sure to add confirmation for this and the previous checkpoint one
-    public void ResetAll()
+    public void ResetAll(bool doFade = true)
     {
         checkpointHistory.Clear();
         waterLevelHistory.Clear();
@@ -711,7 +711,7 @@ public class PlayerController : MonoBehaviour
         currentWaterLevel = startWaterLevel;
         pendingWaterLevel = startWaterLevel;
 
-        ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);
+        if(doFade) ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);
     }
 
     public void AddBankedCollectibles(int amount)

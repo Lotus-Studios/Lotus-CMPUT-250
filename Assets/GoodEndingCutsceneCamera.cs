@@ -7,6 +7,7 @@ public class GoodEndingCutsceneCamera : MonoBehaviour
     private bool isRotating = false;
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private Camera cam;
+    [SerializeField] private Transform target;
     
 
     // Update is called once per frame
@@ -15,6 +16,7 @@ public class GoodEndingCutsceneCamera : MonoBehaviour
         if (isRotating)
         {
             transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
+            cam.gameObject.transform.LookAt(target);
         }
     }
 
