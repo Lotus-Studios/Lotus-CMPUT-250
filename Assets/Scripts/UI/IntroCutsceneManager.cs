@@ -11,12 +11,22 @@ public class IntroCutsceneManager : MonoBehaviour
     [SerializeField] private float pageHoldDuration = 2f;
 
     private bool isPlaying = false;
+    [SerializeField] private bool skipIntroForDebug = false;
+    private bool hasPlayedIntro = false;
 
     public void PlayIntro()
     {
         if (isPlaying) return;
 
+        
+        if (skipIntroForDebug || hasPlayedIntro)// Skip if debugging or the intro has already played.
+        {
+            GameManager.Instance.GoToGame();
+            return;
+        }
+
         isPlaying = true;
+        hasPlayedIntro = true;
 
         // Make sure all pages start hidden.
         foreach (GameObject page in pages)
