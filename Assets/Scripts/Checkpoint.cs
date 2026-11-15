@@ -31,6 +31,11 @@ public class Checkpoint : MonoBehaviour
                 Vector3 mySpawnPos = customSpawnPoint != null ? customSpawnPoint.position : transform.position;
 
                 if (player.currentCheckpointPosition == mySpawnPos) return;
+                
+                if (!isRespawning)
+                {
+                    Collectible.BankAllCollectibles(player);
+                }
 
                 // save the previous checkpoint and water level to history before the update
                 player.checkpointHistory.Add(player.currentCheckpointPosition);
