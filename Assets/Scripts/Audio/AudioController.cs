@@ -36,6 +36,9 @@ public class AudioController : MonoBehaviour
     public AudioClip openWoosh;
     public AudioClip closeWoosh;
 
+    [Header("Collection SFX")]
+    public AudioClip collectSound;
+    public AudioClip bankSound;
 
     private bool isUnderwater = false;
 
@@ -226,6 +229,14 @@ public class AudioController : MonoBehaviour
     }
     public void PlayCloseWoosh() {
         UISource.PlayOneShot(closeWoosh, 0.3f);
+    }
+
+    public void PlayCollectSound() {
+        UISource.PlayOneShot(collectSound, 0.2f);
+    }
+    
+    public void PlayBankSound() {
+        UISource.PlayOneShot(bankSound, 0.3f);
     }
 
     public void SetGroundLayer(int layer) 

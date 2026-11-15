@@ -51,6 +51,11 @@ public class Collectible : MonoBehaviour
 
         lastCollected = this;
 
+        if (AudioController.Instance != null)
+        {
+            AudioController.Instance.PlayCollectSound();
+        }
+
     }
 
     // Update is called once per frame
@@ -166,6 +171,10 @@ public class Collectible : MonoBehaviour
 
         if (BankCollectible())
             player.AddBankedCollectibles(1);
+            if (AudioController.Instance != null) 
+            {
+                AudioController.Instance.PlayCollectSound();
+            }
 
         isBanking = false;
     }
@@ -199,6 +208,11 @@ public class Collectible : MonoBehaviour
         for (int i = 0; i < chain.Count; i++)
         {
             chain[i].StartBanking(player, i * 0.1f);
+        }
+
+        if (AudioController.Instance != null && chain.Count > 0)
+        {
+            AudioController.Instance.PlayBankSound();
         }
 
         lastCollected = null;
