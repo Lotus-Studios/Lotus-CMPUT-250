@@ -63,6 +63,7 @@ public class RisingWater : MonoBehaviour
         public Collider[] colliders;
         public float highestY;
         public bool isSubmerged;
+        public bool isDebris;
     }
 
     private List<CullableObject> levelObjects = new List<CullableObject>();
@@ -135,7 +136,8 @@ public class RisingWater : MonoBehaviour
             renderers = rends,
             colliders = solidCols.ToArray(),
             highestY = maxY,
-            isSubmerged = false
+            isSubmerged = false,
+            isDebris = root.gameObject.layer == LayerMask.NameToLayer("Debris") && (root.GetComponentInChildren<breakPlatform>()?.IsPermanentDestruction ?? false)
         });
     }
 
@@ -238,6 +240,7 @@ public class RisingWater : MonoBehaviour
             // if object submerged stat changed then loop through it
             if (shouldBeSubmerged != obj.isSubmerged)
             {
+                if (obj.isDebris && !shouldBeSubmerged) continue;
                 obj.isSubmerged = shouldBeSubmerged;
                 levelObjects[i] = obj;
 

@@ -22,7 +22,7 @@ public class breakPlatform : MonoBehaviour
 
     [HideInInspector]
     public bool broken;
-
+    public bool IsPermanentDestruction => permanentDestruction;
 
     void Start()
     {
