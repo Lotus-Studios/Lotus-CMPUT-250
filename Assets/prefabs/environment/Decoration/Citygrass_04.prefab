@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5782307763929870270}
   - component: {fileID: 7462809636954628123}
   - component: {fileID: 4644845755131630801}
+  - component: {fileID: -2309029393876473350}
   m_Layer: 0
   m_Name: Citygrass_04
   m_TagString: Untagged
@@ -83,3 +84,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-2309029393876473350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6590229614117106948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c132100188ab241b84c7a47031f068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

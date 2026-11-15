@@ -94,12 +94,13 @@ public class IntroCutsceneManager : MonoBehaviour
 
         void OnBlack()
         {
-            cutsceneCanvas.SetActive(false);
+            Destroy(cutsceneCanvas);
 
-            
+
             fade.beginWaitOnBlack.RemoveListener(OnBlack);// Remove the listener
 
             isPlaying = false;
+            Resources.UnloadUnusedAssets();
         }
 
         

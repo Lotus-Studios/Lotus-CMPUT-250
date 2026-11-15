@@ -38,7 +38,7 @@ public class Collectible : MonoBehaviour
         isCollected = true;
 
         // Turn off the collider when collected
-        GetComponent<Collider>().enabled = false;
+        GetComponentInChildren<Collider>().enabled = false;
 
         if (lastCollected == null)
         {
@@ -90,7 +90,7 @@ public class Collectible : MonoBehaviour
 
         transform.position = originalPosition;
 
-        GetComponent<Collider>().enabled = true; //Turn collider back on
+        GetComponentInChildren<Collider>().enabled = true; //Turn collider back on
     }
 
     public static void ResetAllCollectibles()
@@ -117,7 +117,7 @@ public class Collectible : MonoBehaviour
 
         return true;
     }
-
+        
     public void StartBanking(PlayerController player, float delay = 0f) //Start the banking coroutine
     {
         if (!isCollected || isBanked || isBanking || player == null)
