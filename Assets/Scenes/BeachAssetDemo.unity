@@ -1965,6 +1965,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 3
   slideDuration: 0.75
+  slideTo: 1
+  exitDuration: 0.5
 --- !u!4 &65107470 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7247110655540376085, guid: 0c7be089869ee244f8d70d45af3d675d, type: 3}
@@ -2159,6 +2161,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 3
   slideDuration: 0.75
+  slideTo: 3
+  exitDuration: 0.5
 --- !u!4 &67260483 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1617728417546368295, guid: 3f2ed521333d64e43b1241ba524a50d2, type: 3}
@@ -9931,6 +9935,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 3
   slideDuration: 0.75
+  slideTo: 2
+  exitDuration: 0.5
 --- !u!1001 &309630621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10079,7 +10085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &314029896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13020,6 +13026,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 2
   slideDuration: 1.5
+  slideTo: 3
+  exitDuration: 0.5
 --- !u!1001 &400250767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14182,8 +14190,8 @@ MonoBehaviour:
   - {fileID: 602119187}
   - {fileID: 1130701090}
   - {fileID: 994559912}
-  delayBetweenPanels: 0.2
-  pageHoldDuration: 2
+  delayBetweenPanels: 2
+  pageHoldDuration: 5
 --- !u!1001 &446103252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18488,6 +18496,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 1
   slideDuration: 0.75
+  slideTo: 3
+  exitDuration: 0.5
 --- !u!1001 &546623426
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20504,6 +20514,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 1
   slideDuration: 0.75
+  slideTo: 3
+  exitDuration: 0.5
 --- !u!4 &586296856 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1617728417546368295, guid: 3f2ed521333d64e43b1241ba524a50d2, type: 3}
@@ -22344,6 +22356,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 2
   slideDuration: 0.75
+  slideTo: 2
+  exitDuration: 0.5
 --- !u!4 &633691176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8102077293361291398, guid: 072f9cf0b001a1a49af56f4c68b24ecc, type: 3}
@@ -26614,6 +26628,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 1
   slideDuration: 0.75
+  slideTo: 3
+  exitDuration: 0.5
 --- !u!4 &766918758 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6138570389282260021, guid: 6d8d1f18dbbafc14caf78972529f92bf, type: 3}
@@ -32678,6 +32694,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 0
   slideDuration: 0.75
+  slideTo: 2
+  exitDuration: 0.5
 --- !u!1001 &976828156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38553,6 +38571,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 2
   slideDuration: 0.75
+  slideTo: 2
+  exitDuration: 0.5
 --- !u!1 &1119846931
 GameObject:
   m_ObjectHideFlags: 0
@@ -40412,6 +40432,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 2
   slideDuration: 0.75
+  slideTo: 2
+  exitDuration: 0.5
 --- !u!1 &1176281303
 GameObject:
   m_ObjectHideFlags: 0
@@ -42947,6 +42969,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 0
   slideDuration: 0.75
+  slideTo: 0
+  exitDuration: 0.5
 --- !u!1001 &1239882863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50616,6 +50640,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 0
   slideDuration: 0.75
+  slideTo: 0
+  exitDuration: 0.5
 --- !u!4 &1486308607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8461279099612933736, guid: 414a3991bef245e40a1b8254eccb6b8e, type: 3}
@@ -51450,6 +51476,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 1
   slideDuration: 0.75
+  slideTo: 2
+  exitDuration: 0.5
 --- !u!4 &1506753125 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7405577233560787694, guid: 16b6e1ac8b63fae4f92bc0fa27afa812, type: 3}
@@ -52724,6 +52752,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 0
   slideDuration: 0.75
+  slideTo: 0
+  exitDuration: 0.5
 --- !u!4 &1550086385 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9062575445071560834, guid: 6f476a14b6c4a454d88ae4c89d2e2f08, type: 3}
@@ -56147,6 +56177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideFrom: 3
   slideDuration: 0.75
+  slideTo: 3
+  exitDuration: 0.5
 --- !u!1001 &1651645093
 PrefabInstance:
   m_ObjectHideFlags: 0

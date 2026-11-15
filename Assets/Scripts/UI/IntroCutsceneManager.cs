@@ -58,15 +58,46 @@ public class IntroCutsceneManager : MonoBehaviour
                 }
             }
 
-            // Keep the finished page visible.
-            yield return new WaitForSecondsRealtime(pageHoldDuration);
+                
+                yield return new WaitForSecondsRealtime(pageHoldDuration);
 
-            // Hide the page before displaying the next one.
-            if (i < pages.Length - 1)
-            {
+                
+                Coroutine[] exitCoroutines = new Coroutine[panels.Length]; //Run all exit animations at the same time
+
+                for (int j = 0; j < panels.Length; j++)
+                {
+                    exitCoroutines[j] = StartCoroutine(panels[j].SlideOut());
+                }
+
+                // Wait for every panel to finish exiting.
+                foreach (Coroutine exit in exitCoroutines)
+                {
+                    yield return exit;
+                }
+
+                // Hide the page once all panels have exited.
                 page.SetActive(false);
-            }
         }
+
+
+        ScreenFadeToBlack fade = ScreenFadeToBlack.Instance;
+
+        void OnBlack()
+        {
+            cutsceneCanvas.SetActive(false);
+
+            
+            fade.beginWaitOnBlack.RemoveListener(OnBlack);// Remove the listener
+
+            isPlaying = false;
+        }
+
+        
+        fade.beginWaitOnBlack.AddListener(OnBlack);// Listen for the midpoint of the fade.
+
+        
+        GameManager.Instance.GoToGame(); //Start the game
+
 
         
     }
