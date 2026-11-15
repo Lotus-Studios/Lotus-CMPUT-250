@@ -30,10 +30,10 @@ public class RisingWaterAudio : MonoBehaviour
     {
         heightDifference = topOfHeadTransform.position.y - waterTransform.position.y; 
 
-        if (!risingWater.allowedToMove) {
-            targetVolume = (maxHeight - heightDifference) * (maxVolume / maxHeight);
-        } else {
+        if (risingWater.allowedToMove || risingWater.isWaterRising()) {
             targetVolume = maxVolume;
+        } else {
+            targetVolume = (maxHeight - heightDifference) * (maxVolume / maxHeight);
         }
             
         
