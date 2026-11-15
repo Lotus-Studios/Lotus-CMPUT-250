@@ -997,6 +997,8 @@ MonoBehaviour:
   playButtonSound: {fileID: 8300000, guid: 8e823816448804161831fdff655988cb, type: 3}
   openWoosh: {fileID: 8300000, guid: 10b32a9f022cc4a6abc0511afb9aef42, type: 3}
   closeWoosh: {fileID: 8300000, guid: 9546e4af1b1274ab7b5dc0f6f33ad219, type: 3}
+  collectSound: {fileID: 8300000, guid: 18e46f16a51034f43b1d2354f3542af5, type: 3}
+  bankSound: {fileID: 8300000, guid: d125bb72416db4bba98d0cb6d29c9d33, type: 3}
 --- !u!114 &2244182756963929563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,14 +1014,11 @@ MonoBehaviour:
   mainMixer: {fileID: 24100000, guid: 1daf12999d147d34db1059ab127d33d6, type: 2}
   chillSource: {fileID: 557061230417479367}
   excitingSource: {fileID: 4028473153937337222}
-  chillUnderwaterSource: {fileID: 4753894033180783018}
-  excitingUnderwaterSource: {fileID: 4358611897244727962}
   chillNormal: {fileID: 8300000, guid: b8839b2e6b9b74771891509b00c80cfa, type: 3}
   excitingNormal: {fileID: 8300000, guid: ae858d23c861140a3852073900b8d077, type: 3}
   chillUnderwater: {fileID: 8300000, guid: 2c8fde7da0b3dd94785aafc38656145e, type: 3}
   excitingUnderwater: {fileID: 8300000, guid: 5a7fabbca9a4acc48ab6560d60ea3cad, type: 3}
   fadeSpeed: 0.45
-  fadeDuration: 0.5
 --- !u!114 &1614077793883808670
 MonoBehaviour:
   m_ObjectHideFlags: 0

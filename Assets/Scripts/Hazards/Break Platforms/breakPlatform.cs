@@ -16,13 +16,13 @@ public class breakPlatform : MonoBehaviour
     [SerializeField] private AudioClip breakBlockShatterClip;
     [SerializeField] private float breakBlockVolume = 1f;
 
-    private Collider platformCollider;
+    private List<Collider> platformColliders = new List<Collider>();
 
     private Coroutine breakCoroutine;
 
     [HideInInspector]
     public bool broken;
-
+    public bool IsPermanentDestruction => permanentDestruction;
 
     void Start()
     {
@@ -33,8 +33,7 @@ public class breakPlatform : MonoBehaviour
         {
             if (!col.isTrigger)
             {
-                platformCollider = col;
-                break;
+                platformColliders.Add(col);
             }
         }
     }
@@ -61,7 +60,10 @@ public class breakPlatform : MonoBehaviour
         yield return new WaitForSeconds(breakTime);
 
         vfx.Break();
-        platformCollider.enabled = false;
+        foreach (Collider col in platformColliders)
+        {
+            col.enabled = false;
+        }
 
         breakCoroutine = null;
 
@@ -85,7 +87,10 @@ public class breakPlatform : MonoBehaviour
             vfx.Reform();
             vfx.JigglePercentInfluence = 0.0f;
 
-            platformCollider.enabled = true;
+            foreach (Collider col in platformColliders)
+            {
+                col.enabled = true;
+            }
         }
        
         breakCoroutine = null;
