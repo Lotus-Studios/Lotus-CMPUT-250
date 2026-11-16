@@ -52,8 +52,9 @@ public class CutsceneManager : MonoBehaviour
         //Also linking the end cutscene to the lotus NPC finishing his dialogue.
         if (pool)
         {
-            pool.poolAlarm.AddListener(waterPoolLotus.doFirstDialogue);
-            waterPoolLotus.finishedFirstDialogue.AddListener(endCutscene);
+            //pool.poolAlarm.AddListener(waterPoolLotus.doFirstDialogue);
+            pool.poolAlarm.AddListener(endCutscene);
+            //waterPoolLotus.finishedFirstDialogue.AddListener(endCutscene);
         }
 
         //Retrieving the players sprite renderer
