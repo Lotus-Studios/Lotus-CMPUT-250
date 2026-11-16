@@ -5023,7 +5023,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592985307777515664, guid: 35e874c292ab20c45990fa24b3cec0eb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.25
+      value: -12.23
       objectReference: {fileID: 0}
     - target: {fileID: 8592985307777515664, guid: 35e874c292ab20c45990fa24b3cec0eb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -42523,7 +42523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customSpawnPoint: {fileID: 1827283191}
   water: {fileID: 1024422503}
-  waterOffsetBelowCheckpoint: 3
+  waterOffsetBelowCheckpoint: 1.5
   waterRiseSpeed: 0.7
   moveWaterToCheckpoint: 1
   isHalfCheckpoint: 1
@@ -82864,6 +82864,10 @@ PrefabInstance:
     - target: {fileID: 7390557352864084632, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782052249216322982, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
