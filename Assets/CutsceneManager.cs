@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
 using UnityEngine.Splines;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CutsceneManager : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class CutsceneManager : MonoBehaviour
 
     //Used to hide the player rudimentarily
     private SpriteRenderer playerSprite;
+    private RisingWater water;
 
     [Header("Good Ending Assets")]
     
@@ -113,24 +115,39 @@ public class CutsceneManager : MonoBehaviour
         {
             scrBlack.beginWaitOnBlack.RemoveListener(startDrownAnim);
             Debug.Log("Starting animation");
-            drownAnim.activate();
+
             player.canMove = false;
             playerSprite.enabled = false;
-            player.ResetAll(false);
 
+            player.ResetAll(false);
+            if (water != null)
+            {
+                // tried with lerping and a huge number but that doesnt work as fade to black pauses the timer, so its instant now and this seems to work
+                Vector3 currentPos = water.transform.position;
+                water.transform.position = new Vector3(currentPos.x, player.startWaterLevel, currentPos.z);
+                water.respawnLevel = player.startWaterLevel;
+
+                // Forces UpdateSubmergedObjects() to run based on the new position
+                water.ResetMe(player.startWaterLevel);
+            }
+
+            drownAnim.activate();
             drownAnim.finishedAnimation.AddListener(onDrownFinished);
         }
 
         void onDrownFinished()
         {
             drownAnim.finishedAnimation.RemoveListener(onDrownFinished);
-            scrBlack.beginWaitOnBlack.AddListener(respawnAtStart);
+
+            scrBlack.beginWaitOnBlack.AddListener(swapToRespawnAnim);
             scrBlack.BasicFade();
         }
 
-        void respawnAtStart()
+        void swapToRespawnAnim()
         {
-            scrBlack.beginWaitOnBlack.RemoveListener(respawnAtStart);
+            scrBlack.beginWaitOnBlack.RemoveListener(swapToRespawnAnim);
+
+            drownAnim.deactivate();
             respawnAnim.activate();
             respawnAnim.finishedAnimation.AddListener(onRespawnFinished);
         }
@@ -138,17 +155,21 @@ public class CutsceneManager : MonoBehaviour
         void onRespawnFinished()
         {
             respawnAnim.finishedAnimation.RemoveListener(onRespawnFinished);
-            player.ResetToCurrentCheckpoint();
-            scrBlack.beginWaitOnBlack.AddListener(finishRespawn);
+
+            scrBlack.beginWaitOnBlack.AddListener(finishCutscene);
+            scrBlack.BasicFade();
         }
 
-        void finishRespawn()
+        void finishCutscene()
         {
-            scrBlack.beginWaitOnBlack.RemoveListener(finishRespawn);
-            drownAnim.deactivate();
+            scrBlack.beginWaitOnBlack.RemoveListener(finishCutscene);
+
             respawnAnim.deactivate();
-            player.canMove = true;
+
+            player.teleport(player.currentCheckpointPosition);
+
             playerSprite.enabled = true;
+            player.canMove = true;
         }
     }
 
