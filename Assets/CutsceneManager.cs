@@ -115,6 +115,7 @@ public class CutsceneManager : MonoBehaviour
             drownAnim.activate();
             player.canMove = false;
             playerSprite.enabled = false;
+            player.ResetAll(false);
 
             drownAnim.finishedAnimation.AddListener(onDrownFinished);
         }
@@ -136,8 +137,8 @@ public class CutsceneManager : MonoBehaviour
         void onRespawnFinished()
         {
             respawnAnim.finishedAnimation.RemoveListener(onRespawnFinished);
+            player.ResetToCurrentCheckpoint();
             scrBlack.beginWaitOnBlack.AddListener(finishRespawn);
-            player.ResetAll(true);
         }
 
         void finishRespawn()
