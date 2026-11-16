@@ -4905,13 +4905,13 @@ MonoBehaviour:
   platform: {fileID: 1573175175463710817}
   blockNoiseFrequency: 5
   blockNoiseAmplitudes: {x: 0.22, y: 0.05, z: 0.19}
-  outwardSplitForce: 20
-  forwardSplitForce: 100
+  outwardSplitForce: 50
+  forwardSplitForce: 9
   maxSplitTorque: 50
   particles: {fileID: 5658518517867443730}
-  enableShrink: 0
+  enableShrink: 1
   shrinkDelay: 0.5
-  shrinkDuration: 1.5
+  shrinkDuration: 1
 --- !u!65 &8870659983473118779
 BoxCollider:
   m_ObjectHideFlags: 0
