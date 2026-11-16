@@ -740,6 +740,15 @@ public class PlayerController : MonoBehaviour
         }
 
         if (doFade) ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);
+
+        Collectible.ResetAllForNewRun();
+
+        bankedCollectibleCount = 0;
+
+        if (collectibleCountText != null)
+        {
+            collectibleCountText.text = bankedCollectibleCount.ToString().Replace('0', 'O');
+        }
     }
 
     public void AddBankedCollectibles(int amount)

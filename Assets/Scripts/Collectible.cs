@@ -38,7 +38,12 @@ public class Collectible : MonoBehaviour
         isCollected = true;
 
         // Turn off the collider when collected
-        GetComponentInChildren<Collider>().enabled = false;
+        Collider collectibleCollider = GetComponentInChildren<Collider>(true);
+
+        if (collectibleCollider != null)
+        {
+            collectibleCollider.enabled = false;
+        }
 
         if (lastCollected == null)
         {
@@ -90,7 +95,12 @@ public class Collectible : MonoBehaviour
 
         transform.position = originalPosition;
 
-        GetComponentInChildren<Collider>().enabled = true; //Turn collider back on
+        Collider collectibleCollider = GetComponentInChildren<Collider>(true);
+
+        if (collectibleCollider != null)
+        {
+            collectibleCollider.enabled = true; //Turn the collider back on so that it can be collected again
+        }
     }
 
     public static void ResetAllCollectibles()
@@ -217,6 +227,42 @@ public class Collectible : MonoBehaviour
 
         lastCollected = null;
     }
+
+
+    public void ResetForNewRun()
+    {
+        //this will be called for every collectible in the scene when player starts new run
+        //It resets all inportant variables for one collectible
+        StopAllCoroutines();
+
+        isBanking = false;
+        isBanked = false;
+        isCollected = false;
+        followTarget = null;
+
+        transform.position = originalPosition;
+
+        Collider collectibleCollider = GetComponentInChildren<Collider>(true);
+
+        if (collectibleCollider != null)
+        {
+            collectibleCollider.enabled = true;
+        }
+        gameObject.SetActive(true);
+    }
+
+    public static void ResetAllForNewRun()
+    {
+        Collectible[] collectibles = FindObjectsByType<Collectible>(FindObjectsInactive.Include,FindObjectsSortMode.None); //Get all collectibles
+
+        foreach (Collectible collectible in collectibles) //Loops through every collectible in the scene and resets them
+        {
+            collectible.ResetForNewRun();
+        }
+
+        lastCollected = null;
+    }
+
 
 
 
