@@ -5,6 +5,7 @@ using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 // Controls player movement, jump physics, coyote time, jump buffering, etc.
 // Also passes motion and directional data to CharacterAnimator.cs
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterAnimator characterAnimator;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] OrbitCamera orbitCamera;
+    [SerializeField] private TMP_Text collectibleCountText;
 
     [Header("Debug Spawn")]
     [SerializeField] private bool useDebugSpawn = false;
@@ -177,6 +179,11 @@ public class PlayerController : MonoBehaviour
         {
             startWaterLevel = activeWater.transform.position.y;
             currentWaterLevel = startWaterLevel;
+        }
+
+        if (collectibleCountText != null)
+        {
+            collectibleCountText.text = bankedCollectibleCount.ToString().Replace('0', 'O');
         }
     }
 
@@ -741,6 +748,11 @@ public class PlayerController : MonoBehaviour
             return;
 
         bankedCollectibleCount += amount;
+
+        if (collectibleCountText != null)
+        {
+            collectibleCountText.text = bankedCollectibleCount.ToString().Replace('0', 'O'); //Replaces 0 with O because our font doesn't have 0 :(
+        }
 
         Debug.Log($"Banked collectibles: {bankedCollectibleCount}");
     }
