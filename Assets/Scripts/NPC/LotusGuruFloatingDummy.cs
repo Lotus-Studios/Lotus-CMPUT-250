@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class LotusGuruFloatingDummy : MonoBehaviour
@@ -17,7 +16,7 @@ public class LotusGuruFloatingDummy : MonoBehaviour
     [SerializeField] float bobFrequency = 1.0f;
     [SerializeField] float bobAmplitude = 0.2f;
 
-    [SerializeField] float driftAwaySpeed = 0.2f;
+    [SerializeField] float driftAwaySpeed = 1.25f;
 
     [SerializeField] float justFloatTime = 5.0f;
     float justFloatTimer = 5.0f;
@@ -30,6 +29,7 @@ public class LotusGuruFloatingDummy : MonoBehaviour
     [SerializeField] SpriteRenderer lilypadSprite;
 
     [SerializeField] Transform resetToTransform;
+    private PlayerController playerController;
 
 
     //private bool canFloat = false;
@@ -58,6 +58,7 @@ public class LotusGuruFloatingDummy : MonoBehaviour
             playerDrowning = FindObjectOfType<PlayerDrowning>();
         }
 
+        playerController = FindObjectOfType<PlayerController>();
         ResetMe();
         if (water != null) water.resetWaterEvent.AddListener(ResetMe);
     }
@@ -65,6 +66,13 @@ public class LotusGuruFloatingDummy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerController != null && resetToTransform != null && playerController.currentCheckpointPosition.y > resetToTransform.position.y + 5f)
+        {
+            standingSprite.enabled = false;
+            lilypadSprite.enabled = false;
+            return;
+        }
+
         if (!floatingState)
         {
             if(water.transform.position.y >= floatMark.transform.position.y)
@@ -98,12 +106,20 @@ public class LotusGuruFloatingDummy : MonoBehaviour
     {
         resetToTransform = tr;
     }
-    
+
     public void ResetMe()
     {
         justFloatTimer = justFloatTime;
         transform.position = resetToTransform.position;
         floatingState = false;
+
+        if (playerController != null && resetToTransform != null && playerController.currentCheckpointPosition.y > resetToTransform.position.y + 0.1f)
+        {
+            standingSprite.enabled = false;
+            lilypadSprite.enabled = false;
+            return;
+        }
+
         standingSprite.enabled = true;
         lilypadSprite.enabled = false;
     }
