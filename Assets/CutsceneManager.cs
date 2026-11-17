@@ -31,6 +31,7 @@ public class CutsceneManager : MonoBehaviour
     
     [SerializeField] private GameObject lotusBloomAnimationHandler;
     [SerializeField] private GoodEndingCutsceneCamera goodCam;
+    [SerializeField] private GameObject lotusling;
 
     [Header("Bad Ending Assets")]
     [SerializeField] private LotusBadEndingRespawnAnimationHandler respawnAnim;
@@ -67,9 +68,19 @@ public class CutsceneManager : MonoBehaviour
         }
     }
 
-    void Update()
+    void LateUpdate()
     {
+        if (lotusling)
+        {
+            Debug.Log("Before: " + lotusling.transform.localRotation);
+            lotusling.transform.LookAt(goodCam.cam.transform);
+            Debug.Log("After: " + lotusling.transform.localRotation);
 
+        }
+        else
+        {
+            Debug.Log("Lotusling not set!");
+        }
     }
     //Ending cutscene
     /*
@@ -177,6 +188,8 @@ public class CutsceneManager : MonoBehaviour
     {
         goodCam.deactivate();
         drownAnim.deactivate();
+        playerSprite.enabled = true;
+        player.canMove = true;
         GameManager.Instance.GoToMainMenu();
     }
 
