@@ -34686,7 +34686,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 25.258495, y: 25.258501, z: 1.240825e-12}
-  m_Center: {x: -0.0000009536743, y: -0.000005722046, z: -7.98}
+  m_Center: {x: -0.0000009536743, y: -0.000005722046, z: -4.09}
 --- !u!4 &827161432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3185258494678308438, guid: 96b4ce4b3c6a5b24f8cbb1576869b6dd, type: 3}
@@ -81579,6 +81579,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33943fb97511ce54191f7e1a5c6ec640, type: 3}
+--- !u!1 &1958799900 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5384658164692244533, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
+  m_PrefabInstance: {fileID: 4429868343470186066}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1959652951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88875,6 +88880,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1521927304}
     - target: {fileID: 808068800427462210, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
+      propertyPath: lotusling
+      value: 
+      objectReference: {fileID: 1958799900}
+    - target: {fileID: 808068800427462210, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
       propertyPath: respawnAnim
       value: 
       objectReference: {fileID: 1102071702}
@@ -88894,6 +88903,14 @@ PrefabInstance:
       propertyPath: lotusBloomAnimationHandler
       value: 
       objectReference: {fileID: 638310806}
+    - target: {fileID: 808068800427462210, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
+      propertyPath: lotuslingCameraBillboardOffset.y
+      value: 27.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217145858009998729, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1304663943758873040, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -139.68
@@ -88960,6 +88977,10 @@ PrefabInstance:
       objectReference: {fileID: 3906974563277171460}
     - target: {fileID: 2726039462641213268, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
       propertyPath: BarkList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122500477630416094, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4135093226058743998, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
@@ -90046,7 +90067,7 @@ PrefabInstance:
       objectReference: {fileID: 148616692}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: useDebugSpawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: cameraTransform

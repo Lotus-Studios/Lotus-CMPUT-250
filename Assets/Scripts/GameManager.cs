@@ -270,6 +270,15 @@ public class GameManager : MonoBehaviour
     {
         gameMenu.gameObject.SetActive(true);
     }
+
+    public void hideHUD()
+    {
+        hudCanvas.enabled = false;
+    }
+    public void showHUD()
+    {
+        hudCanvas.enabled = true;
+    }
     public void setCursor(bool State) { Cursor.visible = State; }
     public void setCursorLockState(UnityEngine.CursorLockMode State) { Cursor.lockState = State; }
 }
