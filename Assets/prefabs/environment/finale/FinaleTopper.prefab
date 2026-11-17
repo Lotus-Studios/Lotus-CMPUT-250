@@ -186,8 +186,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 22.542633, y: 12.527842, z: 20.148962}
-  m_Center: {x: -1.1421305, y: -1.0797777, z: 4.5773125}
+  m_Size: {x: 22.542633, y: 12.726877, z: 20.148962}
+  m_Center: {x: -1.1421305, y: -0.9802599, z: 4.5773125}
 --- !u!1 &585733328056533763
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +294,8 @@ MonoBehaviour:
   pool: {fileID: 6660360222266376659}
   lotusBloomAnimationHandler: {fileID: 7390557352864084632}
   goodCam: {fileID: 0}
+  lotusling: {fileID: 0}
+  lotuslingCameraBillboardOffset: {x: 0, y: 0, z: 0}
   respawnAnim: {fileID: 0}
   drownAnim: {fileID: 0}
 --- !u!1 &913304130659764466
@@ -391,6 +393,7 @@ GameObject:
   - component: {fileID: 1844693829323724715}
   - component: {fileID: 4876493392946907837}
   - component: {fileID: 2356707280672223291}
+  - component: {fileID: 7749023402323558629}
   m_Layer: 0
   m_Name: Waterplane
   m_TagString: Untagged
@@ -463,6 +466,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7749023402323558629
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535400355161459213}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 25.258495, y: 25.258501, z: 7.605291}
+  m_Center: {x: -0.0000010878431, y: -0.0000055001437, z: -5.9178715}
 --- !u!1 &1571473251642121330
 GameObject:
   m_ObjectHideFlags: 0
