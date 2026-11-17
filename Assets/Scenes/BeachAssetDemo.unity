@@ -18222,7 +18222,7 @@ MonoBehaviour:
   - {fileID: 994559912}
   delayBetweenPanels: 1.5
   pageHoldDuration: 5
-  skipIntroForDebug: 1
+  skipIntroForDebug: 0
 --- !u!1001 &446103252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -89924,7 +89924,7 @@ PrefabInstance:
       objectReference: {fileID: 148616692}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: useDebugSpawn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: cameraTransform
