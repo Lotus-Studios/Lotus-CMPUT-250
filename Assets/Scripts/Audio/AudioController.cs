@@ -161,7 +161,9 @@ public class AudioController : MonoBehaviour
 
     public void PlayDialogueAudio(AudioClip clip)
     {
-        dialogueSource.PlayOneShot(clip, 0.4f);
+        dialogueSource.clip = clip;
+        dialogueSource.volume = 0.4f;
+        dialogueSource.Play();
     }
     public void StopAllAudio()
     {
