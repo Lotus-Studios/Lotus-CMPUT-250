@@ -186,8 +186,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 22.542633, y: 5.64538, z: 20.148962}
-  m_Center: {x: -1.1421305, y: -4.5210085, z: 4.5773125}
+  m_Size: {x: 22.542633, y: 12.527842, z: 20.148962}
+  m_Center: {x: -1.1421305, y: -1.0797777, z: 4.5773125}
 --- !u!1 &585733328056533763
 GameObject:
   m_ObjectHideFlags: 0
@@ -3173,13 +3173,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -133.371
       objectReference: {fileID: 0}
+    - target: {fileID: 2708045654019573977, guid: b82345c497e814c49906707390330229, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.009
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708045654019573977, guid: b82345c497e814c49906707390330229, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.183
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708045654019573977, guid: b82345c497e814c49906707390330229, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.054
+      objectReference: {fileID: 0}
     - target: {fileID: 2813305045262985771, guid: b82345c497e814c49906707390330229, type: 3}
       propertyPath: m_Name
       value: LotusBloomEnding
       objectReference: {fileID: 0}
     - target: {fileID: 2813305045262985771, guid: b82345c497e814c49906707390330229, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3188846112467759249, guid: b82345c497e814c49906707390330229, type: 3}
       propertyPath: m_LocalScale.x
@@ -3195,7 +3207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3188846112467759249, guid: b82345c497e814c49906707390330229, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14
+      value: 12.93
       objectReference: {fileID: 0}
     - target: {fileID: 3188846112467759249, guid: b82345c497e814c49906707390330229, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3241,6 +3253,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -41.037
       objectReference: {fileID: 0}
+    - target: {fileID: 5526815244774053070, guid: b82345c497e814c49906707390330229, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 901660e3182bd074aaf8674a7fd2dbcf, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
