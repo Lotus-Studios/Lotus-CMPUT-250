@@ -35,6 +35,7 @@ public class DialogueSystem : MonoBehaviour
 
     private float portraitFadeInSpeed = 0.5f;
     private float portraitFadeOutSpeed = 0.5f;
+    private bool progressDialogueButtonEnabled = true;
     //Current chunk being displayed
     private int chunkIndex = 0;
 
@@ -119,7 +120,7 @@ public class DialogueSystem : MonoBehaviour
         dialogueBox.ClearName();
         chunkIndex = -1;
         currentDialogue = dia;
-
+        progressDialogueButtonEnabled = true;
         portraitLeft.EnterFade(portraitFadeInSpeed);
         portraitRight.EnterFade(portraitFadeInSpeed);
         //Debug.Log($"Added dialogue with {currentDialogue.getText(chunkIndex)} as its first dialogue.");
@@ -139,6 +140,7 @@ public class DialogueSystem : MonoBehaviour
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        progressDialogueButtonEnabled = false;
         //Create buttons for each option
         List<DialogueChoice> choices = dlg.choices;
         foreach(DialogueChoice choice in choices)
@@ -187,7 +189,7 @@ public class DialogueSystem : MonoBehaviour
         //updateDialogueBox();
         if (isActive)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && progressDialogueButtonEnabled)
             {
                 if (dialogueBox.isEndOfText())
                 {
@@ -201,6 +203,7 @@ public class DialogueSystem : MonoBehaviour
     void progressDialogue()
     {
         //Reached the end of the current dialogue
+
         if (currentDialogue.isEndofDialogue(chunkIndex))
         {
             portraitLeft.ExitFade(0.5f);

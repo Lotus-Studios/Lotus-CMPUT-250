@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.Playables;
 using UnityEngine.Splines;
 
+
 public class CutsceneManager : MonoBehaviour
 {
     private static CutsceneManager _instance;
@@ -21,6 +22,8 @@ public class CutsceneManager : MonoBehaviour
     [SerializeField] private TextAsset onPoolEnterDialogue;
     [SerializeField] private TextAsset badEndingDialogue;
     [SerializeField] private EndingPool pool;
+    [SerializeField] private TextAsset goodEndingPoolDialogue;
+    [SerializeField] private TextAsset badEndingPoolDialogue;
 
     //Used to hide the player rudimentarily
     private SpriteRenderer playerSprite;
@@ -93,14 +96,23 @@ public class CutsceneManager : MonoBehaviour
     4b. Play bad ending animation -> play seedlin back to beginning animation.*/
     private void endCutscene()
     {
+        var dia = (DialogueSystem.Instance.hasGoodEnding())? goodEndingPoolDialogue : badEndingPoolDialogue;
         GameManager.Instance.hideHUD();
-        if (DialogueSystem.Instance.hasGoodEnding())
+        DialogueSystem.Instance.startDialogue(dia.ToString());
+        DialogueSystem.Instance.dialogueFinished.AddListener(transition);
+
+        void transition()
         {
-            goodEndingCutscene();
-        }
-        else
-        {
-            badEndingCutscene();
+            DialogueSystem.Instance.dialogueFinished.RemoveListener(transition);
+
+            if (DialogueSystem.Instance.hasGoodEnding())
+            {
+                goodEndingCutscene();
+            }
+            else
+            {
+                badEndingCutscene();
+            }
         }
     }
 
@@ -150,7 +162,7 @@ public class CutsceneManager : MonoBehaviour
                 // Forces UpdateSubmergedObjects() to run based on the new position
                 water.ResetMe(player.startWaterLevel);
             }
-
+            player.teleport(player.currentCheckpointPosition);
             drownAnim.activate();
             drownAnim.finishedAnimation.AddListener(onDrownFinished);
         }
