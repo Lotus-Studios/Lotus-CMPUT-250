@@ -109,6 +109,9 @@ public class CutsceneManager : MonoBehaviour
     {
         scrBlack.beginWaitOnBlack.AddListener(startCameraOrbit);
         scrBlack.BasicFade();
+        if (AudioLayering.Instance != null) {
+            AudioLayering.Instance.PlayGoodEndingMusic(0);
+        }
         void startCameraOrbit()
         {
             player.canMove = false;
@@ -124,6 +127,10 @@ public class CutsceneManager : MonoBehaviour
     {
         scrBlack.beginWaitOnBlack.AddListener(startDrownAnim);
         scrBlack.BasicFade();
+
+        if (AudioLayering.Instance != null) {
+            AudioLayering.Instance.PlayBadEndingMusic(0);
+        }
 
         void startDrownAnim()
         {

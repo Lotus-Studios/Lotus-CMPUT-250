@@ -7,13 +7,12 @@ public class AudioLayering : MonoBehaviour
 {
     public static AudioLayering Instance { get; private set; }
 
-    // OLD VERSION
-
     public AudioMixer mainMixer; 
 
     [Header("Audio Sources")]
     public AudioSource chillSource;
     public AudioSource excitingSource;
+    public AudioSource cutsceneSource;
 
     [Header("Audio Clips (Normal)")]
     public AudioClip chillNormal;
@@ -22,6 +21,10 @@ public class AudioLayering : MonoBehaviour
     [Header("Audio Clips (Underwater)")]
     public AudioClip chillUnderwater;
     public AudioClip excitingUnderwater;
+
+    [Header("Audio Clips (Cutscene)")]
+    public AudioClip goodEndingMusic;
+    public AudioClip badEndingMusic;
 
     [Header("Settings")]
     public float fadeSpeed = 0.5f;
@@ -116,4 +119,48 @@ public class AudioLayering : MonoBehaviour
     {
         mainMixer.SetFloat("PlayerVolume", Mathf.Log10(targetVolume) * 20);
     }
+
+    // adapted from https://johnleonardfrench.music/how-to-fade-audio-in-unity-i-tested-every-method-this-ones-the-best/
+    public IEnumerator StartFade(string exposedParam, float duration, float targetVolume)
+    {
+        float currentTime = 0;
+        float currentVol;
+        mainMixer.GetFloat(exposedParam, out currentVol);
+        currentVol = Mathf.Pow(10, currentVol / 20);
+        float targetValue = Mathf.Clamp(targetVolume, 0.0001f, 1);
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            float newVol = Mathf.Lerp(currentVol, targetValue, currentTime / duration);
+            mainMixer.SetFloat(exposedParam, Mathf.Log10(newVol) * 20);
+            yield return null;
+        }
+        yield break;
+    }
+
+    public void PlayGoodEndingMusic(float cutsceneLength) 
+    {
+        StartCoroutine(CutsceneRoutine(goodEndingMusic, 23.5f));
+    }
+
+    public void PlayBadEndingMusic(float cutsceneLength) 
+    {
+        StartCoroutine(CutsceneRoutine(badEndingMusic, 16.5f));
+    }
+
+    public IEnumerator CutsceneRoutine(AudioClip clip, float cutsceneLength) 
+    {
+        StartCoroutine(StartFade("NormalMusicVolume", 0.5f, 0));
+        StartCoroutine(StartFade("SFX", 0.5f, 0));
+        cutsceneSource.clip = clip;
+        cutsceneSource.Play();
+        StartCoroutine(StartFade("CutsceneMusicVolume", 0.1f, 1));
+        yield return new WaitForSeconds(clip.length);
+        StartCoroutine(StartFade("CutsceneMusicVolume", 0.5f, 0));
+        StartCoroutine(StartFade("NormalMusicVolume", 0.5f, 1));
+        yield return new WaitForSeconds(cutsceneLength - clip.length);
+        StartCoroutine(StartFade("SFX", 0.5f, 1));
+        yield break;
+    }
+
 }
