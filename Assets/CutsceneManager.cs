@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
 using UnityEngine.Splines;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CutsceneManager : MonoBehaviour
 {

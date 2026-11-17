@@ -16793,7 +16793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 686861094075773735, guid: dc9977cb7cd4d6041b0d701e907a22d1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.149799
+      value: -9.5
       objectReference: {fileID: 0}
     - target: {fileID: 686861094075773735, guid: dc9977cb7cd4d6041b0d701e907a22d1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24657,7 +24657,8 @@ PrefabInstance:
       value: CityBackbone_02 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7378634704287068463, guid: 0c747ef9b9377dc47a421fcd2fda68aa, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c747ef9b9377dc47a421fcd2fda68aa, type: 3}
@@ -28690,7 +28691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c1cbb18007c7f43b3874c0cffd082e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customSpawnPoint: {fileID: 0}
+  customSpawnPoint: {fileID: 1918601872}
   water: {fileID: 1024422503}
   waterOffsetBelowCheckpoint: 1.5
   waterRiseSpeed: 0.7
@@ -52085,7 +52086,8 @@ PrefabInstance:
       value: CityBackbone_02 (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7378634704287068463, guid: 0c747ef9b9377dc47a421fcd2fda68aa, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c747ef9b9377dc47a421fcd2fda68aa, type: 3}
@@ -83015,10 +83017,10 @@ Transform:
   - {fileID: 1004735619}
   - {fileID: 1043318174}
   - {fileID: 269618020}
-  - {fileID: 967373357}
   - {fileID: 506687326}
-  - {fileID: 2016069412}
+  - {fileID: 967373357}
   - {fileID: 1463797128}
+  - {fileID: 2016069412}
   - {fileID: 1198262806}
   - {fileID: 813351076}
   - {fileID: 1659484786}
@@ -89804,15 +89806,15 @@ PrefabInstance:
       objectReference: {fileID: 148616697}
     - target: {fileID: 4110488211125639098, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.76
+      value: 4.68
       objectReference: {fileID: 0}
     - target: {fileID: 4110488211125639098, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 236.73
+      value: 149.76
       objectReference: {fileID: 0}
     - target: {fileID: 4110488211125639098, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -28.75
+      value: -9.98
       objectReference: {fileID: 0}
     - target: {fileID: 7840407818517787168, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_Name
