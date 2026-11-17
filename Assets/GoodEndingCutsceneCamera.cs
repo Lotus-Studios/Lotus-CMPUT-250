@@ -6,7 +6,7 @@ public class GoodEndingCutsceneCamera : MonoBehaviour
 {
     private bool isRotating = false;
     [SerializeField] private float rotationSpeed = 5f;
-    [SerializeField] private Camera cam;
+    [SerializeField] public Camera cam;
     [SerializeField] private Transform target;
     
 

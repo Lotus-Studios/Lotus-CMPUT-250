@@ -31,6 +31,8 @@ public class CutsceneManager : MonoBehaviour
     
     [SerializeField] private GameObject lotusBloomAnimationHandler;
     [SerializeField] private GoodEndingCutsceneCamera goodCam;
+    [SerializeField] private GameObject lotusling;
+    [SerializeField] private Vector3 lotuslingCameraBillboardOffset;
 
     [Header("Bad Ending Assets")]
     [SerializeField] private LotusBadEndingRespawnAnimationHandler respawnAnim;
@@ -67,9 +69,20 @@ public class CutsceneManager : MonoBehaviour
         }
     }
 
-    void Update()
+    void LateUpdate()
     {
+        if (lotusling)
+        {
+            Debug.Log("Before: " + lotusling.transform.localRotation);
+            lotusling.transform.LookAt(goodCam.cam.transform);
+            lotusling.transform.Rotate(lotuslingCameraBillboardOffset);
+            Debug.Log("After: " + lotusling.transform.localRotation);
 
+        }
+        else
+        {
+            Debug.Log("Lotusling not set!");
+        }
     }
     //Ending cutscene
     /*
@@ -81,6 +94,7 @@ public class CutsceneManager : MonoBehaviour
     4b. Play bad ending animation -> play seedlin back to beginning animation.*/
     private void endCutscene()
     {
+        GameManager.Instance.hideHUD();
         if (DialogueSystem.Instance.hasGoodEnding())
         {
             goodEndingCutscene();
@@ -170,6 +184,7 @@ public class CutsceneManager : MonoBehaviour
 
             playerSprite.enabled = true;
             player.canMove = true;
+            GameManager.Instance.showHUD();
         }
     }
 
@@ -177,6 +192,9 @@ public class CutsceneManager : MonoBehaviour
     {
         goodCam.deactivate();
         drownAnim.deactivate();
+        playerSprite.enabled = true;
+        player.canMove = true;
+        GameManager.Instance.showHUD();
         GameManager.Instance.GoToMainMenu();
     }
 

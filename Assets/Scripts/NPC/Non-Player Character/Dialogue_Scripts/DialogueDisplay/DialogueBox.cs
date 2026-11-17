@@ -189,7 +189,7 @@ namespace Narrative
         /// <returns></returns>
         public bool isEndOfText()
         {
-            return (currentCharacter >= textLength);
+            return currentCharacter >= textLength;
         }
 
         /// <summary>
