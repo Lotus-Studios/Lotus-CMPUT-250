@@ -75,10 +75,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float terminalVelocity = -24f;
 
     [Header("Inertia & Acceleration")]
-    [SerializeField] private float groundAcceleration = 40f;
-    [SerializeField] private float groundDeceleration = 40f;
-    [SerializeField] private float airAcceleration = 25f;
+    [SerializeField] private float groundAcceleration = 35f;
+    [SerializeField] private float groundDeceleration = 65f;
+    [SerializeField] private float airAcceleration = 22f;
     [SerializeField] private float airDeceleration = 6f;
+    [SerializeField] private float groundTurnaroundMultiplier = 2.5f;
 
     [Header("Chain Jumping")]
     [SerializeField] private float chainWindow = 0.12f;
@@ -109,7 +110,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float flutterPower = 9f;
     [SerializeField] private float flutterDownwardMomentumMult = 0.8f;
     [SerializeField] private float flutterMomentumDecayMult = 0.9f;
-    [SerializeField] private float flutterSteerStrength = 2.1f;
+    [SerializeField] private float flutterSteerStrength = 3.5f;
 
     private bool isBoingerBouncing = false;
 
@@ -370,7 +371,15 @@ public class PlayerController : MonoBehaviour
                 // if Player is moving then player speed increases by effectiveAcceleration otherwise it decreases by effectiveDeceleration, surfaceFrictionMultiplier changes those (materials)
                 float effectiveAcceleration = groundAcceleration * surfaceFrictionMultiplier;
                 float effectiveDeceleration = groundDeceleration * surfaceFrictionMultiplier;
-                rate = (input.sqrMagnitude > 0.01f) ? effectiveAcceleration : effectiveDeceleration;
+                if (input.sqrMagnitude > 0.01f)
+                {
+                    bool isTurningAround = horizontalVelocity.sqrMagnitude > 0.1f && Vector3.Dot(horizontalVelocity.normalized, moveDirection) < 0.5f;
+                    rate = isTurningAround ? (effectiveDeceleration * groundTurnaroundMultiplier) : effectiveAcceleration;
+                }
+                else
+                {
+                    rate = effectiveDeceleration;
+                }
             }
             else
             {
@@ -773,4 +782,15 @@ public class PlayerController : MonoBehaviour
         Collectible.BankAllCollectibles(this);
     }
 
+    //private void OnDrawGizmosSelected()
+    //{
+    //    float radius = 0.3f;
+    //    Vector3 start = transform.position;
+    //    Vector3 end = start + (Vector3.down * jumpBufferRayCast);
+
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(start, radius);
+    //    Gizmos.DrawWireSphere(end, radius);
+    //    Gizmos.DrawLine(start, end);
+    //}
 }
