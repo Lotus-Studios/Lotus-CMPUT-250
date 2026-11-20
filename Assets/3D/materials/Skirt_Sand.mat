@@ -58,6 +58,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _FogMaxHeight: 180
+    - _FogMinHeight: 60
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Triplanar_Tile: 0.17

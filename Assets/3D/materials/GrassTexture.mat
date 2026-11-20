@@ -119,8 +119,12 @@ Material:
     - _DistortionStrengthScaled: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _EdgeMax: 1
+    - _EdgeMin: 0.5
     - _EmissionEnabled: 0
     - _FlipbookMode: 0
+    - _FogMaxHeight: 180
+    - _FogMinHeight: 60
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossinessSource: 0
@@ -160,6 +164,7 @@ Material:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _EdgeDarkTint: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _LightColor1: {r: 0.9339623, g: 0.7671981, b: 0.29516727, a: 0}
     - _OverallTint: {r: 1, g: 1, b: 1, a: 0}

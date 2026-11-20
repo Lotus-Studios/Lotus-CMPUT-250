@@ -26,6 +26,9 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _EdgeMin: 0.5
+    - _FogMaxHeight: 180
+    - _FogMinHeight: 60
     - _SlopeDarkness: 0.4
     - _SlopeEnd: 0.98
     - _SlopeStart: 0.5

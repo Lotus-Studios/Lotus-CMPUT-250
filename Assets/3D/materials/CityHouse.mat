@@ -112,7 +112,11 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _EdgeMax: 0.08
+    - _EdgeMin: 0.01
     - _EnvironmentReflections: 1
+    - _FogMaxHeight: 180
+    - _FogMinHeight: 60
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -138,6 +142,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
     - _Color: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
+    - _EdgeDarkTint: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _OverallTint: {r: 1, g: 1, b: 1, a: 1}
     - _SlopeTint: {r: 1, g: 1, b: 1, a: 0}
