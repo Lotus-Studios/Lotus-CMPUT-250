@@ -17733,9 +17733,9 @@ MonoBehaviour:
   - {fileID: 602119187}
   - {fileID: 1130701090}
   - {fileID: 994559912}
-  delayBetweenPanels: 1
+  delayBetweenPanels: 1.25
   pageHoldDuration: 4
-  skipIntroForDebug: 1
+  skipIntroForDebug: 0
 --- !u!1001 &446103252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88843,8 +88843,7 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 27.02
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3054845314639439767, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1304663943758873040, guid: ab51c32111771564c8370eef8b781fcc, type: 3}
@@ -89775,7 +89774,7 @@ PrefabInstance:
       objectReference: {fileID: 148616692}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: useDebugSpawn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: airAcceleration
