@@ -677,22 +677,41 @@ public class PlayerController : MonoBehaviour
     // resets player
     public void teleport(Vector3 position)
     {
-        verticalVelocity = 0;
+        verticalVelocity = -6f;
         horizontalVelocity = Vector3.zero;
+        lastExternalVelocity = Vector3.zero;
+        hasExternalMovement = false;
 
         surfaceFrictionMultiplier = 1f;
         isTriggerSliding = false;
+        currentSlideDirection = Vector3.zero;
         isFluttering = false;
+        isBoingerBouncing = false;
         flutterTimeCounter = flutterJumpDuration;
+        coyoteTimeCounter = 0f;
+        jumpBufferCounter = 0f;
+        currentChain = 0f;
+        timeGrounded = 0f;
+        lastGroundedTime = Time.time;
+
+        if (AudioController.Instance != null) AudioController.Instance.StopFlutterLoop();
         if (AudioLayering.Instance != null) AudioLayering.Instance.FadeToChill();
         if (activeWater != null) activeWater.RiseToCheckpoint(pendingWaterLevel, 10000f); //10000f for instant snapping (not ideal but it works)
         if (buoyManager != null) buoyManager.ResetBouys();
 
         characterController.enabled = false;
         transform.position = position;
+        Physics.SyncTransforms();
         characterController.enabled = true;
+
+        if (characterAnimator != null)
+        {
+            characterAnimator.SetMoving(false);
+        }
+
         Collectible.ResetAllCollectibles(); //Static method to reset positions of collected collectibles
         if (orbitCamera != null) orbitCamera.ResetCamera();
+        canMove = true;
         playerTeleported.Invoke();
     }
 
@@ -700,6 +719,12 @@ public class PlayerController : MonoBehaviour
 
     public void ResetToCurrentCheckpoint()
     {
+        canMove = false;
+        horizontalVelocity = Vector3.zero;
+        verticalVelocity = 0f;
+        lastExternalVelocity = Vector3.zero;
+        hasExternalMovement = false;
+
         pendingWaterLevel = currentWaterLevel;
         ScreenFadeToBlack.Instance.FadeAndRespawn(this, currentCheckpointPosition);
     }
@@ -707,6 +732,12 @@ public class PlayerController : MonoBehaviour
     // reset player to their previous checkpoint
     public void ResetToPreviousCheckpoint()
     {
+        canMove = false;
+        horizontalVelocity = Vector3.zero;
+        verticalVelocity = 0f;
+        lastExternalVelocity = Vector3.zero;
+        hasExternalMovement = false;
+
         if (checkpointHistory.Count > 0)
         {
             int lastIndex = checkpointHistory.Count - 1;
@@ -739,6 +770,11 @@ public class PlayerController : MonoBehaviour
         waterLevelHistory.Clear();
         speedHistory.Clear();
 
+        horizontalVelocity = Vector3.zero;
+        verticalVelocity = 0f;
+        lastExternalVelocity = Vector3.zero;
+        hasExternalMovement = false;
+
         currentCheckpointPosition = startPosition;
         currentWaterLevel = startWaterLevel;
         pendingWaterLevel = startWaterLevel;
@@ -748,7 +784,11 @@ public class PlayerController : MonoBehaviour
             activeWater.SetLevelSpeed(false, false);
         }
 
-        if (doFade) ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);
+        if (doFade)
+        {
+            canMove = false;
+            ScreenFadeToBlack.Instance.FadeAndRespawn(this, startPosition);
+        }
 
         Collectible.ResetAllForNewRun();
 
