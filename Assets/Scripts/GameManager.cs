@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -99,6 +100,11 @@ public class GameManager : MonoBehaviour
     {
         player.ResetAll();
         DialogueSystem.Instance.resetTallyScore();
+
+        foreach(LotusNPC npc in FindObjectsOfType<LotusNPC>())
+        {
+            npc.resetDoneFirstDialogue();
+        }
     }
 
     // call this if you want to reset to previous checkpoint

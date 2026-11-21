@@ -203,6 +203,7 @@ public class CutsceneManager : MonoBehaviour
             playerSprite.enabled = true;
             player.canMove = true;
             GameManager.Instance.showHUD();
+            GameManager.Instance.resetGame();
         }
     }
 
@@ -213,6 +214,7 @@ public class CutsceneManager : MonoBehaviour
         playerSprite.enabled = true;
         player.canMove = true;
         GameManager.Instance.showHUD();
+        GameManager.Instance.resetGame();
         GameManager.Instance.GoToMainMenu();
     }
 
