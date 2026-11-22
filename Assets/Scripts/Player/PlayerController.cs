@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float airAcceleration = 22f;
     [SerializeField] private float airDeceleration = 6f;
     [SerializeField] private float groundTurnaroundMultiplier = 2.5f;
+    [SerializeField] private float airTurnaroundMultiplier = 1.3f;
 
     [Header("Chain Jumping")]
     [SerializeField] private float chainWindow = 0.12f;
@@ -383,7 +384,15 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                rate = (input.sqrMagnitude > 0.01f) ? airAcceleration : airDeceleration;
+                if (input.sqrMagnitude > 0.01f)
+                {
+                    bool isTurningAround = horizontalVelocity.sqrMagnitude > 0.1f && Vector3.Dot(horizontalVelocity.normalized, moveDirection) < 0.5f;
+                    rate = isTurningAround ? (airAcceleration * airTurnaroundMultiplier) : airAcceleration;
+                }
+                else
+                {
+                    rate = airDeceleration;
+                }
             }
 
             horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, targetVelocity, rate * Time.deltaTime);
