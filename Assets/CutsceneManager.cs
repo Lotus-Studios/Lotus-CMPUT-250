@@ -201,9 +201,9 @@ public class CutsceneManager : MonoBehaviour
             player.teleport(player.currentCheckpointPosition);
 
             playerSprite.enabled = true;
-            player.canMove = true;
             GameManager.Instance.showHUD();
             GameManager.Instance.resetGame();
+            player.canMove = true;
         }
     }
 
