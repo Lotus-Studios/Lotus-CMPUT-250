@@ -13,8 +13,7 @@ public class PlayerDrowning : MonoBehaviour
     [SerializeField] private Transform topOfHead;
     [SerializeField] private float timeToDrown = 2.0f;
 
-    [SerializeField] private float deadlySpeed = -30f;
-    [SerializeField] private float requiredDepthForDeath = 4f;
+    [SerializeField] private float requiredDepthForDeath = 8f;
     [SerializeField] private LayerMask groundLayerMask;
 
     [SerializeField] private Volume waterPostProcess;
@@ -76,8 +75,9 @@ public class PlayerDrowning : MonoBehaviour
             Vector3 waterSurfacePoint = new Vector3(playerController.transform.position.x, water.transform.position.y, playerController.transform.position.z);
 
             // checks if the player is within X units of ground, if not then die otherwise they can fall and land on it.
-            bool isDeep = !Physics.Raycast(waterSurfacePoint, Vector3.down, requiredDepthForDeath, groundLayerMask, QueryTriggerInteraction.Ignore);
-            if (playerController.currentVerticalVelocity <= deadlySpeed && isDeep)
+            bool hasGroundBelow = playerController.IsGrounded || Physics.SphereCast(topOfHead. position, 0.35f,Vector3.down, out _, requiredDepthForDeath, groundLayerMask, QueryTriggerInteraction.Ignore);
+
+            if (!hasGroundBelow)
             {
                 Die();
                 return;
