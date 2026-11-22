@@ -35,6 +35,8 @@ public class DialogueSystem : MonoBehaviour
 
     private float portraitFadeInSpeed = 0.5f;
     private float portraitFadeOutSpeed = 0.5f;
+    private float portraitDarkenSpeed = 0.5f;
+    private float portraitExitDarkenSpeed = 0.5f;
     private bool progressDialogueButtonEnabled = true;
     //Current chunk being displayed
     private int chunkIndex = 0;
@@ -250,6 +252,7 @@ public class DialogueSystem : MonoBehaviour
             chunkIndex++;
             setDialogueBox();
             setPortraitSprites();
+            setPortraitSpriteDarkness();
             playAudio();
             
         }
@@ -266,6 +269,22 @@ public class DialogueSystem : MonoBehaviour
         string newName = currentDialogue.getTextboxTitle(chunkIndex);
         dialogueBox.SetLine(currentDialogue.getText(chunkIndex));
         dialogueBox.SetName(newName);
+    }
+
+    void setPortraitSpriteDarkness()
+    {
+        string newName = currentDialogue.getTextboxTitle(chunkIndex);
+        if(newName == "Lotus")
+        {
+            portraitLeft.EnterDarken(portraitDarkenSpeed);
+            portraitRight.ExitDarken(portraitExitDarkenSpeed);
+        }
+
+        if(newName == "Seedlin")
+        {
+            portraitLeft.ExitDarken(portraitExitDarkenSpeed);
+            portraitRight.EnterDarken(portraitDarkenSpeed);
+        }
     }
     
     void setPortraitSprites()
