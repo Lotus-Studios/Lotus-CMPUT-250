@@ -38,7 +38,7 @@ namespace Narrative
         /// <param name="sourceSprite">Sprite to set to</param>
         public void SetSprite(Sprite sourceSprite)
         {
-            Debug.Log($"Setting sprite to {sourceSprite.name}");
+            //Debug.Log($"Setting sprite to {sourceSprite.name}");
             spriteRenderer.sprite = sourceSprite;
         }
 

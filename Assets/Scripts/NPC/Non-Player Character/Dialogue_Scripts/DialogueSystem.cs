@@ -24,7 +24,7 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
-            Debug.Log("Initialized dialogueSystem.");
+            //Debug.Log("Initialized dialogueSystem.");
             _ds = this;
         }
     }
@@ -270,8 +270,8 @@ public class DialogueSystem : MonoBehaviour
     
     void setPortraitSprites()
     {
-        Debug.Log($"Trying to change sprite to {currentDialogue.getPortraitLeftID(chunkIndex)}");
-        Debug.Log($"Trying to change sprite to {currentDialogue.getPortraitRightID(chunkIndex)}");
+        //Debug.Log($"Trying to change sprite to {currentDialogue.getPortraitLeftID(chunkIndex)}");
+        //Debug.Log($"Trying to change sprite to {currentDialogue.getPortraitRightID(chunkIndex)}");
 
 
         if(portraitIDSprite.Keys.Contains<string>(currentDialogue.getPortraitLeftID(chunkIndex)))
@@ -285,11 +285,11 @@ public class DialogueSystem : MonoBehaviour
 
     void playAudio()
     {
-        Debug.Log($"Trying to play audio {currentDialogue.getSoundID(chunkIndex)}");
+        //Debug.Log($"Trying to play audio {currentDialogue.getSoundID(chunkIndex)}");
         if (idSFX.Keys.Contains<string>(currentDialogue.getSoundID(chunkIndex)))
         {
             AudioController.Instance.PlayDialogueAudio(idSFX[currentDialogue.getSoundID(chunkIndex)]);
-            Debug.Log($"Added {currentDialogue.getSoundID(chunkIndex)}");
+            //Debug.Log($"Added {currentDialogue.getSoundID(chunkIndex)}");
         }
     }
 
@@ -299,7 +299,7 @@ public class DialogueSystem : MonoBehaviour
         foreach(Sprite spr in rawSprites)
         {
             portraitIDSprite[spr.name] = spr;
-            Debug.Log($"Added {spr.name} to spriteID.");
+            //Debug.Log($"Added {spr.name} to spriteID.");
         }
         portraitIDSprite["EMPTY"] = empty;
     }
@@ -309,7 +309,7 @@ public class DialogueSystem : MonoBehaviour
         foreach(AudioClip audio in rawAudio)
         {
             idSFX[audio.name] = audio;
-            Debug.Log($"Added {audio.name} to Audio.");
+            //Debug.Log($"Added {audio.name} to Audio.");
         }
         //portraitIDSprite["EMPTY"] = null;
     }

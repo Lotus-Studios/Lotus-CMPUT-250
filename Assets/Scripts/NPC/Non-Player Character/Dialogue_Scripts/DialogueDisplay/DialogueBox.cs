@@ -102,6 +102,7 @@ namespace Narrative
         /// </summary>
         public void OpenTextbox()
         {
+            Debug.Log("Opening textbox.");
             animator.SetBool("isOpen", true);
             advanceArrow.SetVisible(false);
             isActive = true;
@@ -120,6 +121,7 @@ namespace Narrative
         /// </summary>
         public void CloseTextbox()
         {
+            Debug.Log("Closing textbox.");
             animator.SetBool("isOpen", false);
             lotusLabel.SetActive(false);
             seedlinLabel.SetActive(false);
@@ -148,16 +150,16 @@ namespace Narrative
         /// <param name="sourceText">The name to be displayed</param>
         public void SetName(string sourceText)
         {
-            Debug.Log($"Updating name to {sourceText}.");
-            if (nameLabel.text != sourceText && nameLabel.text != "")
-            {
-                //Jostle the textbox when the speaker changes
-                animator.SetTrigger("jostle");
-            }
+            //Debug.Log($"Updating name to {sourceText}.");
+            // if (nameLabel.text != sourceText && nameLabel.text != "")
+            // {
+            //     //Jostle the textbox when the speaker changes
+            //     animator.SetTrigger("jostle");
+            // }
             
             if(sourceText.Equals("Seedlin")  || sourceText.Equals("Lotus"))
             {
-                Debug.Log($"Set name {sourceText} inside special cases, running special case.");
+                //Debug.Log($"Set name {sourceText} inside special cases, running special case.");
                 specialSetTextbox(sourceText);
             }
 

@@ -23,7 +23,7 @@ public class Dialogue : MonoBehaviour
 
     public bool isEndofDialogue(int index)
     {
-        Debug.Log($"Comparing {index} >= {chunks.Count} - 1 and found {index >= chunks.Count - 1}");
+        //Debug.Log($"Comparing {index} >= {chunks.Count} - 1 and found {index >= chunks.Count - 1}");
         return index >= (chunks.Count - 1);
     }
 

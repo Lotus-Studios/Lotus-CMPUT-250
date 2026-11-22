@@ -75,10 +75,10 @@ public class CutsceneManager : MonoBehaviour
     {
         if (lotusling)
         {
-            Debug.Log("Before: " + lotusling.transform.localRotation);
+            //Debug.Log("Before: " + lotusling.transform.localRotation);
             lotusling.transform.LookAt(goodCam.cam.transform);
             lotusling.transform.Rotate(lotuslingCameraBillboardOffset);
-            Debug.Log("After: " + lotusling.transform.localRotation);
+            //Debug.Log("After: " + lotusling.transform.localRotation);
 
         }
         else
@@ -201,9 +201,9 @@ public class CutsceneManager : MonoBehaviour
             player.teleport(player.currentCheckpointPosition);
 
             playerSprite.enabled = true;
-            player.canMove = true;
             GameManager.Instance.showHUD();
             GameManager.Instance.resetGame();
+            player.canMove = true;
         }
     }
 
