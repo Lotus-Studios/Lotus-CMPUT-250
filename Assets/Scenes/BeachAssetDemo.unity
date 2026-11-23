@@ -6474,7 +6474,7 @@ MonoBehaviour:
   mountainCenter: {fileID: 1119846932}
   orbitRadius: 15
   height: 11
-  angularDeadzone: 13
+  angularDeadzone: 14
   depthDeadzone: 0.5
   verticalDeadzone: 2
   verticalSmoothSpeed: 4
@@ -95017,7 +95017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 890668435380467397, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 32241
+      value: 65009
       objectReference: {fileID: 0}
     - target: {fileID: 2055115149656832461, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_LocalPosition.x
@@ -95077,7 +95077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2273211778946107795, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: groundLayerMask.m_Bits
-      value: 31937
+      value: 64705
       objectReference: {fileID: 0}
     - target: {fileID: 2923715324180639927, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: mainCamera
