@@ -29,15 +29,20 @@ public class LotusNPC : MonoBehaviour
     [SerializeField] RisingWater water;
     private LotusGuruFloatingDummy dummy;
     [SerializeField] private GameObject dummyPrefab;
+    [SerializeField] private bool hasDummy = true;
 
     public UnityEvent finishedFirstDialogue;
     // Start is called before the first frame update
     void Start()
     {
         //Setting up dummy
-        dummy = Instantiate(dummyPrefab, transform).GetComponent<LotusGuruFloatingDummy>();
-        dummy.water = water;
-        dummy.setResetTransform(transform);
+        if (hasDummy)
+        {
+            dummy = Instantiate(dummyPrefab, transform).GetComponent<LotusGuruFloatingDummy>();
+            dummy.water = water;
+            dummy.setResetTransform(transform);
+        }
+        
 
         defaultColor = sprite.color;
         //Getting reference to player.
