@@ -92,14 +92,6 @@ public class PlayerController : MonoBehaviour
     private float currentChain = 0f;
     private bool wasGrounded = false;
 
-    [Header("Sliding")]
-    [SerializeField] private float slideMaxSpeed = 9f;
-    [SerializeField] private float slideAcceleration = 5f;
-    [SerializeField] private float slideSteerStrength = 0.4f;
-
-    private bool isTriggerSliding;
-    private Vector3 currentSlideDirection;
-
     [Header("Surface Properties")]
     public float surfaceFrictionMultiplier = 1f;
 
@@ -220,29 +212,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
-    // Called by SlideTrigger when entering or exiting a slide volume
-    public void SetSliding(bool sliding, Vector3 direction)
-    {
-        isTriggerSliding = sliding;
-        currentSlideDirection = direction;
-
-        if (sliding && isFluttering)
-        {
-            isFluttering = false;
-            if (AudioController.Instance != null) AudioController.Instance.StopFlutterLoop();
-        }
-
-        if (!sliding)
-        {
-            horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed);
-            if (verticalVelocity < -5f)
-            {
-                verticalVelocity = -2f;
-            }
-        }
-    }
-
     // Movement calculations, collisions, animation states, etc.
     public void Move(Vector2 input)
     {
@@ -280,12 +249,7 @@ public class PlayerController : MonoBehaviour
         // calculate move direction relative to where the camera is facing
         Vector3 moveDirection = (camForward * input.y + camRight * input.x).normalized;
 
-        if (isTriggerSliding)
-        {
-            float downFactor = currentSlideDirection.y < -0.05f ? currentSlideDirection.y : -0.7f;
-            verticalVelocity = downFactor * Mathf.Max(horizontalVelocity.magnitude, slideMaxSpeed);
-        }
-        else if (IsGrounded && verticalVelocity < 0)
+        if (IsGrounded && verticalVelocity < 0)
         {
             verticalVelocity = -6f;
         }
@@ -303,6 +267,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
+
                     // Divides total time by total duration which gives a ratio between 1.0 to 0.0
                     float progress = flutterTimeCounter / flutterJumpDuration;
 
@@ -322,17 +287,9 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (isTriggerSliding)
+        if (isFluttering)
         {
-            // sliding, gets sliding direction and the player direction and does vector addition. Accelerates sliding speed at the rate of slideAcceleration
-            Vector3 SlideDir = new Vector3(currentSlideDirection.x, 0f, currentSlideDirection.z).normalized;
-            Vector3 steerVector = moveDirection * (maxSpeed * slideSteerStrength);
 
-            Vector3 targetSlideVelocity = (SlideDir * slideMaxSpeed) + steerVector;
-            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, targetSlideVelocity, slideAcceleration * Time.deltaTime);
-        }
-        else if (isFluttering)
-        {
             // gets magnitude (speed) of vector
             float currentHorizontalSpeed = horizontalVelocity.magnitude;
 
@@ -424,7 +381,7 @@ public class PlayerController : MonoBehaviour
         float expectedDeltaY = verticalVelocity * Time.deltaTime;
 
         // Only clamp downward speed buildup if falling is blocked (actual movement < 10% of expected)
-        if (verticalVelocity < -6f && !isTriggerSliding && Mathf.Abs(actualDeltaY) < Mathf.Abs(expectedDeltaY) * 0.1f)
+        if (verticalVelocity < -6f && Mathf.Abs(actualDeltaY) < Mathf.Abs(expectedDeltaY) * 0.1f)
         {
             verticalVelocity = -6f;
         }
@@ -515,6 +472,7 @@ public class PlayerController : MonoBehaviour
     {
         isFluttering = true;
         currentChain = 0f;
+        horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed + ((chainMax * chainSpeedBoost) / 2));
 
         if (flutterTimeCounter < flutterJumpDuration)
         {
@@ -554,8 +512,6 @@ public class PlayerController : MonoBehaviour
     // Sets momentum that goes into the wall.
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (isTriggerSliding) return;
-
 
         if (verticalVelocity > 0f && (!isBoingerBouncing || hit.normal.y < 0f))
         {
@@ -692,8 +648,6 @@ public class PlayerController : MonoBehaviour
         hasExternalMovement = false;
 
         surfaceFrictionMultiplier = 1f;
-        isTriggerSliding = false;
-        currentSlideDirection = Vector3.zero;
         isFluttering = false;
         isBoingerBouncing = false;
         flutterTimeCounter = flutterJumpDuration;
@@ -832,7 +786,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //private void OnDrawGizmosSelected()
-    //{
+    //{ 
     //    float radius = 0.3f;
     //    Vector3 start = transform.position;
     //    Vector3 end = start + (Vector3.down * jumpBufferRayCast);

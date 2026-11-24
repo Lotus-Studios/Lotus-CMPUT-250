@@ -94948,8 +94948,16 @@ PrefabInstance:
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: flutterHardMaxVertical
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: airTurnaroundMultiplier
       value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: flutterHardMaxHorizontal
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: groundTurnaroundMultiplier
@@ -95025,15 +95033,15 @@ PrefabInstance:
       objectReference: {fileID: 148616697}
     - target: {fileID: 4110488211125639098, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48.1
+      value: 51.31
       objectReference: {fileID: 0}
     - target: {fileID: 4110488211125639098, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 17.46
+      value: 16.6
       objectReference: {fileID: 0}
     - target: {fileID: 4110488211125639098, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -19.54
+      value: -24.82
       objectReference: {fileID: 0}
     - target: {fileID: 7840407818517787168, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: m_Name
