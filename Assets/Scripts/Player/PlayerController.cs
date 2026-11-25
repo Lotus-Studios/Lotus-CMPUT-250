@@ -472,7 +472,7 @@ public class PlayerController : MonoBehaviour
     {
         isFluttering = true;
         currentChain = 0f;
-        horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed + ((chainMax * chainSpeedBoost) / 2));
+        horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed + (chainMax * chainSpeedBoost));
 
         if (flutterTimeCounter < flutterJumpDuration)
         {

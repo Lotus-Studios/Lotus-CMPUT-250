@@ -31,6 +31,9 @@ public class LotusNPC : MonoBehaviour
     [SerializeField] private GameObject dummyPrefab;
     [SerializeField] private bool hasDummy = true;
 
+    [SerializeField] private bool FocusPlayer = false;
+    [SerializeField] private float FocusPlayerVerticalOffset = -2.5f;
+
     public UnityEvent finishedFirstDialogue;
     // Start is called before the first frame update
     void Start()
@@ -91,7 +94,20 @@ public class LotusNPC : MonoBehaviour
         if(doneFirstDialogue) return;
 
         OrbitCamera cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<OrbitCamera>();
-        cam.SetDialogueTarget(transform);
+        Transform tempDialogueTarget = null;
+
+        if (FocusPlayer && player != null)
+        {
+            GameObject targetObj = new GameObject("PlayerDialogueTarget");
+            targetObj.transform.SetParent(player.transform, false);
+            targetObj.transform.localPosition = new Vector3(0f, FocusPlayerVerticalOffset, 0f);
+            tempDialogueTarget = targetObj.transform;
+            cam.SetDialogueTarget(tempDialogueTarget);
+        }
+        else
+        {
+            cam.SetDialogueTarget(transform);
+        }
 
         PlayerController playerController = player.GetComponent<PlayerController>();
         
