@@ -114,6 +114,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Tuning")]
     [SerializeField] private float jumpBufferTime = 0.15f;
     [SerializeField] private float jumpBufferRayCast = 2.2f;
+    [SerializeField] private LayerMask groundLayer;
     [SerializeField] public float coyoteTime = 0.2f;
 
     private float coyoteTimeCounter;
@@ -402,7 +403,7 @@ public class PlayerController : MonoBehaviour
         if (!canMove) return;
 
         // So if player is close to ground then we buffer jump instead of flutterjump
-        bool nearGround = Physics.SphereCast(transform.position, 0.3f, Vector3.down, out _, jumpBufferRayCast);
+        bool nearGround = Physics.SphereCast(transform.position, 0.3f, Vector3.down, out _, jumpBufferRayCast, groundLayer, QueryTriggerInteraction.Ignore);
 
         // if player isn't on the ground and hasn't yet fluttered this jump, execute the flutter
         if (!IsGrounded && flutterTimeCounter > 0 && coyoteTimeCounter <= 0f && !nearGround)

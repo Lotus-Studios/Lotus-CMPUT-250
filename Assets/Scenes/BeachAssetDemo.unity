@@ -50030,6 +50030,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 442a0613d61ee0a4a9060a7833e7fc7f, type: 2}
+    - target: {fileID: 2103747230278590573, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336818695474792287, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3360529748665427577, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -50093,6 +50101,10 @@ PrefabInstance:
     - target: {fileID: 5200155180339775899, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
       propertyPath: m_Name
       value: MountainOrnamentalColumn_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200155180339775899, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6014524711625769889, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
@@ -72474,6 +72486,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 442a0613d61ee0a4a9060a7833e7fc7f, type: 2}
+    - target: {fileID: 2103747230278590573, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336818695474792287, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3360529748665427577, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -72537,6 +72557,10 @@ PrefabInstance:
     - target: {fileID: 5200155180339775899, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
       propertyPath: m_Name
       value: MountainOrnamentalColumn_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200155180339775899, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6014524711625769889, guid: 62c05d8ad3c2c0245a62e31cbcc23faf, type: 3}
@@ -95252,7 +95276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: jumpBufferRayCast
-      value: 0.32
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: groundAcceleration
@@ -95261,6 +95285,10 @@ PrefabInstance:
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: groundDeceleration
       value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 31937
       objectReference: {fileID: 0}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: collectibleCountText
