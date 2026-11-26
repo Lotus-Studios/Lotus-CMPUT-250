@@ -992,9 +992,17 @@ PrefabInstance:
       value: 19.352
       objectReference: {fileID: 0}
     - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: water
+      value: 
+      objectReference: {fileID: 1024422503}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: firstDialogue
       value: 
       objectReference: {fileID: 4900000, guid: 3fbb94a39f7693b48958b859eb3b3d35, type: 3}
+    - target: {fileID: 4898553815996156563, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
+      propertyPath: playerDrowning
+      value: 
+      objectReference: {fileID: 3906974563277171460}
     - target: {fileID: 6657525610790432124, guid: f9aec0e86a7980b4aa868b57c308514b, type: 3}
       propertyPath: m_Name
       value: LotusNPC
@@ -95268,7 +95276,7 @@ PrefabInstance:
       objectReference: {fileID: 148616692}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: useDebugSpawn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 778268004761609835, guid: 078ccd3fc2a8cc542b0ea6c51848db17, type: 3}
       propertyPath: airAcceleration
