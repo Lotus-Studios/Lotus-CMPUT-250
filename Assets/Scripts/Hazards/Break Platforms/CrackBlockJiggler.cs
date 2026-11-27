@@ -143,16 +143,25 @@ public class CrackBlockJiggler : MonoBehaviour
 
     public void Reform()
     {
-        if (shrinkCoroutine != null && enableShrink) 
+        if (shrinkCoroutine != null)
         {
             StopCoroutine(shrinkCoroutine);
             shrinkCoroutine = null;
         }
 
-        for(int i = 0; i < crackPieces.Length; i++)
+        if (particles != null && particles.isPlaying)
+        {
+            particles.Stop();
+        }
+
+        transform.position = blockRestPoint;
+
+        for (int i = 0; i < crackPieces.Length; i++)
         {
             crackPieces[i].Rigidbody.isKinematic = true;
             crackPieces[i].GetComponent<Collider>().enabled = false;
+            crackPieces[i].transform.position = crackPieces[i].restPosition;
+            crackPieces[i].transform.rotation = crackPieces[i].restRotation;
             crackPieces[i].Rigidbody.position = crackPieces[i].restPosition;
             crackPieces[i].Rigidbody.rotation = crackPieces[i].restRotation;
             crackPieces[i].ResetScale();

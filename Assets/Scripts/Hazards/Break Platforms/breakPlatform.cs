@@ -36,7 +36,14 @@ public class breakPlatform : MonoBehaviour
                 platformColliders.Add(col);
             }
         }
+
+        PlayerController player = FindObjectOfType<PlayerController>();
+        if (player != null)
+        {
+            player.runReset.AddListener(ResetPlatform);
+        }
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -50,8 +57,6 @@ public class breakPlatform : MonoBehaviour
             }
         }
     }
-
-    
 
     private IEnumerator BreakPlatform()
     {
@@ -94,5 +99,35 @@ public class breakPlatform : MonoBehaviour
         }
        
         breakCoroutine = null;
+    }
+
+    public void ResetPlatform()
+    {
+        bool wasActiveOrBroken = broken || breakCoroutine != null;
+
+        if (breakCoroutine != null)
+        {
+            StopCoroutine(breakCoroutine);
+            breakCoroutine = null;
+        }
+
+        broken = false;
+
+        if (vfx != null)
+        {
+            vfx.JigglePercentInfluence = 0.0f;
+            if (wasActiveOrBroken)
+            {
+                vfx.Reform();
+            }
+        }
+
+        foreach (Collider col in platformColliders)
+        {
+            if (col != null)
+            {
+                col.enabled = true;
+            }
+        }
     }
 }

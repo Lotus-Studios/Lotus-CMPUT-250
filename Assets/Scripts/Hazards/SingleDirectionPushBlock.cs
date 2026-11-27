@@ -42,12 +42,15 @@ public class SingleDirectionPushBlock : MonoBehaviour
         {
             audioSource = GetComponent<AudioSource>();
         }
-        startPosition = new Vector3(0,0, inWallZDistance);
-        targetPosition = new Vector3(0,0,extendedZDistance);
-        lastPosition = transform.position;
-        stateTimer = -initialStartDelay;
+        startPosition = new Vector3(0, 0, inWallZDistance);
+        targetPosition = new Vector3(0, 0, extendedZDistance);
+        ResetBlock();
 
-        transform.localPosition = new Vector3(0, 0, extendedZDistance);
+        PlayerController player = FindObjectOfType<PlayerController>();
+        if (player != null)
+        {
+            player.runReset.AddListener(ResetBlock);
+        }
     }
 
     void Update()
@@ -157,5 +160,21 @@ public class SingleDirectionPushBlock : MonoBehaviour
         {
             playerOnBlock.ApplyExternalMovement(movementDelta);
         }
+    }
+
+    public void ResetBlock()
+    {
+        StopAllCoroutines();
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+        }
+
+        currentState = MoveState.WaitingAtEnd;
+        stateTimer = -initialStartDelay;
+        transform.localPosition = targetPosition;
+        lastPosition = transform.position;
+        movementDelta = Vector3.zero;
+        playerOnBlock = null;
     }
 }

@@ -140,6 +140,7 @@ public class PlayerController : MonoBehaviour
 
     #region Events
     public UnityEvent playerTeleported;
+    public UnityEvent runReset;
     #endregion
 
     void Start()
@@ -755,6 +756,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Collectible.ResetAllForNewRun();
+        runReset.Invoke();
 
         bankedCollectibleCount = 0;
 
