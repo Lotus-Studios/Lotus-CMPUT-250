@@ -8,7 +8,9 @@ public class IntroCutsceneManager : MonoBehaviour
     [SerializeField] private GameObject[] pages;
 
     [SerializeField] private float delayBetweenPanels = 0.2f;
-    [SerializeField] private float pageHoldDuration = 2f;
+
+    [SerializeField] private GameObject continuePrompt;
+    [SerializeField] private float continuePromptDelay = 0.5f;
 
     private bool isPlaying = false;
     [SerializeField] private bool skipIntroForDebug = false;
@@ -45,7 +47,7 @@ public class IntroCutsceneManager : MonoBehaviour
         {
             GameObject page = pages[i];
 
-            
+            page.SetActive(false); //Had to add this because the first page was being weird
             page.SetActive(true);// Activate the current page.
 
             // Find all animated panels on this page.
@@ -67,9 +69,11 @@ public class IntroCutsceneManager : MonoBehaviour
                     yield return new WaitForSecondsRealtime(delayBetweenPanels);
                 }
             }
+                yield return new WaitForSecondsRealtime(continuePromptDelay);
+                continuePrompt.SetActive(true); //Enable the bobbing icon
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E)); //Wait for e to be pressed
+                continuePrompt.SetActive(false); //Disable the bobbing icon
 
-                
-                yield return new WaitForSecondsRealtime(pageHoldDuration);
 
                 
                 Coroutine[] exitCoroutines = new Coroutine[panels.Length]; //Run all exit animations at the same time
